@@ -1,0 +1,32 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"> 
+    <title>Trister</title> 
+    <link rel="stylesheet"  href="{{ url_for('static', filename='css/themes/default/jquery.mobile-1.1.0.css') }}" />
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.mobile-1.1.0.js') }}"></script>
+</head> 
+<body> 
+	<div data-role="page">
+        <div data-role="header" data-theme="c">
+            <h1>Home</h1>
+        </div>
+        <div data-role="content">
+            <h2>Timeline</h2>
+            <ul data-role="listview">
+            {% for tweet in tweets %}
+                <li>
+                    <img src="{{ tweet.author.profile_image_url }}" />
+                    <h3>{{ tweet.author.screen_name }}</h3>
+                    <p>{{ tweet.text }}</p>
+                </li>
+            {% endfor %}
+        </div>
+        <div data-role="footer" data-theme="c">
+            <p>&copy; 2012 Trister</p>
+        </div>
+	</div>
+</body>
+</html>

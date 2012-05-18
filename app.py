@@ -7,7 +7,7 @@ import urllib,urllib2,re,os
 CONSUMER_KEY = 'D7JSMFuPyFRUIKLz0vKTw'
 CONSUMER_SECRET = 'OthracjKzuvRYbnWUyJRYeMnLELf7xxmSNmCv78qPnk'
 AUTHORIZE_URL = 'https://twitter.com/oauth/authorize'
-DEBUG = True
+DEBUG = False
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -75,7 +75,7 @@ def before_request():
 @app.route('/home')
 def home():
     if session.get('trister_access_key') and session.get('trister_access_secret'):
-        tweets = g.twit_api.home_timeline(page=50)
+        tweets = g.twit_api.home_timeline()
         return render_template('home.html', tweets=tweets)
     else:
         return render_template('login.html', error='Please Login first.')

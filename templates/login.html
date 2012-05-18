@@ -14,7 +14,8 @@
             <h1>Login</h1>
         </div>
         <div data-role="content">
-            <h2>Twitter</h2>
+            <center><img src="{{ url_for('static', filename='img/logo.png') }}" /></center>
+            <h2>Login</h2>
             {% if error %}<p><strong>Error:</strong> {{ error }}{% endif %}
             <form action="/oauth" method="post" class="ui-body ui-body-b ui-corner-all">
                 <fieldset>

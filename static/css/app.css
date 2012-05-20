@@ -1,0 +1,20 @@
+.login{
+    text-align:center
+}
+
+.login h2{
+    color:#666;
+    font-size:0.8em;
+    line-height:1.6em;
+    margin:10px 10px 10px 10px
+}
+
+.login img{
+    margin-top:10px
+}
+
+.login p{
+    color:#999;
+    font-size:0.7em
+}
+

@@ -1,13 +1,14 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, send_from_directory
 import tweepy
-import urllib,urllib2,re,os,json
+import jsonpickle
+import urllib,urllib2,re,os,json,datetime
 
      
 CONSUMER_KEY = 'D7JSMFuPyFRUIKLz0vKTw'
 CONSUMER_SECRET = 'OthracjKzuvRYbnWUyJRYeMnLELf7xxmSNmCv78qPnk'
 AUTHORIZE_URL = 'https://twitter.com/oauth/authorize'
-DEBUG = True
+DEBUG = False
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -72,12 +73,54 @@ def oauth_login():
             session['trister_access_key'] = twit.access_token.key
             session['trister_access_secret'] = twit.access_token.secret
             return json.dumps({'success': 'true','status': 'success','content':''})
-
+            
+def process_tweet(t):
+    tweet_fields = [
+        'created_at', 'id_str', 'text', 'source', 'in_reply_to_status_id_str',
+        'in_reply_to_user_id_str', 'in_reply_to_screen_name', 'retweet_count',
+        'favorited', 'retweeted'
+    ]
+    user_fields = [
+        'id_str', 'name', 'screen_name', 'location', 'description', 'url', 'protected',
+        'followers_count', 'friends_count', 'listed_count', 'created_at',
+        'favourites_count', 'statuses_count',
+        'profile_background_image_url_https', 'profile_image_url_https',
+        'verified'
+    ]
+    t_dict = {}
+    for f in tweet_fields:
+        if isinstance(eval('t.' + f),datetime.datetime):
+            t_dict[f] = str(eval('t.' + f))
+        else:
+            t_dict[f] = eval('t.' + f)
+    t_dict['user'] = {}
+    for f in user_fields:
+        if isinstance(eval('t.author.' + f),datetime.datetime):
+            t_dict['user'][f] = str(eval('t.author.' + f))
+        else:
+            t_dict['user'][f] = eval('t.author.' + f)
+    return t_dict
+            
+            
 @app.route('/home')
 def home():
     if session.get('trister_access_key') and session.get('trister_access_secret'):
-        tweets = g.twit_api.home_timeline(page=1)
-        return '';
+        page_arg = int(request.args['page'])
+        count_arg = int(request.args['count'])
+        tweets = g.twit_api.home_timeline(page=page_arg,count=count_arg)
+        tweets_dict = []
+        for t in tweets:
+            t_dict = process_tweet(t)
+            if hasattr(t,'retweeted_status'):
+                t_dict['retweeted_status'] = process_tweet(t.retweeted_status)
+            else:
+                t_dict['retweeted_status'] = False
+            if hasattr(t,'source_url'):
+                t_dict['source_url'] = t.source_url
+            else:
+                t_dict['source_url'] = False
+            tweets_dict.append(t_dict)
+        return json.dumps(tweets_dict)
     else:
         return render_template('index.html')
             

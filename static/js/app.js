@@ -2,6 +2,8 @@
 Ext.application({
     name: 'Trister',
     launch: function() {
+    
+        /* Views */
         var loginView = Ext.create('Ext.Panel', {
             id: 'LoginView',
             hidden: true,
@@ -11,7 +13,7 @@ Ext.application({
             layout: 'vbox',
             masked: {
                 xtype: 'loadmask',
-                message: 'loading...',
+                message: 'login...',
                 hidden: true
             },
             items: [
@@ -81,56 +83,85 @@ Ext.application({
             ] 
         });
         
+        Ext.define('TweetStore', {
+            extend: 'Ext.data.Store',
+            config: {
+                fields: [
+                    'created_at', 'id_str', 'text', 'source', 'in_reply_to_status_id_str',
+                    'in_reply_to_user_id_str', 'in_reply_to_screen_name', 'retweet_count',
+                    'favorited', 'retweeted', 'source_url', 'retweeted_status','user'
+                ],
+                pageSize: 25,
+                autoLoad: true,
+                proxy: {
+                    type: 'ajax',
+                    url: '/home',
+                    pageParam: 'page',
+                    limitParam: 'count',
+                    reader: {
+                        type: 'json'
+                    }
+                }
+            }
+        });
+        
         var homeView = Ext.create('Ext.TabPanel',{
             id: 'HomeView',
             fullscreen: true,
             tabBarPosition: 'bottom',
+            masked: {
+                xtype: 'loadmask',
+                message: 'loading tweets...',
+                hidden: true
+            },
             items: [
                 {
                     title: 'Home',
                     iconCls: 'home',
-                    html: 'Timeline'
+                    cls: 'home',
+                    xtype: 'list',
+                    store: Ext.create('TweetStore'),
+                    disableSelection: true,
+                    plugins: [
+                        { xclass: 'Ext.plugin.ListPaging' },
+                        { xclass: 'Ext.plugin.PullRefresh' }
+                    ],
+                    emptyText: '<p class="no-searches">No tweets found matching that search</p>',
+                    itemTpl: Ext.create('Ext.XTemplate',
+                        '<img class="user-img" src="{user.profile_image_url_https}" />',
+                        '<div class="tweet">',
+                        '<h2>{user.screen_name}</h2>',
+                        '<p>{text}</p>',
+                        '</div>'
+                    )
                 },
                 {
                     title: 'Reply',
                     iconCls: 'reply',
+                    cls: 'reply',
                     html: 'Reply'
                 },
                 {
                     title: 'DM',
                     iconCls: 'user',
+                    cls: 'dm',
                     html: 'Direct Message'
                 },
-            ],
-            listeners: {
-                initialize: function(){
-                    Ext.Ajax.request({
-                        url: '/home',
-                        method: 'GET',
-                        scope: this,
-                        success: function(response) {
-                            this.getParent().getMasked().hide();
-                        }
-                    });
-                }
-            }
+            ]
         });
         
         var mainView = Ext.create('Ext.Panel',{
+            id: 'MainView',
             xtype: 'panel',
             layout: 'card',
             cardAnimation: 'slide',
             fullscreen: true,
-            masked: {
-                xtype: 'loadmask',
-                message: 'Login...',
-                hidden: true
-            },
             items: [
                 loginView, homeView
             ],
             listeners: {
                 initialize: function() {
+                    this.getItems().items[0].hide();
                     Ext.Ajax.request({
                         url: '/is_login',
                         method: 'GET',
@@ -139,6 +170,8 @@ Ext.application({
                             var res = Ext.decode(response.responseText);
                             if (res.is_login == 1) {
                                 this.setActiveItem(1);
+                            } else {
+                                this.getItems().items[0].show();
                             }
                         }
                     });

@@ -1,3 +1,6 @@
+
+/* LoginView */
+
 .login{
     text-align:center
 }
@@ -18,3 +21,26 @@
     font-size:0.7em
 }
 
+/* HomeView */
+
+.home h2{
+    font-weight:bold;
+    padding-bottom:7px
+}
+
+.home img{
+    width: 48px;
+    border-radius:5px;
+    float:left
+}
+
+.home .tweet{
+    font-size:70%;
+    margin-left:60px;
+    color:#333;
+    min-height:50px
+}
+
+.home .x-list-item{
+    border-top:1px solid white;
+}

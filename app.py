@@ -1,7 +1,6 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, send_from_directory
 import tweepy
-import jsonpickle
 import urllib,urllib2,re,os,json,datetime
 
      

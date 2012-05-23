@@ -1,44 +1,64 @@
+body {
+    font-family: 'Century Gothic','Microsoft YaHei','Verdana';
+}
 
 /* LoginView */
 
-.login{
+.login {
     text-align:center
 }
 
-.login h2{
+.login h2 {
     color:#666;
     font-size:0.8em;
     line-height:1.6em;
     margin:10px 10px 10px 10px
 }
 
-.login img{
+.login img {
     margin-top:10px
 }
 
-.login p{
+.login p {
     color:#999;
     font-size:0.7em
 }
 
 /* HomeView */
 
-.home h2{
-    font-weight:bold;
-    padding-bottom:7px
-}
-
-.home img{
-    width: 48px;
-    border-radius:5px;
-    float:left
-}
-
 .home .tweet{
-    font-size:70%;
-    margin-left:60px;
-    color:#333;
-    min-height:50px
+    margin-left: 70px;
+    min-height: 50px
+}
+
+.home .user-img {
+    width: 48px;
+    border-radius:24px;
+    float:left;
+    box-shadow: #92CEEE 0 0 8px;
+}
+
+.home .user-name {
+    color: #F30;
+    text-shadow: #D55 0 0 2px;
+    font-size: 12pt;
+}
+
+.home .time {
+    font-size: 11pt;
+    color: #8A8181;
+    float: right;
+}
+
+.home .content{
+    margin-top: 3px;
+    font-size: 15px;
+}
+
+.home .source {
+    font-size: 11pt;
+    margin-top: 4px;
+    color: #999;
 }
 
 .home .x-list-item{

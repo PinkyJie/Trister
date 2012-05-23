@@ -18,21 +18,21 @@ Ext.application({
             },
             items: [
                 {
-                    xtype: 'panel',
-                    html: [
-                        '<img src="static/img/logo.png" />',
-                        '<h2>Trister = Tri(sta) + (Ma)ster</h2>',
-                        '<p>A new Twitter web app <br>',
-                        'Built with ',
-                        '<a href="http://flask.pocoo.org/" target="_blank">Flask</a>',
-                        ' & ',
-                        '<a href="http://www.sencha.com/products/touch/" target="_blank">Sencha Touch 2</a></p>'
-                    ].join('')
-                },
-                {
                     xtype: 'formpanel',
                     flex: 1,
                     items: [
+                        {
+                            xtype: 'panel',
+                            html: [
+                                '<img src="static/img/logo.png" />',
+                                '<h2>Trister = Tri(sta) + (Ma)ster</h2>',
+                                '<p>A new Twitter web app <br>',
+                                'Built with ',
+                                '<a href="http://flask.pocoo.org/" target="_blank">Flask</a>',
+                                ' & ',
+                                '<a href="http://www.sencha.com/products/touch/" target="_blank">Sencha Touch 2</a></p>'
+                            ].join('')
+                        },
                         {
                             xtype: 'fieldset',
                             title: 'Please Login First',
@@ -41,12 +41,14 @@ Ext.application({
                                 {
                                     xtype: 'textfield',
                                     label: 'Name',
+                                    labelWidth: '40%',
                                     name: 'name',
                                     required: true
                                 },
                                 {
                                     xtype: 'passwordfield',
                                     label: 'Password',
+                                    labelWidth: '40%',
                                     name: 'password',
                                     required: true
                                 }
@@ -145,8 +147,10 @@ Ext.application({
                     itemTpl: Ext.create('Ext.XTemplate',
                         '<img class="user-img" src="{user.profile_image_url_https}" />',
                         '<div class="tweet">',
-                        '<h2>{user.screen_name}</h2>',
-                        '<p>{text}</p>',
+                        '<p class="time">{created_at}</p>',
+                        '<p class="user-name">{user.screen_name}</p>',
+                        '<p class="content">{text}</p>',
+                        '<p class="source">via {source}</p>',
                         '</div>'
                     )
                 },

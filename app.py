@@ -7,7 +7,7 @@ import urllib,urllib2,re,os,json,datetime
 CONSUMER_KEY = 'D7JSMFuPyFRUIKLz0vKTw'
 CONSUMER_SECRET = 'OthracjKzuvRYbnWUyJRYeMnLELf7xxmSNmCv78qPnk'
 AUTHORIZE_URL = 'https://twitter.com/oauth/authorize'
-DEBUG = False
+DEBUG = True
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -89,13 +89,13 @@ def process_tweet(t):
     t_dict = {}
     for f in tweet_fields:
         if isinstance(eval('t.' + f),datetime.datetime):
-            t_dict[f] = str(eval('t.' + f))
+            t_dict[f] = str(eval('t.' + f) +  + datetime.timedelta(hours=+8))
         else:
             t_dict[f] = eval('t.' + f)
     t_dict['user'] = {}
     for f in user_fields:
         if isinstance(eval('t.author.' + f),datetime.datetime):
-            t_dict['user'][f] = str(eval('t.author.' + f))
+            t_dict['user'][f] = str(eval('t.author.' + f) + datetime.timedelta(hours=+8))
         else:
             t_dict['user'][f] = eval('t.author.' + f)
     return t_dict

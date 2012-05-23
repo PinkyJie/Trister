@@ -80,7 +80,22 @@ Ext.application({
                         }
                     ]
                 }
-            ] 
+            ],
+            listeners: {
+                painted: function() {
+                    Ext.Ajax.request({
+                        url: '/is_login',
+                        method: 'GET',
+                        scope: this,
+                        success: function(response) {
+                            var res = Ext.decode(response.responseText);
+                            if (res.is_login == 1) {
+                                this.getParent().setActiveItem(1);
+                            }
+                        }
+                    });
+                }
+            }
         });
         
         Ext.define('TweetStore', {
@@ -92,7 +107,7 @@ Ext.application({
                     'favorited', 'retweeted', 'source_url', 'retweeted_status','user'
                 ],
                 pageSize: 25,
-                autoLoad: true,
+                //autoLoad: true,
                 proxy: {
                     type: 'ajax',
                     url: '/home',
@@ -101,7 +116,7 @@ Ext.application({
                     reader: {
                         type: 'json'
                     }
-                }
+                }                
             }
         });
         
@@ -116,10 +131,10 @@ Ext.application({
             },
             items: [
                 {
+                    xtype: 'list',
                     title: 'Home',
                     iconCls: 'home',
                     cls: 'home',
-                    xtype: 'list',
                     store: Ext.create('TweetStore'),
                     disableSelection: true,
                     plugins: [
@@ -146,13 +161,13 @@ Ext.application({
                     iconCls: 'user',
                     cls: 'dm',
                     html: 'Direct Message'
-                },
+                }
             ]
+            
         });
         
         var mainView = Ext.create('Ext.Panel',{
             id: 'MainView',
-            xtype: 'panel',
             layout: 'card',
             cardAnimation: 'slide',
             fullscreen: true,
@@ -160,21 +175,10 @@ Ext.application({
                 loginView, homeView
             ],
             listeners: {
-                initialize: function() {
-                    this.getItems().items[0].hide();
-                    Ext.Ajax.request({
-                        url: '/is_login',
-                        method: 'GET',
-                        scope: this,
-                        success: function(response) {
-                            var res = Ext.decode(response.responseText);
-                            if (res.is_login == 1) {
-                                this.setActiveItem(1);
-                            } else {
-                                this.getItems().items[0].show();
-                            }
-                        }
-                    });
+                activeitemchange: function(p,newItem,oldItem) {
+                    if (newItem.id == 'HomeView') {
+                        this.getItems().items[1].getItems().items[0].getStore().load();
+                    }
                 }
             }
         });

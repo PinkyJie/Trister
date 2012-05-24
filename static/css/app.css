@@ -27,7 +27,9 @@ body {
 /* HomeView */
 
 .home .tweet{
-    margin-left: 70px;
+    padding-left: 15px;
+    border-left: 1px dashed #333;
+    margin-left: 65px;
     min-height: 50px
 }
 
@@ -36,6 +38,15 @@ body {
     border-radius:24px;
     float:left;
     box-shadow: #92CEEE 0 0 8px;
+}
+
+.home .type-img {
+    margin-left: 53px;
+    margin-top: 15px;
+    position: absolute;
+    width: 24px;
+    border-radius: 12px;
+    box-shadow: #42C28A 0 0 8px;
 }
 
 .home .user-name {
@@ -53,6 +64,18 @@ body {
 .home .content{
     margin-top: 3px;
     font-size: 15px;
+}
+
+.home .content .t-user {
+    color: blue;
+}
+
+.home .content .t-tag {
+    color: blue;
+}
+
+.home .content .t-link {
+    color: blue;
 }
 
 .home .source {

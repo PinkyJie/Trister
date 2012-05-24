@@ -1,4 +1,7 @@
 
+/* utility functions */
+
+
 Ext.application({
     name: 'Trister',
     launch: function() {
@@ -13,7 +16,7 @@ Ext.application({
             layout: 'vbox',
             masked: {
                 xtype: 'loadmask',
-                message: 'login...',
+                message: 'Login...',
                 hidden: true
             },
             items: [
@@ -106,10 +109,9 @@ Ext.application({
                 fields: [
                     'created_at', 'id_str', 'text', 'source', 'in_reply_to_status_id_str',
                     'in_reply_to_user_id_str', 'in_reply_to_screen_name', 'retweet_count',
-                    'favorited', 'retweeted', 'source_url', 'retweeted_status','user'
+                    'favorited', 'retweeted', 'source_url', 'retweeted_status','user','entity'
                 ],
-                pageSize: 25,
-                //autoLoad: true,
+                pageSize: 20,
                 proxy: {
                     type: 'ajax',
                     url: '/home',
@@ -126,11 +128,6 @@ Ext.application({
             id: 'HomeView',
             fullscreen: true,
             tabBarPosition: 'bottom',
-            masked: {
-                xtype: 'loadmask',
-                message: 'loading tweets...',
-                hidden: true
-            },
             items: [
                 {
                     xtype: 'list',
@@ -146,6 +143,7 @@ Ext.application({
                     emptyText: '<p class="no-searches">No tweets found matching that search</p>',
                     itemTpl: Ext.create('Ext.XTemplate',
                         '<img class="user-img" src="{user.profile_image_url_https}" />',
+                        '<img class="type-img" src="{user.profile_image_url_https}" />',
                         '<div class="tweet">',
                         '<p class="time">{created_at}</p>',
                         '<p class="user-name">{user.screen_name}</p>',

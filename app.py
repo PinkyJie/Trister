@@ -1,7 +1,7 @@
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, send_from_directory
 import tweepy
-import urllib,urllib2,re,os,json,datetime
+import urllib,urllib2,re,os,json,datetime,re
 
      
 CONSUMER_KEY = 'D7JSMFuPyFRUIKLz0vKTw'
@@ -90,6 +90,9 @@ def process_tweet(t):
     for f in tweet_fields:
         if isinstance(eval('t.' + f),datetime.datetime):
             t_dict[f] = str(eval('t.' + f) +  + datetime.timedelta(hours=+8))
+        elif f == 'text':
+            t_dict[f] = expand_url(eval('t.' + f))
+            t_dict['entity'], t_dict[f] = gen_entity(t_dict[f])
         else:
             t_dict[f] = eval('t.' + f)
     t_dict['user'] = {}
@@ -98,7 +101,41 @@ def process_tweet(t):
             t_dict['user'][f] = str(eval('t.author.' + f) + datetime.timedelta(hours=+8))
         else:
             t_dict['user'][f] = eval('t.author.' + f)
+    
     return t_dict
+    
+def gen_entity(text):
+    re_user = re.compile('@[a-z|A-Z|0-9|_]+')
+    re_tag = re.compile('#[^\s#]+')
+    re_link = re.compile(u'http.?://[^"\ \u201d]+')
+    re_obj = {
+        'user': re_user,
+        'tag': re_tag,
+        'link': re_link
+    }
+    entity = {}
+    for key in re_obj:
+        matches = list(set(re_obj[key].findall(text)))
+        if len(matches) > 0:
+            entity[key] = []
+            for m in matches:
+                text = text.replace(m,'<span class="t-%s">%s</span>' % (key,m))
+                entity[key].append(m)
+    return entity,text
+    
+def expand_url(text):
+    re_url = re.compile(u'http.?://[^"\ \u201d]+')
+    matches = re_url.findall(text)
+    if len(matches) > 0:
+        app.logger.debug(text)
+        for m in matches:
+            json_res = urllib.urlopen('http://api.longurl.org/v2/expand?url=%s&format=json' % m).read()
+            res = json.loads(json_res)
+            try:
+                text = re_url.sub(res['long-url'],text)
+            except:
+                pass
+    return text
             
             
 @app.route('/home')

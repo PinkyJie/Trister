@@ -20,7 +20,6 @@ Ext.application({
         /* Views */
         var loginView = Ext.create('Ext.Panel', {
             id: 'LoginView',
-            hidden: true,
             fullscreen: true,
             title: 'Login',
             cls: 'login',
@@ -31,7 +30,7 @@ Ext.application({
                 hidden: true
             },
             items: [
-                {
+                {   
                     xtype: 'formpanel',
                     flex: 1,
                     items: [
@@ -142,7 +141,22 @@ Ext.application({
             tabBarPosition: 'bottom',
             items: [
                 {
+                    xtype: 'titlebar',
+                    docked: 'top',
+                    title: 'Trister',
+                    items: [
+                        {
+                            align: 'right',
+                            text: 'Tweet',
+                            handler: function() {
+                                mainView.setActiveItem('UpdateView', { type: 'slide', direction: 'left' });
+                            }
+                        }
+                    ]
+                },
+                {
                     xtype: 'list',
+                    id: 'homeline',
                     title: 'Home',
                     iconCls: 'home',
                     cls: 'home',
@@ -152,7 +166,7 @@ Ext.application({
                         { xclass: 'Ext.plugin.ListPaging' },
                         { xclass: 'Ext.plugin.PullRefresh' }
                     ],
-                    emptyText: '<p class="no-tweets">No tweets found matching that search</p>',
+                    emptyText: '<p class="no-tweets">No tweets found!</p>',
                     itemTpl: Ext.create('Ext.XTemplate',
                         '<tpl if="retweeted_status">',
                             '<img class="user-img" src="{retweeted_status.user.profile_image_url_https}" />',
@@ -194,10 +208,41 @@ Ext.application({
                     )
                 },
                 {
-                    title: 'Reply',
+                    xtype: 'list',
+                    title: 'Mention',
+                    id: 'mention',
                     iconCls: 'reply',
-                    cls: 'reply',
-                    html: 'Reply'
+                    cls: 'mention',
+                    store: Ext.create('TweetStore').setProxy({
+                        type: 'ajax',
+                        url: '/mention',
+                        pageParam: 'page',
+                        limitParam: 'count',
+                        reader: {
+                            type: 'json'
+                        }
+                    }),
+                    disableSelection: true,
+                    plugins: [
+                        { xclass: 'Ext.plugin.ListPaging' },
+                        { xclass: 'Ext.plugin.PullRefresh' }
+                    ],
+                    emptyText: '<p class="no-tweets">No mentions found!</p>',
+                    itemTpl: Ext.create('Ext.XTemplate',
+                        '<img class="user-img" src="{user.profile_image_url_https}" />',
+                        '<img class="type-img" src="{reply_user_img}" />',
+                        '<div class="tweet">',
+                        '<p class="time">{[this.show_diff(values.created_at)]}</p>',
+                        '<p class="user-name">{user.screen_name}</p>',
+                        '<p class="content">{text}</p>',
+                        '<p class="source">',
+                        '<span class="tweet-type">Reply to <span class="relate-user label">{in_reply_to_screen_name}</span></span>',
+                        '  via <span class="source-text label">{source}</span></p>',
+                        '</div>',
+                        {
+                            show_diff: process_time
+                        }
+                    )
                 },
                 {
                     title: 'DM',
@@ -205,8 +250,103 @@ Ext.application({
                     cls: 'dm',
                     html: 'Direct Message'
                 }
-            ]
+            ],
+            listeners: {
+                activeitemchange: function(p,newItem,oldItem) {
+                    newItem.getStore().load();
+                }
+            }
             
+        });
+        
+        var updateView = Ext.create('Ext.Panel',{
+            id: 'UpdateView',
+            fullscreen: true,
+            title: 'Update',
+            cls: 'update-tweet',
+            layout: 'vbox',
+            masked: {
+                xtype: 'loadmask',
+                message: 'Updating...',
+                hidden: true
+            },
+            items: [
+                {
+                    xtype: 'titlebar',
+                    docked: 'top',
+                    title: 'Update',
+                    items: [
+                        {
+                            text: 'Cancel',
+                            align: 'left',
+                            handler: function() {
+                                mainView.setActiveItem('HomeView', { type: 'slide', direction: 'left' });
+                            }
+                        },
+                        {
+                            text: 'Send',
+                            align: 'right',
+                            handler: function() {
+                                var form = this.getParent().getParent().getParent().getItems().items[1];
+                                var form_data = form.getValues();
+                                if (form_data['tweet'] == '') {
+                                    Ext.Msg.alert('Error','Tweet content can not be blank!');
+                                } else if (form_data['tweet'].length > 140) {
+                                    Ext.Msg.alert('Error','The length of tweet content can not be more than 140!');
+                                } else {
+                                    this.getParent().getParent().getParent().getMasked().show();
+                                    form.submit({
+                                        url: '/update',
+                                        method: 'POST',
+                                        success: function(form,result) {
+                                            form.getParent().getMasked().hide();
+                                            if (result.status == "success") {
+                                                mainView.setActiveItem('HomeView', { type: 'slide', direction: 'left' });
+                                                mainView.getItems().items[1].getStore().load();
+                                            } else if (result.status == "error") {
+                                                Ext.Msg.alert('Error', result.content);
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    xtype: 'formpanel',
+                    flex: 1,
+                    items: [
+                        {
+                            xtype: 'fieldset',
+                            items: [
+                                {
+                                    xtype: 'textareafield',
+                                    name: 'tweet',
+                                    required: true,
+                                    listeners: {
+                                        keyup: function() {
+                                            var count = this.getValue().length;
+                                            var label = this.getParent().getParent().getItems().items[1];
+                                            label.setHtml(140 - count);
+                                            if (count <= 140) {
+                                                label.setCls('tweet-count');
+                                            } else {
+                                                label.setCls('tweet-count-warning');
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'label',
+                            cls: 'tweet-count',
+                            html: '140'
+                        }
+                    ]
+                }
+            ]
         });
         
         var mainView = Ext.create('Ext.Panel',{
@@ -215,12 +355,12 @@ Ext.application({
             cardAnimation: 'slide',
             fullscreen: true,
             items: [
-                loginView, homeView
+                loginView, homeView, updateView
             ],
             listeners: {
                 activeitemchange: function(p,newItem,oldItem) {
                     if (newItem.id == 'HomeView') {
-                        this.getItems().items[1].getItems().items[0].getStore().load();
+                        newItem.getItems().items[1].getStore().load();
                     }
                 }
             }

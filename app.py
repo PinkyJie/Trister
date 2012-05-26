@@ -6,8 +6,8 @@ import tweepy
 import urllib,urllib2,re,os,json,datetime,re
 
      
-CONSUMER_KEY = 'D7JSMFuPyFRUIKLz0vKTw'
-CONSUMER_SECRET = 'OthracjKzuvRYbnWUyJRYeMnLELf7xxmSNmCv78qPnk'
+CONSUMER_KEY = 'EaAtOqwxOvBLjqB8GzmA'
+CONSUMER_SECRET = '0PFRMpIxQnwhGVsmHxSuMGfaFR7U8iTeHkBfZl3HP9w'
 AUTHORIZE_URL = 'https://twitter.com/oauth/authorize'
 DEBUG = False
 
@@ -142,7 +142,7 @@ def expand_url(text):
             
             
 @app.route('/home')
-def home():
+def get_home():
     if session.get('trister_access_key') and session.get('trister_access_secret'):
         page_arg = int(request.args['page'])
         count_arg = int(request.args['count'])
@@ -168,6 +168,39 @@ def home():
         return json.dumps(tweets_dict)
     else:
         return render_template('index.html')
+        
+@app.route('/mention')
+def get_reply():
+    if session.get('trister_access_key') and session.get('trister_access_secret'):
+        page_arg = int(request.args['page'])
+        count_arg = int(request.args['count'])
+        replys = g.twit_api.mentions(page=page_arg,count=count_arg)
+        replys_dict = []
+        for t in replys:
+            t_dict = process_tweet(t)
+            t_dict['retweeted_status'] = False
+            t_dict['reply_user_img'] = g.twit_api.me().profile_image_url_https
+            if hasattr(t,'source_url'):
+                t_dict['source_url'] = t.source_url
+            else:
+                t_dict['source_url'] = False
+            replys_dict.append(t_dict)
+        return json.dumps(replys_dict)
+    else:
+        return render_template('index.html')
+        
+@app.route('/update', methods=['POST'])
+def update_status():
+    if session.get('trister_access_key') and session.get('trister_access_secret'):
+        try:
+            g.twit_api.update_status(request.form['tweet'])
+        except tweepy.TweepError,e:
+            return json.dumps({'success':'true','status': 'error','content':'Failed to update tweet!'})
+        else:
+            return json.dumps({'success':'true','status': 'success','content':''})
+    else:
+        return render_template('index.html')
+    
             
 app.secret_key = '\xfcM\xf7\xd4\x03\x14\x1e<\xe1\xd4Sn\xed\xa5e\x96\xb7\x8aq\x82\xed\x10\xdc\x93'
 

@@ -26,22 +26,22 @@ body {
 
 /* HomeView */
 
-.home .tweet{
+.tweet{
     padding-left: 15px;
     border-left: 1px dashed #333;
     margin-left: 65px;
     min-height: 50px
 }
 
-.home .user-img {
-    margin-left: -5px;
+.user-img {
+    margin-left: -3px;
     width: 48px;
     border-radius:24px;
     float:left;
     box-shadow: #92CEEE 0 0 8px;
 }
 
-.home .type-img {
+.type-img {
     margin-left: 53px;
     margin-top: 15px;
     position: absolute;
@@ -50,57 +50,68 @@ body {
     box-shadow: #42C28A 0 0 8px;
 }
 
-.home .user-name {
+.user-name {
     color: #F30;
     text-shadow: #D55 0 0 2px;
     font-size: 12pt;
 }
 
-.home .time {
+.time {
     font-size: 11pt;
     color: #8A8181;
     float: right;
 }
 
-.home .content{
+.content{
     margin-top: 3px;
     font-size: 15px;
 }
 
-.home .content .t-user {
+.content .t-user {
     background-color: #8690DA;
 }
 
-.home .content .t-tag {
+.content .t-tag {
     background-color: #B48A3F;
 }
 
-.home .content .t-link {
+.content .t-link {
     background-color: #9799A7;
 }
 
-.home .relate-user {
+.relate-user {
     display: inline-block;
     background-color: #B3B8A7;
 }
 
-.home .source {
+.source {
     font-size: 11pt;
     margin-top: 4px;
     color: #999;
 }
 
-.home .source-text {
+.source-text {
     display: inline-block;
     background-color: #B3B8A7;
 }
 
-.home .x-list-item{
+.x-list-item{
     border-top:1px solid white;
 }
 
-.home .no-tweets {
+.no-tweets {
     text-align: center;
+}
+
+.tweet-count {
+    font-size: 20pt;
+    color: #7CE;
+    text-shadow: #7CE 0px 0px 5px;
+}
+
+.tweet-count-warning {
+    color: #CAA;
+    text-shadow: #CAA 0px 0px 5px;
 }
 
 .label {

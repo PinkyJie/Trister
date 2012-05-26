@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash, send_from_directory
 import tweepy
@@ -7,7 +9,7 @@ import urllib,urllib2,re,os,json,datetime,re
 CONSUMER_KEY = 'D7JSMFuPyFRUIKLz0vKTw'
 CONSUMER_SECRET = 'OthracjKzuvRYbnWUyJRYeMnLELf7xxmSNmCv78qPnk'
 AUTHORIZE_URL = 'https://twitter.com/oauth/authorize'
-DEBUG = True
+DEBUG = False
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -101,7 +103,6 @@ def process_tweet(t):
             t_dict['user'][f] = str(eval('t.author.' + f) + datetime.timedelta(hours=+8))
         else:
             t_dict['user'][f] = eval('t.author.' + f)
-    
     return t_dict
     
 def gen_entity(text):
@@ -119,7 +120,10 @@ def gen_entity(text):
         if len(matches) > 0:
             entity[key] = []
             for m in matches:
-                text = text.replace(m,'<span class="t-%s">%s</span>' % (key,m))
+                if key == 'link' and len(m) > 25:
+                    text = text.replace(m,'<span class="t-%s label">%s</span>' % (key,m[:25] + '...'))
+                else:
+                    text = text.replace(m,'<span class="t-%s label">%s</span>' % (key,m))
                 entity[key].append(m)
     return entity,text
     
@@ -127,7 +131,6 @@ def expand_url(text):
     re_url = re.compile(u'http.?://[^"\ \u201d]+')
     matches = re_url.findall(text)
     if len(matches) > 0:
-        app.logger.debug(text)
         for m in matches:
             json_res = urllib.urlopen('http://api.longurl.org/v2/expand?url=%s&format=json' % m).read()
             res = json.loads(json_res)
@@ -135,7 +138,7 @@ def expand_url(text):
                 text = re_url.sub(res['long-url'],text)
             except:
                 pass
-    return text
+    return text 
             
             
 @app.route('/home')
@@ -155,6 +158,12 @@ def home():
                 t_dict['source_url'] = t.source_url
             else:
                 t_dict['source_url'] = False
+            if t.in_reply_to_user_id_str:
+                reply_user = g.twit_api.get_user(t.in_reply_to_user_id_str)
+                t_dict['reply_user_img'] = reply_user.profile_image_url_https
+            else:
+                t_dict['reply_user_img'] = False
+            
             tweets_dict.append(t_dict)
         return json.dumps(tweets_dict)
     else:

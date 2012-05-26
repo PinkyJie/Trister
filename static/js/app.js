@@ -1,6 +1,17 @@
 
 /* utility functions */
-
+var process_time = function(d) {
+    var diff = new Date().getTime() - new Date(d).getTime();
+    if (diff > 1000 * 60 * 60 * 24) {
+        return Math.floor(diff / (1000 * 60 * 60 * 24)) + " d ago";
+    } else if (diff > 1000 * 60 * 60) {
+        return Math.floor(diff / (1000 * 60 * 60)) + " h ago";
+    } else if (diff > 1000 * 60) {
+        return Math.floor(diff / (1000 * 60)) + " m ago";
+    } else {
+        return Math.floor(diff / 1000) + " s ago";
+    }
+}
 
 Ext.application({
     name: 'Trister',
@@ -109,7 +120,8 @@ Ext.application({
                 fields: [
                     'created_at', 'id_str', 'text', 'source', 'in_reply_to_status_id_str',
                     'in_reply_to_user_id_str', 'in_reply_to_screen_name', 'retweet_count',
-                    'favorited', 'retweeted', 'source_url', 'retweeted_status','user','entity'
+                    'favorited', 'retweeted', 'source_url', 'retweeted_status','user',
+                    'entity','reply_user_img'
                 ],
                 pageSize: 20,
                 proxy: {
@@ -140,16 +152,45 @@ Ext.application({
                         { xclass: 'Ext.plugin.ListPaging' },
                         { xclass: 'Ext.plugin.PullRefresh' }
                     ],
-                    emptyText: '<p class="no-searches">No tweets found matching that search</p>',
+                    emptyText: '<p class="no-tweets">No tweets found matching that search</p>',
                     itemTpl: Ext.create('Ext.XTemplate',
-                        '<img class="user-img" src="{user.profile_image_url_https}" />',
-                        '<img class="type-img" src="{user.profile_image_url_https}" />',
+                        '<tpl if="retweeted_status">',
+                            '<img class="user-img" src="{retweeted_status.user.profile_image_url_https}" />',
+                        '<tpl else>',
+                            '<img class="user-img" src="{user.profile_image_url_https}" />',
+                        '</tpl>',
+                        '<tpl if="retweeted_status">',
+                            '<img class="type-img" src="{user.profile_image_url_https}" />',
+                        '<tpl elseif="in_reply_to_user_id_str">',
+                            '<img class="type-img" src="{reply_user_img}" />',
+                        '<tpl elseif="source == \'Instagram\'">',
+                            '<img class="type-img" src="static/img/instagram.png" />',
+                        '<tpl elseif="source == \'街旁(JiePang)-台灣/香港\'">',
+                            '<img class="type-img" src="static/img/jiepang.png" />',
+                        '<tpl elseif="source == \'foursquare\'">',
+                            '<img class="type-img" src="static/img/foursquare.png" />',
+                        '<tpl else>',
+                            '<img class="type-img" src="static/img/status.png" />',
+                        '</tpl>',
                         '<div class="tweet">',
-                        '<p class="time">{created_at}</p>',
-                        '<p class="user-name">{user.screen_name}</p>',
+                        '<p class="time">{[this.show_diff(values.created_at)]}</p>',
+                        '<tpl if="retweeted_status">',
+                            '<p class="user-name">{retweeted_status.user.screen_name}</p>',
+                        '<tpl else>',
+                            '<p class="user-name">{user.screen_name}</p>',
+                        '</tpl>',
                         '<p class="content">{text}</p>',
-                        '<p class="source">via {source}</p>',
-                        '</div>'
+                        '<p class="source">',
+                        '<tpl if="retweeted_status">',
+                            '<span class="tweet-type">Rwteeted by <span class="relate-user label">{user.screen_name}</span></span>',
+                        '<tpl elseif="in_reply_to_user_id_str">',
+                            '<span class="tweet-type">Reply to <span class="relate-user label">{in_reply_to_screen_name}</span></span>',
+                        '</tpl>',
+                        '  via <span class="source-text label">{source}</span></p>',
+                        '</div>',
+                        {
+                            show_diff: process_time
+                        }
                     )
                 },
                 {

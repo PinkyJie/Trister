@@ -1,0 +1,134 @@
+// The following two lines import the default Sencha Touch theme. If you are building
+// a new theme, remove them and the add your own CSS on top of the base CSS (which
+// is already included in your app.json file).
+@import 'sencha-touch/default';
+@import 'sencha-touch/default/all';
+
+// Custom code goes here..
+
+/* LoginView */
+
+.login {
+    text-align:center
+}
+
+.login h2 {
+    color:#666;
+    font-size:0.8em;
+    line-height:1.6em;
+    margin:10px 10px 10px 10px
+}
+
+.login img {
+    margin-top:10px
+}
+
+.login p {
+    color:#999;
+    font-size:0.7em
+}
+
+/* HomeView */
+
+.tweet{
+    padding-left: 15px;
+    border-left: 1px dashed #333;
+    margin-left: 65px;
+    min-height: 50px
+}
+
+.user-img {
+    margin-left: -3px;
+    width: 48px;
+    border-radius:24px;
+    float:left;
+    box-shadow: #92CEEE 0 0 8px;
+}
+
+.type-img {
+    margin-left: 53px;
+    margin-top: 15px;
+    position: absolute;
+    width: 24px;
+    border-radius: 12px;
+    box-shadow: #42C28A 0 0 8px;
+}
+
+.user-name {
+    color: #F30;
+    text-shadow: #D55 0 0 2px;
+    font-size: 12pt;
+}
+
+.time {
+    font-size: 11pt;
+    color: #8A8181;
+    float: right;
+}
+
+.content{
+    margin-top: 3px;
+    font-size: 15px;
+}
+
+.content .t-user {
+    background-color: #8690DA;
+}
+
+.content .t-tag {
+    background-color: #B48A3F;
+}
+
+.content .t-link {
+    background-color: #9799A7;
+}
+
+.relate-user {
+    display: inline-block;
+    background-color: #B3B8A7;
+}
+
+.source {
+    font-size: 11pt;
+    margin-top: 4px;
+    color: #999;
+}
+
+.source-text {
+    display: inline-block;
+    background-color: #B3B8A7;
+}
+
+.x-list-item{
+    border-top:1px solid white;
+}
+
+.no-tweets {
+    text-align: center;
+}
+
+.tweet-count {
+    font-size: 20pt;
+    color: #7CE;
+    text-shadow: #7CE 0px 0px 5px;
+}
+
+.tweet-count-warning {
+    color: #CAA;
+    text-shadow: #CAA 0px 0px 5px;
+}
+
+.label {
+    padding: 1px 4px 2px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 14px;
+    color: white;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    vertical-align: baseline;
+}
+
+// Examples of using the icon mixin:
+// @include icon('user');

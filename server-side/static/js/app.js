@@ -16,7 +16,7 @@ var process_time = function(d) {
 Ext.application({
     name: 'Trister',
     launch: function() {
-    
+
         /* Views */
         var loginView = Ext.create('Ext.Panel', {
             id: 'LoginView',
@@ -30,7 +30,7 @@ Ext.application({
                 hidden: true
             },
             items: [
-                {   
+                {
                     xtype: 'formpanel',
                     flex: 1,
                     items: [
@@ -112,7 +112,7 @@ Ext.application({
                 }
             }
         });
-        
+
         Ext.define('TweetStore', {
             extend: 'Ext.data.Store',
             config: {
@@ -131,10 +131,10 @@ Ext.application({
                     reader: {
                         type: 'json'
                     }
-                }                
+                }
             }
         });
-        
+
         var homeView = Ext.create('Ext.TabPanel',{
             id: 'HomeView',
             fullscreen: true,
@@ -235,7 +235,7 @@ Ext.application({
                         '<tpl else>',
                             '<img class="type-img" src="static/img/status.png" />',
                         '</tpl>',
-                        
+
                         '<div class="tweet">',
                         '<p class="time">{[this.show_diff(values.created_at)]}</p>',
                         '<p class="user-name">{user.screen_name}</p>',
@@ -263,9 +263,9 @@ Ext.application({
                     newItem.getStore().load();
                 }
             }
-            
+
         });
-        
+
         var updateView = Ext.create('Ext.Panel',{
             id: 'UpdateView',
             fullscreen: true,
@@ -355,7 +355,7 @@ Ext.application({
                 }
             ]
         });
-        
+
         var mainView = Ext.create('Ext.Panel',{
             id: 'MainView',
             layout: 'card',
@@ -372,7 +372,7 @@ Ext.application({
                 }
             }
         });
-        
+
         Ext.Viewport.add(mainView);
     }
 });

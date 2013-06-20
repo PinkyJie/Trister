@@ -5,7 +5,7 @@ Ext.define('Trister.store.Homeline', {
 		model: 'Trister.model.Tweet',
         proxy: {
             type: 'ajax',
-            url: 'resources/homeline.json',
+            url: '/home',
             pageParam: 'page',
             limitParam: 'count',
             reader: {

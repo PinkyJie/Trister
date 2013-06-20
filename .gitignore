@@ -1,4 +1,6 @@
 venv/
 *.pyc
 Thumbs.db
-/static/touch/
+static/touch/
+build/
+.sass-cache/

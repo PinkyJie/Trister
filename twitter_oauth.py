@@ -85,7 +85,8 @@ class TwitterOauth(object):
             if res_dict['oauth_callback_confirmed'] == 'true':
                 self.oauth_token = res_dict['oauth_token']
                 self.oauth_token_secret = res_dict['oauth_token_secret']
-                self.logger.debug('get request token ok: ' + res_dict)
+                self.logger.debug('get request token: ok ')
+                self.logger.debug(res_dict)
             else:
                 self.logger.error('get request token error: callback not true')
                 raise TwitterOauthError('', 'Failed to get access token. There maybe a server error. Try again later!')
@@ -136,7 +137,8 @@ class TwitterOauth(object):
             self.access_token = res_dict['oauth_token']
             self.access_token_secret = res_dict['oauth_token_secret']
             self.scree_name = res_dict['screen_name']
-            self.logger.debug('get access token ok: ' + res_dict)
+            self.logger.debug('get access token: ok ')
+            self.logger.debug(res_dict)
 
     def oauth(self):
         try:
@@ -157,4 +159,12 @@ class TwitterOauth(object):
 
 if __name__ == '__main__':
     # test
-    t = TwitterOauth('PinkyJie', 'jiewenbo19871031')
+    t = TwitterOauth('xxx', 'xxx')
+    try:
+        t.oauth()
+    except TwitterOauthError, e:
+        print e.reason
+    else:
+        print t.access_token
+        print t.access_token_secret
+        print t.screen_name

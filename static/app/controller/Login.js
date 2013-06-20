@@ -39,13 +39,12 @@ Ext.define('Trister.controller.Login', {
         } else {
             //this.getParent().getParent().getMasked().show();
             form.submit({
-                success: function(form,result) {
+                success: function(form, result) {
                     //form.getParent().getMasked().hide();
-                    if (result.status === "ok") {
-                        this.getLoginView().getParent().setActiveItem('#HomeView', { type: 'slide', direction: 'left' });
-                    } else if (result.status === "error") {
-                        Ext.Msg.alert('Error', result.content);
-                    }
+                    this.getLoginView().getParent().setActiveItem('#HomeView', { type: 'slide', direction: 'left' });
+                },
+                failure: function(form, result) {
+                    Ext.Msg.alert('Error', result.content);
                 }
             });
         }

@@ -110,14 +110,14 @@ class TwitterOauth(object):
                                     'Failed to get pin code. There maybe a server error. Try again later!')
         else:
             re_pin = re.compile(r'<code>(\d*)</code>')
-            pin_code = re_pin.findall(res)[0]
+            pin_code = re_pin.findall(res)
+            # print pin_code
             if len(pin_code) > 0:
-                self.pin_code = pin_code
-                self.logger.debug('get pin code ok: ' + pin_code)
+                self.pin_code = pin_code[0]
+                self.logger.debug('get pin code ok: ' + self.pin_code)
             else:
                 self.logger.error('get pin code error: username or password error')
-                raise TwitterOauthError(e.message,
-                                        'Failed to get pin code. Check your Username or Password!')
+                raise TwitterOauthError('', 'Failed to get pin code. Check your Username or Password!')
 
     def get_access_token(self):
         access_params = {}

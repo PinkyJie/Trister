@@ -19,11 +19,12 @@ def jsonify(f):
         try:
             result_dict = f(*args, **kwargs)
         except Exception as e:
-            result_dict = dict(status='error')
+            result_dict = dict(success=False)
+            result_dict['content'] = e.message
             if app.config['DEBUG']:
-                result_dict['reason'] = e.message
                 from traceback import format_exc
                 result_dict['exc_info'] = format_exc(e)
+        # result_dict['success'] = True
         return flask_jsonify(**result_dict)
     return _wrapped
 
@@ -49,9 +50,9 @@ def root():
 @jsonify
 def is_login():
     if session.get('trister_access_key') and session.get('trister_access_secret'):
-        return dict(status='ok', content=1)
+        return dict(success=True, content=1)
     else:
-        return dict(status='ok', content=0)
+        return dict(success=True, content=0)
 
 
 @app.route('/login', methods=['POST'])
@@ -61,11 +62,11 @@ def oauth_login():
     try:
         t.oauth()
     except TwitterOauthError, e:
-        return dict(status='error', content=e.reason)
+        return dict(success=False, content=e.reason)
     else:
         session['trister_access_key'] = t.access_token
         session['trister_access_secret'] = t.access_token_secret
-        return dict(status='ok', content='')
+        return dict(success=True, content=dict(key=t.access_token, secret=t.access_token_secret))
 
 
 @app.route('/home', methods=['GET'])
@@ -74,6 +75,7 @@ def get_home():
         page_arg = int(request.args['page'])
         count_arg = int(request.args['count'])
         tweets = g.twit_api.home_timeline(page=page_arg, count=count_arg)
+        print type(tweets)
         return tweets
     else:
         return app.send_static_file('index.html')
@@ -97,9 +99,9 @@ def update_status():
         try:
             g.twit_api.update_status(request.form['tweet'])
         except TweepError, e:
-            return dict(status='error', content='Failed to update tweet!', reason=e.message)
+            return dict(success=False, content='Failed to update tweet!', reason=e.message)
         else:
-            return dict(status='success', content='')
+            return dict(success=True, content='Update successfully!')
     else:
         return app.send_static_file('index.html')
 

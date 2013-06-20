@@ -4,8 +4,8 @@ Ext.define('Trister.view.template.HomelineTweet', {
         'Trister.util.Common'
     ],
 
-    constructor: function (config) {
-        this.callParent([
+    config: {
+        tpl: new Ext.XTemplate([
             '<tpl if="retweeted_status">',
                 '<img class="user-img" src="{retweeted_status.user.profile_image_url_https}" />',
             '<tpl else>',
@@ -41,8 +41,8 @@ Ext.define('Trister.view.template.HomelineTweet', {
             '  via <span class="source-text label">{source}</span></p>',
             '</div>',
             {
-                show_diff: Trister.util.Common.process_time
+                show_diff: 'Common.process_time'
             }
-        ]);
+        ])
     }
 });

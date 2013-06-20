@@ -4,9 +4,7 @@ Ext.define('Trister.view.Main', {
     requires: [
         'Trister.view.Login',
         'Trister.view.Home',
-        'Trister.view.UpdateStatus',
-        'Trister.view.template.HomelineTweet',
-        'Trister.view.template.MentionTweet'
+        'Trister.view.UpdateStatus'
     ],
     config: {
         id: 'MainPanel',

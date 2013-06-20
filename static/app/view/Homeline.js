@@ -4,7 +4,8 @@ Ext.define('Trister.view.Homeline', {
     requires: [
         'Trister.store.Homeline',
         'Ext.plugin.ListPaging',
-        'Ext.plugin.PullRefresh'
+        'Ext.plugin.PullRefresh',
+        'Trister.util.Common'
     ],
 
     config: {
@@ -18,6 +19,6 @@ Ext.define('Trister.view.Homeline', {
             { xclass: 'Ext.plugin.PullRefresh' }
         ],
         emptyText: '<p class="no-tweets">No tweets found!</p>',
-        itemTpl: Ext.create('Trister.view.template.HomelineTweet',{})
+        itemTpl: Ext.XTemplate.from('HomelineTweet', 'Trister.util.Common')
     }
 });

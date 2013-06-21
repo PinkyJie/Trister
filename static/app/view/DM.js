@@ -3,6 +3,7 @@ Ext.define('Trister.view.DM', {
     xtype: 'dmlist',
 
     config: {
+        id: 'DMList',
         title: 'DM',
         iconCls: 'user',
         cls: 'dm',

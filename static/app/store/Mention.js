@@ -3,7 +3,7 @@ Ext.define('Trister.store.Mention', {
 
 	config: {
 		model: 'Trister.model.Tweet',
-        autoLoad: true,
+        // autoLoad: true,
         proxy: {
             type: 'ajax',
             url: '/mention',

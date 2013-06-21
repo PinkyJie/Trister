@@ -3,7 +3,7 @@ Ext.define('Trister.store.Homeline', {
 
 	config: {
 		model: 'Trister.model.Tweet',
-        autoLoad: true,
+        // autoLoad: true,
         proxy: {
             type: 'ajax',
             url: '/home',

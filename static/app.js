@@ -31,8 +31,12 @@ Ext.application({
     ],
 
     controllers: [
+        'Main',
         'Login',
-        'Home'
+        'Home',
+        'UpdateStatus',
+        'Homeline',
+        'Mention'
     ],
 
     models: [

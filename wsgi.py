@@ -24,7 +24,6 @@ def jsonify(f):
             if app.config['DEBUG']:
                 from traceback import format_exc
                 result_dict['exc_info'] = format_exc(e)
-        # result_dict['success'] = True
         return flask_jsonify(**result_dict)
     return _wrapped
 

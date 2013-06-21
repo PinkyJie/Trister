@@ -17,7 +17,6 @@ Ext.define('Trister.controller.Login', {
     },
 
     checkLogin: function() {
-        console.log('Login Page show');
         Ext.Ajax.request({
             url: '/is_login',
             method: 'GET',
@@ -42,6 +41,8 @@ Ext.define('Trister.controller.Login', {
                 message: 'Login...Please wait...'
             });
             form.submit({
+                url: 'login',
+                method: 'POST',
                 success: function(form, result) {
                     this.getParent().setMasked(false);
                     this.getParent().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});

@@ -5,5 +5,4 @@ static/touch/
 build-result/
 fakeserver.py
 .sass-cache/
-static/resources/stylesheets/
 static/resources/css/app.css

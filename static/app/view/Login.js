@@ -14,17 +14,11 @@ Ext.define('Trister.view.Login', {
         cls: 'login',
         layout: 'vbox',
         scrollable: true,
-        // masked: {
-        //     xtype: 'loadmask',
-        //     message: 'Login...',
-        //     hidden: true
-        // },
 
         items: [
             {
                 xtype: 'formpanel',
                 flex: 1,
-                url: 'login',
                 items: [
                     {
                         xtype: 'panel',

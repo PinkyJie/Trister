@@ -8,6 +8,7 @@ Ext.define('Trister.view.Mention', {
     ],
 
     config: {
+        id: 'MentionList',
         title: 'Mention',
         iconCls: 'reply',
         cls: 'mention',

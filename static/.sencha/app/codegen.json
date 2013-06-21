@@ -302,6 +302,50 @@
         "name": "Home",
         "controllerNamespace": "Trister.controller"
       }
+    },
+    "app/controller/UpdateStatus.js": {
+      "source": "{controllerFileName}.js.tpl.merge",
+      "version": "7cd8d1cf12515ca525732931d6b775e3f7924ad9",
+      "parameters": {
+        "appName": "Trister",
+        "controllerName": "UpdateStatus",
+        "controllerFileName": "UpdateStatus",
+        "name": "UpdateStatus",
+        "controllerNamespace": "Trister.controller"
+      }
+    },
+    "app/controller/Homeline.js": {
+      "source": "{controllerFileName}.js.tpl.merge",
+      "version": "7cd8d1cf12515ca525732931d6b775e3f7924ad9",
+      "parameters": {
+        "appName": "Trister",
+        "controllerName": "Homeline",
+        "controllerFileName": "Homeline",
+        "name": "Homeline",
+        "controllerNamespace": "Trister.controller"
+      }
+    },
+    "app/controller/Mention.js": {
+      "source": "{controllerFileName}.js.tpl.merge",
+      "version": "7cd8d1cf12515ca525732931d6b775e3f7924ad9",
+      "parameters": {
+        "appName": "Trister",
+        "controllerName": "Mention",
+        "controllerFileName": "Mention",
+        "name": "Mention",
+        "controllerNamespace": "Trister.controller"
+      }
+    },
+    "app/controller/Main.js": {
+      "source": "{controllerFileName}.js.tpl.merge",
+      "version": "7cd8d1cf12515ca525732931d6b775e3f7924ad9",
+      "parameters": {
+        "appName": "Trister",
+        "controllerName": "Main",
+        "controllerFileName": "Main",
+        "name": "Main",
+        "controllerNamespace": "Trister.controller"
+      }
     }
   }
 }

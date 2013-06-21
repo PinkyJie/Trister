@@ -1,7 +1,7 @@
 Trister
 =======
 
-Mobile Twitter web client based on [Flask](http://flask.pocoo.org/) &amp; Sencha Touch 2(http://www.sencha.com/products/touch). 
+Mobile Twitter web client based on [Flask](http://flask.pocoo.org/) &amp; [Sencha Touch 2](http://www.sencha.com/products/touch). 
 
 Trister = Tri[sta] + [Ma]ster
 
@@ -9,7 +9,8 @@ Requirements
 =======
 Python 2.7+
 
-see requirements.txt for detail
+* [Flask](http://flask.pocoo.org/): `pip install flask`
+* [Tweepy](https://github.com/tweepy/tweepy): `pip install tweepy`
 
 Install(appfog)
 =======

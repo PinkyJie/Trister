@@ -18,7 +18,7 @@ Ext.define('Trister.view.Mention', {
             { xclass: 'Ext.plugin.PullRefresh' }
         ],
         emptyText: '<p class="no-tweets">No mentions found!</p>',
-        itemTpl: 'MentionTweet'
+        itemTpl: Ext.XTemplate.from('MentionTweet')
     }
 
 });

@@ -25,7 +25,7 @@ Ext.define('Trister.controller.Login', {
             success: function(response) {
                 var res = Ext.decode(response.responseText);
                 if (res.content == 1) {
-                    this.getLoginView().getParent().setActiveItem(1);
+                    this.getLoginView().getParent().setActiveItem('#HomePanel');
                 }
             }
         });
@@ -37,11 +37,14 @@ Ext.define('Trister.controller.Login', {
         if (form_data['name'] === '' || form_data['password'] === '') {
             Ext.Msg.alert('Error','Twitter name or password can not be blank!');
         } else {
-            //this.getParent().getParent().getMasked().show();
+            this.getLoginView().setMasked({
+                xtype: 'loadmask',
+                message: 'Login...\nPlease wait...'
+            });
             form.submit({
                 success: function(form, result) {
-                    //form.getParent().getMasked().hide();
-                    this.getLoginView().getParent().setActiveItem('#HomeView', { type: 'slide', direction: 'left' });
+                    this.getParent().setMasked(false);
+                    this.getParent().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
                 },
                 failure: function(form, result) {
                     Ext.Msg.alert('Error', result.content);

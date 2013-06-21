@@ -58,7 +58,7 @@
         <div></div>
         <div></div>
     </div>
-    <script id="HomelineTweet" type="text/template">
+    <script id="HomelineTweet" type="text/xtemplate">
         <tpl if="retweeted_status">
             <img class="user-img" src="{retweeted_status.user.profile_image_url_https}" />
         <tpl else>
@@ -68,17 +68,17 @@
             <img class="type-img" src="{user.profile_image_url_https}" />
         <tpl elseif="in_reply_to_user_id_str">
             <img class="type-img" src="{reply_user_img}" />
-        <tpl elseif="source == \'Instagram\'">
-            <img class="type-img" src="resources/img/instagram.png" />
-        <tpl elseif="source == \'街旁(JiePang)-台灣/香港\'">
-            <img class="type-img" src="resources/img/jiepang.png" />
-        <tpl elseif="source == \'foursquare\'">
-            <img class="type-img" src="resources/img/foursquare.png" />
+        <tpl elseif="source === 'Instagram'">
+            <img class="type-img" src="resources/images/instagram.png" />
+        <tpl elseif="source === '街旁(JiePang)-台灣/香港'">
+            <img class="type-img" src="resources/images/jiepang.png" />
+        <tpl elseif="source === 'foursquare'">
+            <img class="type-img" src="resources/images/foursquare.png" />
         <tpl else>
-            <img class="type-img" src="resources/img/status.png" />
+            <img class="type-img" src="resources/images/status.png" />
         </tpl>
         <div class="tweet">
-        // <p class="time">{[this.process_time(values.created_at)]}</p>
+        <p class="time">{formatted_time}</p>
         <tpl if="retweeted_status">
             <p class="user-name">{retweeted_status.user.screen_name}</p>
         <tpl else>
@@ -86,9 +86,28 @@
         </tpl>
         <p class="content">{text}</p>
         <p class="source">
-        <tpl if="retweeted_status">
+        <tpl if="retweeted_status">reply_user_img
             <span class="tweet-type">Rwteeted by <span class="relate-user label">{user.screen_name}</span></span>
         <tpl elseif="in_reply_to_user_id_str">
+            <span class="tweet-type">Reply to <span class="relate-user label">{in_reply_to_screen_name}</span></span>
+        </tpl>
+          via <span class="source-text label">{source}</span></p>
+        </div>
+    </script>
+    <script id="MentionTweet" type="text/xtemplate">
+        <img class="user-img" src="{user.profile_image_url_https}" />
+        <tpl if="in_reply_to_user_id_str">
+            <img class="type-img" src="{reply_user_img}" />
+        <tpl else>
+            <img class="type-img" src="resources/images/status.png" />
+        </tpl>
+
+        <div class="tweet">
+        <p class="time">{formatted_time}</p>
+        <p class="user-name">{user.screen_name}</p>
+        <p class="content">{text}</p>
+        <p class="source">
+        <tpl if="in_reply_to_user_id_str">
             <span class="tweet-type">Reply to <span class="relate-user label">{in_reply_to_screen_name}</span></span>
         </tpl>
           via <span class="source-text label">{source}</span></p>

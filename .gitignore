@@ -4,3 +4,5 @@ Thumbs.db
 static/touch/
 build/
 .sass-cache/
+fakeserver.py
+static/resources/stylesheets/

@@ -86,7 +86,7 @@ def get_reply():
     if session.get('trister_access_key') and session.get('trister_access_secret'):
         page_arg = int(request.args['page'])
         count_arg = int(request.args['count'])
-        replys = g.twit_api.mentions(page=page_arg, count=count_arg)
+        replys = g.twit_api.mentions_timeline(page=page_arg, count=count_arg)
         return replys
     else:
         return app.send_static_file('index.html')

@@ -2,7 +2,8 @@ venv/
 *.pyc
 Thumbs.db
 static/touch/
-build/
-.sass-cache/
+build-result/
 fakeserver.py
+.sass-cache/
 static/resources/stylesheets/
+static/resources/css/app.css

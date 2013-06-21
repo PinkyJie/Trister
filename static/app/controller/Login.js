@@ -39,7 +39,7 @@ Ext.define('Trister.controller.Login', {
         } else {
             this.getLoginView().setMasked({
                 xtype: 'loadmask',
-                message: 'Login...\nPlease wait...'
+                message: 'Login...Please wait...'
             });
             form.submit({
                 success: function(form, result) {
@@ -47,6 +47,7 @@ Ext.define('Trister.controller.Login', {
                     this.getParent().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
                 },
                 failure: function(form, result) {
+                    this.getParent().setMasked(false);
                     Ext.Msg.alert('Error', result.content);
                 }
             });

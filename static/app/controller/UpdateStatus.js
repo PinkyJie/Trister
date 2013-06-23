@@ -42,9 +42,11 @@ Ext.define('Trister.controller.UpdateStatus', {
             form.submit({
                 url: '/update',
                 method: 'POST',
+                scope: this,
                 success: function(form, result) {
                     this.getParent().setMasked(false);
-                    this.getParent().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
+                    this.getCountLabel().setHtml('');
+                    this.getUpdateView().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
                 },
                 failure: function(form, result) {
                     this.getParent().setMasked(false);

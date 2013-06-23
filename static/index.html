@@ -64,6 +64,9 @@
         <tpl else>
             <img class="user-img" src="{user.profile_image_url_https}" />
         </tpl>
+        <tpl if="favorited">
+            <img class="tweet-fav-img" src="resources/images/favorited.png" />
+        </tpl>
         <tpl if="retweeted_status">
             <img class="type-img" src="{user.profile_image_url_https}" />
         <tpl elseif="in_reply_to_user_id_str">
@@ -98,6 +101,9 @@
     </script>
     <script id="MentionTweet" type="text/xtemplate">
         <img class="user-img" src="{user.profile_image_url_https}" />
+        <tpl if="favorited">
+            <img class="tweet-fav-img" src="resources/images/favorited.png" />
+        </tpl>
         <tpl if="in_reply_to_user_id_str">
             <img class="type-img" src="{reply_user_img}" />
         <tpl else>

@@ -101,11 +101,30 @@ def get_reply():
 def update_status():
     if session.get('trister_access_key') and session.get('trister_access_secret'):
         try:
-            g.twit_api.update_status(request.form['tweet'])
+            status = g.twit_api.update_status(request.form['tweet'])
         except TweepError, e:
             return dict(success=False, content='Failed to update tweet!', reason=e.message)
         else:
-            return dict(success=True, content='Update successfully!')
+            return dict(success=True, content='')
+    else:
+        return app.send_static_file('index.html')
+
+@app.route('/favorite/<action>', methods=['POST'])
+@jsonify
+def favorite(action):
+    if session.get('trister_access_key') and session.get('trister_access_secret'):
+        wrong_message = ''
+        try:
+            if action == 'add':
+                g.twit_api.create_favorite(request.form['tweet_id'])
+                wrong_message = 'Failed to create favorite tweet'
+            elif action == 'del':
+                g.twit_api.destory_favorite(request.form['tweet_id'])
+                wrong_message = 'Failed to destory favorite tweet'
+        except TweepError, e:
+            return dict(success=False, content=wrong_message, reason=e.message)
+        else:
+            return dict(success=True, content='')
     else:
         return app.send_static_file('index.html')
 

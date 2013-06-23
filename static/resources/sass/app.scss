@@ -69,21 +69,11 @@
 .content{
     margin-top: 3px;
     font-size: 15px;
-}
-
-.content .t-user {
-    background-color: #8690DA;
-}
-
-.content .t-tag {
-    background-color: #B48A3F;
-}
-
-.content .t-link {
-    background-color: #9799A7;
+    line-height: 1.5em;
 }
 
 .relate-user {
+    color: #6e6e6e;
     display: inline-block;
     background-color: #B3B8A7;
 }
@@ -96,7 +86,28 @@
 
 .source-text {
     display: inline-block;
-    background-color: #B3B8A7;
+    // background-color: #B3B8A7;
+    color: #848484;
+}
+
+.source-text a {
+    color: #848484;
+}
+
+.content-user {
+    background: #8690DA;
+}
+
+.content-tag {
+    background: #B48A3F;   
+}
+
+.content-media {
+    background: #9799A7;
+}
+
+.content-url {
+    background: #9799A7;
 }
 
 .x-list-item{
@@ -124,15 +135,14 @@
 }
 
 .label {
-    padding: 1px 4px 2px;
-    border-radius: 3px;
+    padding: 2px;
+    border-radius: 5px;
     font-size: 13px;
     font-weight: bold;
-    line-height: 14px;
-    color: white;
+    // line-height: 14px;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     white-space: nowrap;
-    vertical-align: baseline;
+    // vertical-align: baseline;
 }
 
 // Examples of using the icon mixin:

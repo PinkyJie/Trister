@@ -74,7 +74,9 @@ def get_home():
         page_arg = int(request.args['page'])
         count_arg = int(request.args['count'])
         tweets = g.twit_api.home_timeline(page=page_arg, count=count_arg)
-        print type(tweets)
+        f = open('homeline.json', 'w')
+        f.write(tweets)
+        f.close()
         return tweets
     else:
         return app.send_static_file('index.html')
@@ -86,6 +88,9 @@ def get_reply():
         page_arg = int(request.args['page'])
         count_arg = int(request.args['count'])
         replys = g.twit_api.mentions_timeline(page=page_arg, count=count_arg)
+        f = open('mention.json', 'w')
+        f.write(replys)
+        f.close()
         return replys
     else:
         return app.send_static_file('index.html')

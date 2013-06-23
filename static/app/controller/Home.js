@@ -20,11 +20,19 @@ Ext.define('Trister.controller.Home', {
         // switch between Homeline/Mention/DM
         console.log(newItem.getXTypes());
         if (newItem.id === 'HomelineList') {
-            Ext.getStore('Homeline').load();
+            storeName = 'Homeline';
+            name = 'Tweets';
         } else if (newItem.id === 'MentionList') {
-            Ext.getStore('Mention').load();
-        } else if (newItem.id === 'DMList') {
-            console.log('dm load');
+            storeName = 'Mention';
+            name = 'Mentions';
+        }
+        store = Ext.getStore(storeName);
+        if (store.getData().length == 0) {
+            newItem.setMasked({
+                xtype: 'loadmask',
+                message: 'Loading ' + name + '...'
+            });
+            store.load();
         }
     },
 

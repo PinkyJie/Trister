@@ -15,7 +15,8 @@
 
 //<debug>
 Ext.Loader.setPath({
-    'Ext': 'touch/src'
+    'Ext': 'touch/src',
+    'Ext.ux': 'libs/ux'
 });
 //</debug>
 
@@ -25,6 +26,10 @@ Ext.application({
     requires: [
         'Ext.MessageBox'
     ],
+
+    path: {
+        'Ext.ux': 'libs/ux'
+    },
 
     views: [
         'Main'

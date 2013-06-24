@@ -4,7 +4,8 @@ Ext.define('Trister.view.Homeline', {
     requires: [
         'Trister.store.Homeline',
         'Ext.plugin.ListPaging',
-        'Ext.plugin.PullRefresh'
+        'Ext.plugin.PullRefresh',
+        'Ext.ux.ListOptions'
     ],
 
     config: {
@@ -25,6 +26,18 @@ Ext.define('Trister.view.Homeline', {
                 xclass: 'Ext.plugin.PullRefresh',
                 pullRefreshText: 'Pull down to update...',
                 releaseRefreshText: 'Release to update...'
+            },
+            {
+                xclass: 'Ext.ux.ListOptions',
+                menuOptions: [{
+                    iconCls: 'home'
+                }, {
+                    iconCls: 'reply'
+                }, {
+                    iconCls: 'compose'
+                }, {
+                    iconCls: 'add'
+                }]
             }
         ],
         emptyText: '<p class="no-tweets">No tweets found!</p>',

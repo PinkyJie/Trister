@@ -99,7 +99,7 @@
 }
 
 .content-tag {
-    background: #B48A3F;   
+    background: #B48A3F;
 }
 
 .content-media {
@@ -150,6 +150,44 @@
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     white-space: nowrap;
     // vertical-align: baseline;
+}
+
+// for Ext.ux.ListOpitons
+
+.x-list-options-plugin.x-list .x-list-item {
+    background-color: white;
+}
+
+.x-list-options-plugin .x-list-options {
+    margin-left: 50%;
+    opacity: 0.8;
+    width: 50%;
+    // @include box-shadow(inset 0 0 10px #333);
+    //background-image: url('../images/list-option-bg.png');
+    //background-repeat: repeat;
+    overflow: hidden;
+}
+
+.x-list-options-plugin .x-list-options ul {
+    @include box-shadow(inset 0 0 10px #333);
+    background-image: url('../images/list-option-bg.png');
+    background-repeat: repeat;
+    margin: 45px auto;
+    height: 50%;
+    width: 220px;
+}
+
+.x-list-options-plugin .x-list-options ul li.x-menu-option {
+    float: left;
+    margin: 8px 20px 0 0;
+    height: 35px;
+    width: 35px;
+    @include border-radius(6px);
+}
+
+.x-list-options ul li.x-menu-option-pressed
+{
+    @include box-shadow(0 .1em .3em rgba(0, 0, 0, 0.3));
 }
 
 // Examples of using the icon mixin:

@@ -132,6 +132,19 @@ def favorite(action):
     else:
         return app.send_static_file('index.html')
 
+@app.route('/retweet', methods=['POST'])
+@jsonify
+def retweet_tweet():
+    if session.get('trister_access_key') and session.get('trister_access_secret'):
+        try:
+                g.twit_api.retweet(request.form['tweet_id'])
+        except TweepError, e:
+            return dict(success=False, content='Failed to retweet tweet!', reason=e.message)
+        else:
+            return dict(success=True, content='Retweet successfully!')
+    else:
+        return app.send_static_file('index.html')
+
 
 app.secret_key = '\xfcM\xf7\xd4\x03\x14\x1e<\xe1\xd4Sn\xed\xa5e\x96\xb7\x8aq\x82\xed\x10\xdc\x93'
 if __name__ == "__main__":

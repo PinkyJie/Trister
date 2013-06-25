@@ -83,7 +83,7 @@ function genFormattedTweet(text, entities) {
             text = text.replace(
                 url.url,
                 ['<span class="content-url label">',
-                 '<a href="' + url.expanded_url + '">',
+                 '<a target="_blank" href="' + url.expanded_url + '">',
                  url.display_url,
                  '</a>',
                  '</span>'
@@ -105,7 +105,7 @@ function genFormattedTweet(text, entities) {
             text = text.replace(
                 media.url,
                 ['<span class="content-media label">',
-                 '<a href="' + media.expanded_url + '">',
+                 '<a target="_blank" href="' + media.expanded_url + '">',
                  media.display_url,
                  '</a>',
                  '</span>'

@@ -72,21 +72,22 @@ Ext.define('Trister.controller.Homeline', {
             this.getMainView().setActiveItem('#UpdatePanel');
             updateTextarea.focus();
         } else if (item.action === 'Retweet') {
-            // Ext.Ajax.request({
-            //     url: '/favorite/' + action,
-            //     method: 'POST',
-            //     params: {
-            //         tweet_id: record.get('id_str')
-            //     },
-            //     scope: this,
-            //     success: function(response) {
-            //         record.set('favorited', !favorited);
-            //     },
-            //     failure: function(response) {
-            //         var result = Ext.decode(response.responseText);
-            //         Ext.Msg.alert('Error', result.content);
-            //     }
-            // });
+            Ext.Ajax.request({
+                url: '/retweet',
+                method: 'POST',
+                params: {
+                    tweet_id: record.get('id_str')
+                },
+                scope: this,
+                success: function(response) {
+                    var result = Ext.decode(response.responseText);
+                    Ext.Msg.alert('Success', result.content);
+                },
+                failure: function(response) {
+                    var result = Ext.decode(response.responseText);
+                    Ext.Msg.alert('Error', result.content);
+                }
+            });
         } else if (item.action === 'Delete') {
             // Ext.Ajax.request({
             //     url: '/favorite/' + action,

@@ -42,7 +42,6 @@ Ext.define('Trister.model.Tweet', {
                 convert: function(value, record) {
                     return genFormattedTweet(record.get('text'), record.get('entities'));
                 }
-                    
             },
             {
                 name: 'formatted_retweeted_text',
@@ -57,12 +56,11 @@ Ext.define('Trister.model.Tweet', {
                     } else {
                         return null;
                     }
-                    
                 }
             }
 
         ],
-        pageSize: 20,
+        pageSize: 20
 	}
 });
 

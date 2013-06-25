@@ -45,12 +45,12 @@ Ext.define('Trister.controller.UpdateStatus', {
                 method: 'POST',
                 scope: this,
                 success: function(form, result) {
-                    this.getParent().setMasked(false);
+                    this.getUpdateView().getParent().setMasked(false);
                     this.getTextarea().setHtml('');
                     this.getUpdateView().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
                 },
                 failure: function(form, result) {
-                    this.getParent().setMasked(false);
+                    this.getUpdateView().getParent().setMasked(false);
                     Ext.Msg.alert('Error', result.content);
                 }
             });

@@ -5,7 +5,7 @@ Ext.define('Trister.view.Homeline', {
         'Trister.store.Homeline',
         'Ext.plugin.ListPaging',
         'Ext.plugin.PullRefresh',
-        'Ext.ux.ListOptions'
+        'Trister.plugin.ListOptions'
     ],
 
     config: {
@@ -28,7 +28,7 @@ Ext.define('Trister.view.Homeline', {
                 releaseRefreshText: 'Release to update...'
             },
             {
-                xclass: 'Ext.ux.ListOptions',
+                xclass: 'Trister.plugin.ListOptions',
                 menuOptions: [
                     {
                         action: 'Reply',

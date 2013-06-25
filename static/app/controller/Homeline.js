@@ -53,7 +53,17 @@ Ext.define('Trister.controller.Homeline', {
             updateType.setValue(item.action);
             if (item.action === 'Reply') {
                 updateTweetId.setValue(record.get('id_str'));
-                updateTextarea.setValue('@' + record.get('user').screen_name + ' ');
+                var users = [];
+                Ext.Array.forEach(record.get('entities').user_mentions, function(mention, idx){
+                    users.push('@' + mention.screen_name);
+                });
+                var author;
+                if (record.get('retweeted_status')) {
+                    author = '@' + retweeted_status.user.screen_name;
+                } else {
+                    author = '@' + record.get('user').screen_name;
+                }
+                updateTextarea.setValue(author + ' ' + users.join(' ') + ' ');
             } else {
                 updateTweetId.setValue(null);
                 updateTextarea.setValue(' ' + record.get('text'));

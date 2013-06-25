@@ -84,10 +84,11 @@
         </tpl>
         <div class="tweet">
         <p class="time">{formatted_time}</p>
-        <p class="user-name">{user.screen_name}</p>
         <tpl if="retweeted_status">
+            <p class="user-name">{retweeted_status.user.screen_name}</p>
             <p class="content">{formatted_retweeted_text}</p>
         <tpl else>
+            <p class="user-name">{user.screen_name}</p>
             <p class="content">{formatted_text}</p>
         </tpl>
         <p class="source">

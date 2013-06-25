@@ -101,13 +101,17 @@ def get_reply():
 def update_status():
     if session.get('trister_access_key') and session.get('trister_access_secret'):
         try:
-            status = g.twit_api.update_status(request.form['tweet'])
+            if request.form['type'] == 'Reply':
+                status = g.twit_api.update_status(status=request.form['tweet'], in_reply_to_status_id=request.form['tweet_id'])
+            else:
+                status = g.twit_api.update_status(request.form['tweet'])
         except TweepError, e:
             return dict(success=False, content='Failed to update tweet!', reason=e.message)
         else:
             return dict(success=True, content='')
     else:
         return app.send_static_file('index.html')
+
 
 @app.route('/favorite/<action>', methods=['POST'])
 @jsonify

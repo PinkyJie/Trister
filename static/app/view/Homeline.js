@@ -29,15 +29,24 @@ Ext.define('Trister.view.Homeline', {
             },
             {
                 xclass: 'Ext.ux.ListOptions',
-                menuOptions: [{
-                    iconCls: 'home'
-                }, {
-                    iconCls: 'reply'
-                }, {
-                    iconCls: 'compose'
-                }, {
-                    iconCls: 'add'
-                }]
+                menuOptions: [
+                    {
+                        action: 'Reply',
+                        iconCls: 'action'
+                    },
+                    {
+                        action: 'RT',
+                        iconCls: 'quote'
+                    },
+                    {
+                        action: 'Retweet',
+                        iconCls: 'loop2'
+                    },
+                    {
+                        action: 'Delete',
+                        iconCls: 'trash'
+                    }
+                ]
             }
         ],
         emptyText: '<p class="no-tweets">No tweets found!</p>',

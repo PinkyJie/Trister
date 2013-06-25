@@ -8,7 +8,6 @@ Ext.define('Trister.view.UpdateStatus', {
 	config: {
         id: 'UpdatePanel',
 		fullscreen: true,
-        title: 'Update',
         cls: 'update-tweet',
         layout: 'vbox',
         items: [
@@ -40,6 +39,16 @@ Ext.define('Trister.view.UpdateStatus', {
                                 xtype: 'textareafield',
                                 name: 'tweet',
                                 required: true
+                            },
+                            {
+                                xtype: 'textfield',
+                                name: 'type',
+                                hidden: true
+                            },
+                            {
+                                xtype: 'textfield',
+                                name: 'tweet_id',
+                                hidden: true
                             }
                         ]
                     },

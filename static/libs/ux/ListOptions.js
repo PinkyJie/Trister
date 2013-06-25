@@ -2,7 +2,8 @@ Ext.define('Ext.ux.ListOptions', {
     mixins: ['Ext.mixin.Observable'],
     xtype : 'listopt',
     requires: [
-        'Ext.Anim'
+        'Ext.Anim',
+        'Ext.Button'
     ],
 
     config: {
@@ -31,10 +32,8 @@ Ext.define('Ext.ux.ListOptions', {
             '<ul class="x-button">',
                 '<tpl for=".">',
                     '<li class="x-menu-option">',
-                        '<a>',
-                            '<span class="x-button-icon x-shown {iconCls}">',
-                            '</span>',
-                        '</a>',
+                        '<span class="x-button-icon x-shown {iconCls}">',
+                        '</span>',
                     '</li>',
                 '</tpl>',
             '</ul>'
@@ -131,12 +130,6 @@ Ext.define('Ext.ux.ListOptions', {
         //AFTERRENDER
         this.onAfterRender();
 
-        // this.parent.addEvents({
-        //     'menuoptiontap': true,
-        //     'listoptionsopen': true,
-        //     'listoptionsclose': true,
-        //     'beforelistoptionstap': true
-        // });
     },
 
     /**
@@ -194,7 +187,7 @@ Ext.define('Ext.ux.ListOptions', {
                 this.hideOptionsMenu();
             }
 
-            activeEl.setVisibilityMode(Ext.Element.VISIBILITY);
+            // activeEl.setVisibilityMode(Ext.Element.VISIBILITY);
 
             // Show the item's List Options
             this.doShowOptionsMenu(activeEl);
@@ -273,10 +266,9 @@ Ext.define('Ext.ux.ListOptions', {
             out: false,
             before: function (el, options) {
                 // force the List Options to the back
-                activeListOptions.setStyle('z-index', '0');
+                // activeListOptions.setStyle('z-index', '0');
 
                 // show the List Item's 'body' so the animation can be seen
-                //hiddenEl.show();
                 this.showItem(hiddenEl);
 
                 if (this.getEnableSoundEffects() && !Ext.isEmpty(this.getCloseSoundEffectURL()) && playSoundEffect) {
@@ -286,8 +278,7 @@ Ext.define('Ext.ux.ListOptions', {
                 }
             },
             after: function (el, options) {
-                //hiddenEl.show();
-                // this.showItem(hiddenEl);
+                this.showItem(hiddenEl);
 
                 // remove the ListOptions DIV completely to save some resources
                 activeListOptions.destroy();
@@ -327,8 +318,8 @@ Ext.define('Ext.ux.ListOptions', {
                 }
             },
             after: function (el, options) {
-                //listItemEl.hide(); // hide the List Item
-                // this.hideItem(listItemEl);
+                // hide the List Item
+                this.hideItem(listItemEl);
 
                 this.parent.fireEvent('listoptionsopen');
 
@@ -360,6 +351,11 @@ Ext.define('Ext.ux.ListOptions', {
             cls: this.getOptionsSelector(),
             html: this.getMenuOptionsTpl().apply(this.processMenuOptionsData())
         }, true).setHeight(listItemElHeight).setStyle('margin-top', (-1 * listItemElHeight) + 'px');
+
+        // set height of ul in List Opitons element
+        // var ul = this.activeListOptions.select('ul');
+        // ulElementHeight = Ext.get(ul.elements[0]).getHeight();
+        // ul.setStyle('margin-top', (listItemElHeight - ulElementHeight) + 'px');
 
         // Add tap handlers to the List Option's menu items
         var listQueryItems = this.activeListOptions.select('.' + this.getMenuOptionSelector()).elements;
@@ -395,11 +391,11 @@ Ext.define('Ext.ux.ListOptions', {
         var menuItemData = this.processMenuOptionsData()[itemIndex];
         var recordItem = this.parent.getStore().getAt(itemIndex);
 
-        if (this.parent.fireEvent('beforelistoptionstap', menuItemData, recordItem) === true) {
+        // if (this.parent.fireEvent('beforelistoptionstap', menuItemData, recordItem) === true) {
             this.addPressedClass(e);
-        } else {
-            this.TapCancelled = true;
-        }
+        // } else {
+            // this.TapCancelled = true;
+        // }
     },
 
     /**
@@ -429,6 +425,7 @@ Ext.define('Ext.ux.ListOptions', {
             var menuItemData = this.processMenuOptionsData()[itemIndex];
             var recordItem = this.parent.getStore().getAt(itemIndex);
 
+            this.hideOptionsMenu();
             this.parent.fireEvent('menuoptiontap', menuItemData, recordItem);
         }
         this.TapCancelled = false;

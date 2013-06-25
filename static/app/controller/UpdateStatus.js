@@ -24,6 +24,7 @@ Ext.define('Trister.controller.UpdateStatus', {
     },
 
     returnHome: function() {
+        this.getTextarea().setValue('');
         this.getUpdateView().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
     },
 
@@ -45,7 +46,7 @@ Ext.define('Trister.controller.UpdateStatus', {
                 scope: this,
                 success: function(form, result) {
                     this.getParent().setMasked(false);
-                    this.getCountLabel().setHtml('');
+                    this.getTextarea().setHtml('');
                     this.getUpdateView().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
                 },
                 failure: function(form, result) {

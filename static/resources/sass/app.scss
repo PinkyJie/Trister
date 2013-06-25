@@ -159,12 +159,7 @@
 }
 
 .x-list-options-plugin .x-list-options {
-    margin-left: 50%;
-    opacity: 0.8;
-    width: 50%;
-    // @include box-shadow(inset 0 0 10px #333);
-    //background-image: url('../images/list-option-bg.png');
-    //background-repeat: repeat;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -172,14 +167,13 @@
     @include box-shadow(inset 0 0 10px #333);
     background-image: url('../images/list-option-bg.png');
     background-repeat: repeat;
-    margin: 45px auto;
-    height: 50%;
-    width: 220px;
+    height: 100%;
+    width: 100%;
 }
 
 .x-list-options-plugin .x-list-options ul li.x-menu-option {
-    float: left;
-    margin: 8px 20px 0 0;
+    padding: 4px;
+    margin-left: 12%;
     height: 35px;
     width: 35px;
     @include border-radius(6px);
@@ -191,4 +185,5 @@
 }
 
 // Examples of using the icon mixin:
-// @include icon('user');
+@include icon('quote');
+@include icon('loop2');

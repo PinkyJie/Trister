@@ -14,7 +14,7 @@ Ext.define('Trister.controller.Main', {
 
     itemChanged: function(panel, newItem, oldItem) {
         // switch between Login/Home/Update
-        console.log(newItem.getXTypes());
+        // console.log(newItem.getXTypes());
         if (newItem.id === 'HomePanel') {
             subActiveItem = newItem.getActiveItem();
             if (subActiveItem.id === 'HomelineList') {

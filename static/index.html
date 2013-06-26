@@ -67,37 +67,37 @@
         <tpl if="favorited">
             <img class="tweet-fav-img" src="resources/images/favorited.png" />
         </tpl>
-        <tpl if="retweeted_status">
-            <img class="type-img" src="{user.profile_image_url_https}" />
-        <tpl elseif="in_reply_to_user_id_str">
-            <img class="type-img" src="{reply_user_img}" />
-        <tpl elseif="source_text === 'Instagram'">
-            <img class="type-img" src="resources/images/instagram.png" />
-        <tpl elseif="source_text === '街旁(JiePang)-台灣/香港'">
-            <img class="type-img" src="resources/images/jiepang.png" />
-        <tpl elseif="source_text === 'foursquare'">
-            <img class="type-img" src="resources/images/foursquare.png" />
-        <tpl elseif="source_text === 'Path'">
-            <img class="type-img" src="resources/images/path.png" />
-        <tpl else>
-            <img class="type-img" src="resources/images/status.png" />
-        </tpl>
         <div class="tweet">
-        <p class="time">{formatted_time}</p>
-        <tpl if="retweeted_status">
-            <p class="user-name">{retweeted_status.user.screen_name}</p>
-            <p class="content">{formatted_retweeted_text}</p>
-        <tpl else>
-            <p class="user-name">{user.screen_name}</p>
-            <p class="content">{formatted_text}</p>
-        </tpl>
-        <p class="source">
-        <tpl if="retweeted_status">
-            <span class="tweet-type">Rwteeted by <span class="relate-user label">{user.screen_name}</span></span>
-        <tpl elseif="in_reply_to_user_id_str">
-            <span class="tweet-type">Reply to <span class="relate-user label">{in_reply_to_screen_name}</span></span>
-        </tpl>
-          via <span class="source-text label">{source}</span></p>
+            <tpl if="retweeted_status">
+                <img class="type-img" src="{user.profile_image_url_https}" />
+            <tpl elseif="in_reply_to_user_id_str">
+                <img class="type-img" src="{reply_user_img}" />
+            <tpl elseif="source_text === 'Instagram'">
+                <img class="type-img" src="resources/images/instagram.png" />
+            <tpl elseif="source_text === '街旁(JiePang)-台灣/香港'">
+                <img class="type-img" src="resources/images/jiepang.png" />
+            <tpl elseif="source_text === 'foursquare'">
+                <img class="type-img" src="resources/images/foursquare.png" />
+            <tpl elseif="source_text === 'Path'">
+                <img class="type-img" src="resources/images/path.png" />
+            <tpl else>
+                <img class="type-img" src="resources/images/status.png" />
+            </tpl>
+            <p class="time">{formatted_time}</p>
+            <tpl if="retweeted_status">
+                <p class="user-name">{retweeted_status.user.screen_name}</p>
+                <p class="content">{formatted_retweeted_text}</p>
+            <tpl else>
+                <p class="user-name">{user.screen_name}</p>
+                <p class="content">{formatted_text}</p>
+            </tpl>
+            <p class="source">
+            <tpl if="retweeted_status">
+                <span class="tweet-type">Rwteeted by <span class="relate-user label">{user.screen_name}</span></span>
+            <tpl elseif="in_reply_to_user_id_str">
+                <span class="tweet-type">Reply to <span class="relate-user label">{in_reply_to_screen_name}</span></span>
+            </tpl>
+              via <span class="source-text label">{source}</span></p>
         </div>
     </script>
     <script id="MentionTweet" type="text/xtemplate">
@@ -105,21 +105,28 @@
         <tpl if="favorited">
             <img class="tweet-fav-img" src="resources/images/favorited.png" />
         </tpl>
-        <tpl if="in_reply_to_user_id_str">
-            <img class="type-img" src="{reply_user_img}" />
-        <tpl else>
-            <img class="type-img" src="resources/images/status.png" />
-        </tpl>
-
         <div class="tweet">
-        <p class="time">{formatted_time}</p>
-        <p class="user-name">{user.screen_name}</p>
-        <p class="content">{formatted_text}</p>
-        <p class="source">
-        <tpl if="in_reply_to_user_id_str">
-            <span class="tweet-type">Reply to <span class="relate-user label">{in_reply_to_screen_name}</span></span>
-        </tpl>
-          via <span class="source-text label">{source}</span></p>
+            <tpl if="in_reply_to_user_id_str">
+                <img class="type-img" src="{reply_user_img}" />
+            <tpl elseif="source_text === 'Instagram'">
+                <img class="type-img" src="resources/images/instagram.png" />
+            <tpl elseif="source_text === '街旁(JiePang)-台灣/香港'">
+                <img class="type-img" src="resources/images/jiepang.png" />
+            <tpl elseif="source_text === 'foursquare'">
+                <img class="type-img" src="resources/images/foursquare.png" />
+            <tpl elseif="source_text === 'Path'">
+                <img class="type-img" src="resources/images/path.png" />
+            <tpl else>
+                <img class="type-img" src="resources/images/status.png" />
+            </tpl>
+            <p class="time">{formatted_time}</p>
+            <p class="user-name">{user.screen_name}</p>
+            <p class="content">{formatted_text}</p>
+            <p class="source">
+            <tpl if="in_reply_to_user_id_str">
+                <span class="tweet-type">Reply to <span class="relate-user label">{in_reply_to_screen_name}</span></span>
+            </tpl>
+              via <span class="source-text label">{source}</span></p>
         </div>
     </script>
 </body>

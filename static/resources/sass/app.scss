@@ -46,9 +46,10 @@
 }
 
 .type-img {
-    margin-left: 9px;
-    margin-top: 15px;
-    position: absolute;
+    float: left;
+    margin-left: -28px;
+    margin-top: 30px;
+    // position: absolute;
     width: 24px;
     border-radius: 12px;
     box-shadow: #42C28A 0 0 8px;
@@ -177,6 +178,10 @@
     height: 35px;
     width: 35px;
     @include border-radius(6px);
+
+    .disabled {
+        opacity: 0.4;
+    }
 }
 
 .x-list-options ul li.x-menu-option-pressed

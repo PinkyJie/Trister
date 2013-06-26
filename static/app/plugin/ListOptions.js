@@ -2,8 +2,7 @@ Ext.define('Trister.plugin.ListOptions', {
     mixins: ['Ext.mixin.Observable'],
     xtype : 'listopt',
     requires: [
-        'Ext.Anim',
-        'Ext.Button'
+        'Ext.Anim'
     ],
 
     config: {
@@ -32,7 +31,7 @@ Ext.define('Trister.plugin.ListOptions', {
             '<ul class="x-button">',
                 '<tpl for=".">',
                     '<li class="x-menu-option">',
-                        '<span class="x-button-icon x-shown {iconCls}">',
+                        '<span class="x-button-icon x-shown {iconCls} {disabled}">',
                         '</span>',
                     '</li>',
                 '</tpl>',
@@ -49,7 +48,29 @@ Ext.define('Trister.plugin.ListOptions', {
         * item's Model instance
         * The function must return either the original 'menuOptions' variable or a revised one
         */
-        menuOptionDataFilter: null,
+        menuOptionDataFilter: function(opitons, record) {
+            // disable options based on record
+            var isRetweeted = record.get('retweeted');
+            var isMyTweet = record.get('user').screen_name === this.user;
+            Ext.Array.forEach(opitons, function(opiton, index){
+                if (opiton.action === 'Retweet') {
+                    if (isRetweeted || isMyTweet) {
+                        opiton.disabled = 'disabled';
+                    } else {
+                        opiton.disabled = '';
+                    }
+                } else if (opiton.action === 'Delete') {
+                    if (!isMyTweet) {
+                        opiton.disabled = 'disabled';
+                    } else {
+                        opiton.disabled = '';
+                    }
+                } else {
+                    opiton.disabled = '';
+                }
+            });
+            return opitons;
+        },
 
         /**
         * Animation used to reveal the List Options
@@ -116,6 +137,17 @@ Ext.define('Trister.plugin.ListOptions', {
     constructor: function(config) {
         this.initConfig(config);
         this.callParent(arguments);
+        Ext.Ajax.request({
+            url: '/is_login',
+            method: 'GET',
+            scope: this,
+            success: function(response) {
+                var res = Ext.decode(response.responseText);
+                if (res.content == 1) {
+                    this.user = res.user;
+                }
+            }
+        });
     },
 
     init: function (parent) {
@@ -352,11 +384,6 @@ Ext.define('Trister.plugin.ListOptions', {
             html: this.getMenuOptionsTpl().apply(this.processMenuOptionsData())
         }, true).setHeight(listItemElHeight).setStyle('margin-top', (-1 * listItemElHeight) + 'px');
 
-        // set height of ul in List Opitons element
-        // var ul = this.activeListOptions.select('ul');
-        // ulElementHeight = Ext.get(ul.elements[0]).getHeight();
-        // ul.setStyle('margin-top', (listItemElHeight - ulElementHeight) + 'px');
-
         // Add tap handlers to the List Option's menu items
         var listQueryItems = this.activeListOptions.select('.' + this.getMenuOptionSelector()).elements;
         for(var i=0; i< listQueryItems.length; i++)
@@ -392,10 +419,16 @@ Ext.define('Trister.plugin.ListOptions', {
         // var recordItem = this.parent.getStore().getAt(itemIndex);
 
         // if (this.parent.fireEvent('beforelistoptionstap', menuItemData, recordItem) === true) {
-            this.addPressedClass(e);
+        //     this.addPressedClass(e);
         // } else {
-            // this.TapCancelled = true;
+        //     this.TapCancelled = true;
         // }
+
+        if (e.target.classList.contains('disabled')) {
+            this.TapCancelled = true;
+        } else {
+            this.addPressedClass(e);
+        }
     },
 
     /**

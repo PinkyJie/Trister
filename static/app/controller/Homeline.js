@@ -89,21 +89,22 @@ Ext.define('Trister.controller.Homeline', {
                 }
             });
         } else if (item.action === 'Delete') {
-            // Ext.Ajax.request({
-            //     url: '/favorite/' + action,
-            //     method: 'POST',
-            //     params: {
-            //         tweet_id: record.get('id_str')
-            //     },
-            //     scope: this,
-            //     success: function(response) {
-            //         record.set('favorited', !favorited);
-            //     },
-            //     failure: function(response) {
-            //         var result = Ext.decode(response.responseText);
-            //         Ext.Msg.alert('Error', result.content);
-            //     }
-            // });
+            Ext.Ajax.request({
+                url: '/destroy/tweet',
+                method: 'POST',
+                params: {
+                    tweet_id: record.get('id_str')
+                },
+                scope: this,
+                success: function(response) {
+                    var result = Ext.decode(response.responseText);
+                    Ext.Msg.alert('Success', result.content);
+                },
+                failure: function(response) {
+                    var result = Ext.decode(response.responseText);
+                    Ext.Msg.alert('Error', result.content);
+                }
+            });
         }
     },
 

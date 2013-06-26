@@ -4,7 +4,8 @@ Ext.define('Trister.view.Mention', {
     requires: [
         'Trister.store.Mention',
         'Ext.plugin.ListPaging',
-        'Ext.plugin.PullRefresh'
+        'Ext.plugin.PullRefresh',
+        'Trister.plugin.ListOptions'
     ],
 
     config: {
@@ -15,8 +16,38 @@ Ext.define('Trister.view.Mention', {
         store: 'Mention',
         disableSelection: true,
         plugins: [
-            { xclass: 'Ext.plugin.ListPaging' },
-            { xclass: 'Ext.plugin.PullRefresh' }
+            {
+                xclass: 'Ext.plugin.ListPaging',
+                autoPaging: true,
+                loadMoreText: 'Load more Mentions...',
+                noMoreRecordsText: 'No more Mentions!'
+            },
+            {
+                xclass: 'Ext.plugin.PullRefresh',
+                pullRefreshText: 'Pull down to update...',
+                releaseRefreshText: 'Release to update...'
+            },
+            {
+                xclass: 'Trister.plugin.ListOptions',
+                menuOptions: [
+                    {
+                        action: 'Reply',
+                        iconCls: 'action'
+                    },
+                    {
+                        action: 'RT',
+                        iconCls: 'quote'
+                    },
+                    {
+                        action: 'Retweet',
+                        iconCls: 'loop2'
+                    },
+                    {
+                        action: 'Delete',
+                        iconCls: 'trash'
+                    }
+                ]
+            }
         ],
         emptyText: '<p class="no-tweets">No mentions found!</p>',
         itemTpl: Ext.XTemplate.from('MentionTweet')

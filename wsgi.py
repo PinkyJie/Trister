@@ -49,7 +49,7 @@ def root():
 @jsonify
 def is_login():
     if session.get('trister_access_key') and session.get('trister_access_secret'):
-        return dict(success=True, content=1)
+        return dict(success=True, content=1, user=session.get('trister_user_name'))
     else:
         return dict(success=True, content=0)
 
@@ -65,7 +65,8 @@ def oauth_login():
     else:
         session['trister_access_key'] = t.access_token
         session['trister_access_secret'] = t.access_token_secret
-        return dict(success=True, content=dict(key=t.access_token, secret=t.access_token_secret))
+        session['trister_user_name'] = t.scree_name
+        return dict(success=True, content=dict(key=t.access_token, secret=t.access_token_secret, user=t.scree_name))
 
 
 @app.route('/home', methods=['GET'])
@@ -117,31 +118,49 @@ def update_status():
 @jsonify
 def favorite(action):
     if session.get('trister_access_key') and session.get('trister_access_secret'):
-        wrong_message = ''
+        fail_msg = ''
         try:
             if action == 'add':
                 g.twit_api.create_favorite(request.form['tweet_id'])
-                wrong_message = 'Failed to create favorite tweet'
+                fail_msg = 'Failed to create favorite tweet'
             elif action == 'del':
                 g.twit_api.destory_favorite(request.form['tweet_id'])
-                wrong_message = 'Failed to destory favorite tweet'
+                fail_msg = 'Failed to destory favorite tweet'
         except TweepError, e:
-            return dict(success=False, content=wrong_message, reason=e.message)
+            return dict(success=False, content=fail_msg, reason=e.message)
         else:
             return dict(success=True, content='')
     else:
         return app.send_static_file('index.html')
+
 
 @app.route('/retweet', methods=['POST'])
 @jsonify
 def retweet_tweet():
     if session.get('trister_access_key') and session.get('trister_access_secret'):
         try:
-                g.twit_api.retweet(request.form['tweet_id'])
+            g.twit_api.retweet(request.form['tweet_id'])
         except TweepError, e:
             return dict(success=False, content='Failed to retweet tweet!', reason=e.message)
         else:
             return dict(success=True, content='Retweet successfully!')
+    else:
+        return app.send_static_file('index.html')
+
+
+@app.route('/destory/<entity>', methods=['POST'])
+@jsonify
+def destory_entity(entity):
+    if session.get('trister_access_key') and session.get('trister_access_secret'):
+        try:
+            if entity == 'tweet':
+                g.twit_api.destroy_status(request.form['tweet_id'])
+                success_msg = 'Delete tweet successfully!'
+                fail_msg = 'Failed to delete tweet!'
+        except TweepError, e:
+            return dict(success=False, content=fail_msg, reason=e.message)
+        else:
+            return dict(success=True, content=success_msg)
     else:
         return app.send_static_file('index.html')
 

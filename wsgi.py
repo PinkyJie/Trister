@@ -2,6 +2,7 @@
 
 import os
 from functools import wraps
+import json
 
 from tweepy import (parsers, OAuthHandler, API, TweepError)
 from flask import (Flask, request, session, g)
@@ -161,6 +162,23 @@ def destory_entity(entity):
             return dict(success=False, content=fail_msg, reason=e.message)
         else:
             return dict(success=True, content=success_msg)
+    else:
+        return app.send_static_file('index.html')
+
+
+@app.route('/dm', methods=['GET'])
+def get_direct_message():
+    if session.get('trister_access_key') and session.get('trister_access_secret'):
+        page_arg = int(request.args['page'])
+        count_arg = int(request.args['count'])
+        received_dms = json.loads(g.twit_api.direct_messages(page=page_arg, count=count_arg))
+        sent_dms = json.loads(g.twit_api.sent_direct_messages(page=page_arg, count=count_arg))
+        dms = received_dms + sent_dms
+
+        f = open('dm.json', 'w')
+        f.write(dms)
+        f.close()
+        return dms
     else:
         return app.send_static_file('index.html')
 

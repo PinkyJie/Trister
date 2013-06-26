@@ -136,7 +136,7 @@ class TwitterOauth(object):
             res_dict = str2dict(res)
             self.access_token = res_dict['oauth_token']
             self.access_token_secret = res_dict['oauth_token_secret']
-            self.scree_name = res_dict['screen_name']
+            self.screen_name = res_dict['screen_name']
             self.logger.debug('get access token: ok ')
             self.logger.debug(res_dict)
 

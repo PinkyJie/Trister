@@ -1,5 +1,5 @@
 Ext.define('Trister.view.DM', {
-    extend: 'Ext.Panel',
+    extend: 'Ext.navigation.View',
     xtype: 'dmlist',
 
     config: {

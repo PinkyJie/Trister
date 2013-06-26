@@ -22,11 +22,11 @@ Ext.define('Trister.controller.Main', {
             } else if (subActiveItem.id === 'MentionList') {
                 storeName = 'Mention';
             } else if (subActiveItem.id === 'DMList') {
-                storeName = 'DM';
+                storeName = 'DMlist';
             }
             store = Ext.getStore(storeName);
             // when first loading tweets, show a mask view to aviod blank
-            if (store.getData().length == 0) {
+            if (store.getData().length === 0) {
                 subActiveItem.setMasked({
                     xtype: 'loadmask',
                     message: 'Loading Tweets...'

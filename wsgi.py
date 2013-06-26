@@ -3,6 +3,8 @@
 import os
 from functools import wraps
 import json
+import time
+from datetime import datetime
 
 from tweepy import (parsers, OAuthHandler, API, TweepError)
 from flask import (Flask, request, session, g)
@@ -33,6 +35,11 @@ def rebuild_api():
     twit = OAuthHandler(app.config['CONSUMER_KEY'], app.config['CONSUMER_SECRET'])
     twit.set_access_token(session.get('trister_access_key'), session.get('trister_access_secret'))
     return API(auth_handler=twit, parser=parsers.RawParser())
+
+
+def str2timestamp(time_str):
+    time_struct = time.strptime(time_str, '%a %b %d %H:%M:%S +0000 %Y')
+    return int(time.mktime(time_struct))
 
 
 @app.before_request
@@ -174,11 +181,23 @@ def get_direct_message():
         received_dms = json.loads(g.twit_api.direct_messages(page=page_arg, count=count_arg))
         sent_dms = json.loads(g.twit_api.sent_direct_messages(page=page_arg, count=count_arg))
         dms = received_dms + sent_dms
-
+        dm_list = []
+        me = session.get('trister_user_name')
+        senders = [dm['sender']['id_str'] for dm in dms if dm['sender']['screen_name'] != me]
+        recipients = [dm['recipient']['id_str'] for dm in dms if dm['recipient']['screen_name'] != me]
+        users = set(senders + recipients)
+        for user in users:
+            _dict = {}
+            _dict['dms'] = [dm for dm in dms if dm['recipient']['id_str'] == user or dm['sender']['id_str'] == user]
+            _dict['dms'].sort(key=lambda dm: str2timestamp(dm['created_at']), reverse=True)
+            _dict['time'] = _dict['dms'][0]['created_at']
+            dm_list.append(_dict)
+        dm_list.sort(key=lambda dm: str2timestamp(dm['time']), reverse=True)
+        json_str = json.dumps(dm_list)
         f = open('dm.json', 'w')
-        f.write(dms)
+        f.write(json_str)
         f.close()
-        return dms
+        return json_str
     else:
         return app.send_static_file('index.html')
 

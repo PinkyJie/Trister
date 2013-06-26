@@ -3,12 +3,12 @@ Ext.define('Trister.model.DMabstract', {
 
     config: {
         fields: [
-            'id_str', 'text', 'sender', 'recipient', 'entities', 'created_at',
+            'time', 'dms',
             {
                 name: 'formatted_time',
                 type: 'string',
                 convert: function(value, record) {
-                    var diff = new Date().getTime() - new Date(record.get('created_at')).getTime();
+                    var diff = new Date().getTime() - new Date(record.get('time')).getTime();
                     if (diff > 1000 * 60 * 60 * 24) {
                         return Math.floor(diff / (1000 * 60 * 60 * 24)) + " d ago";
                     } else if (diff > 1000 * 60 * 60) {
@@ -21,10 +21,17 @@ Ext.define('Trister.model.DMabstract', {
                 }
             },
             {
-                name: 'formatted_text',
+                name: 'recipient',
+                type: 'object',
+                convert: function(value, record) {
+                    return record.get('dms')[0].recipient;
+                }
+            },
+            {
+                name: 'latest_dm',
                 type: 'string',
                 convert: function(value, record) {
-                    return genFormattedTweet(record.get('text'), record.get('entities'));
+                    return record.get('dms')[0].text;
                 }
             }
         ],

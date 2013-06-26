@@ -7,7 +7,7 @@ Ext.define('Trister.controller.Home', {
             updateView: '#UpdatePanel',
             mainView: '#MainPanel',
             tweetBtn: '#HomePanel #TweetBtn',
-            titlebar: '#HomePanel titlebar'
+            titleBar: '#HomePanel titlebar'
         },
         control: {
             homeView: {
@@ -30,6 +30,10 @@ Ext.define('Trister.controller.Home', {
             storeName = 'Mention';
             loadingName = 'Mentions';
             this.getTitleBar().show();
+        } else if (newItem.id === 'DMList') {
+            storeName = 'DMlist';
+            loadingName = 'DMs';
+            this.getTitleBar().hide();
         }
         store = Ext.getStore(storeName);
         if (store.getData().length === 0) {

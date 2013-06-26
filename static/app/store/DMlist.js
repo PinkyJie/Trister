@@ -6,7 +6,7 @@ Ext.define('Trister.store.DMlist', {
         // autoLoad: true,
         proxy: {
             type: 'ajax',
-            url: '/home',
+            url: '/dm',
             pageParam: 'page',
             limitParam: 'count',
             reader: {

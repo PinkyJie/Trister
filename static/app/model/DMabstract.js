@@ -3,7 +3,7 @@ Ext.define('Trister.model.DMabstract', {
 
     config: {
         fields: [
-            'time', 'dms',
+            'time', 'dms', 'me',
             {
                 name: 'formatted_time',
                 type: 'string',
@@ -21,17 +21,26 @@ Ext.define('Trister.model.DMabstract', {
                 }
             },
             {
-                name: 'recipient',
+                name: 'friend',
                 type: 'object',
                 convert: function(value, record) {
-                    return record.get('dms')[0].recipient;
+                    var latest_dm = record.get('dms')[0];
+                    if (latest_dm.sender.screen_name === record.get('me')) {
+                        return latest_dm.recipient;
+                    } else {
+                        return latest_dm.sender;
+                    }
                 }
             },
             {
-                name: 'latest_dm',
+                name: 'latest_dm_text',
                 type: 'string',
                 convert: function(value, record) {
-                    return record.get('dms')[0].text;
+                    var text = record.get('dms')[0].text;
+                    if (text.length > 45) {
+                        return text.substring(0, 45) + '...';
+                    }
+                    return text;
                 }
             }
         ],

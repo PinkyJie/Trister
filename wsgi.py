@@ -42,6 +42,12 @@ def str2timestamp(time_str):
     return int(time.mktime(time_struct))
 
 
+def is_dm_with_user(dm, user, me):
+    sender = dm['sender']['screen_name']
+    receiver = dm['recipient']['screen_name']
+    return (sender == me and receiver == user) or (sender == user and receiver == me)
+
+
 @app.before_request
 def before_request():
     if session.get('trister_access_key') and session.get('trister_access_secret'):
@@ -73,8 +79,8 @@ def oauth_login():
     else:
         session['trister_access_key'] = t.access_token
         session['trister_access_secret'] = t.access_token_secret
-        session['trister_user_name'] = t.scree_name
-        return dict(success=True, content=dict(key=t.access_token, secret=t.access_token_secret, user=t.scree_name))
+        session['trister_user_name'] = t.screen_name
+        return dict(success=True, content=dict(key=t.access_token, secret=t.access_token_secret, user=t.screen_name))
 
 
 @app.route('/home', methods=['GET'])
@@ -183,14 +189,16 @@ def get_direct_message():
         dms = received_dms + sent_dms
         dm_list = []
         me = session.get('trister_user_name')
-        senders = [dm['sender']['id_str'] for dm in dms if dm['sender']['screen_name'] != me]
-        recipients = [dm['recipient']['id_str'] for dm in dms if dm['recipient']['screen_name'] != me]
-        users = set(senders + recipients)
-        for user in users:
+        senders = [dm['sender']['screen_name'] for dm in dms]
+        recipients = [dm['recipient']['screen_name'] for dm in dms]
+        all_users = set(senders + recipients)
+        users_expcept_me = [user for user in all_users if user != me]
+        for user in users_expcept_me:
             _dict = {}
-            _dict['dms'] = [dm for dm in dms if dm['recipient']['id_str'] == user or dm['sender']['id_str'] == user]
+            _dict['dms'] = [dm for dm in dms if is_dm_with_user(dm, user, me)]
             _dict['dms'].sort(key=lambda dm: str2timestamp(dm['created_at']), reverse=True)
             _dict['time'] = _dict['dms'][0]['created_at']
+            _dict['me'] = me
             dm_list.append(_dict)
         dm_list.sort(key=lambda dm: str2timestamp(dm['time']), reverse=True)
         json_str = json.dumps(dm_list)

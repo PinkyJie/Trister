@@ -10,7 +10,7 @@ Ext.define('Trister.view.Homeline', {
 
     config: {
         id: 'HomelineList',
-        title: 'Home',
+        title: 'Timeline',
         iconCls: 'home',
         cls: 'home',
         store: 'Homeline',

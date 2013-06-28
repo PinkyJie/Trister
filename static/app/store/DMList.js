@@ -1,8 +1,8 @@
-Ext.define('Trister.store.DMlist', {
+Ext.define('Trister.store.DMList', {
 	extend: 'Ext.data.Store',
 
 	config: {
-		model: 'Trister.model.DMabstract',
+		model: 'Trister.model.DMAbstract',
         // autoLoad: true,
         proxy: {
             type: 'ajax',

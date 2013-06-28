@@ -16,13 +16,13 @@ Ext.define('Trister.view.Home', {
         items: [
             {
                 xtype: 'titlebar',
+                title: 'Timeline',
                 docked: 'top',
-                title: 'Trister',
                 items: [
                     {
                         id: 'TweetBtn',
                         align: 'right',
-                        text: 'Tweet'
+                        iconCls: 'compose'
                     }
                 ]
             },

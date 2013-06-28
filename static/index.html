@@ -129,12 +129,19 @@
               via <span class="source-text label">{source}</span></p>
         </div>
     </script>
-    <script id="DMabstract" type="text/xtemplate">
+    <script id="DMAbstract" type="text/xtemplate">
         <img class="dm-recipient-img" src="{friend.profile_image_url_https}" />
         <div class="direct-message">
             <p class="time">{formatted_time}</p>
             <p class="dm-recipient-name">{friend.screen_name}</p>
             <p class="dm-content">{latest_dm_text}</p>
+        </div>
+    </script>
+    <script id="DMChat" type="text/xtemplate">
+        <img class="dm-chat-user-img" src="{sender.profile_image_url_https}" />
+        <div class="dm-user-name {type}">{sender.screen_name}</div>
+        <div class="x-button x-button-confirm {type}">
+            <p class="x-button-label dm-chat">{text}</p>
         </div>
     </script>
 </body>

@@ -1,9 +1,9 @@
-Ext.define('Trister.view.DMlist', {
+Ext.define('Trister.view.DMList', {
     extend: 'Ext.List',
     xtype: 'dmlist',
 
     requires: [
-        'Trister.store.DMlist',
+        'Trister.store.DMList',
         'Ext.plugin.ListPaging',
         'Ext.plugin.PullRefresh'
     ],
@@ -11,9 +11,10 @@ Ext.define('Trister.view.DMlist', {
     config: {
         id: 'DMList',
         title: 'DM',
-        iconCls: 'user',
+        iconCls: 'chat',
         cls: 'dm',
-        store: 'DMlist',
+        store: 'DMList',
+        onItemDisclosure: true,
         plugins: [
             {
                 xclass: 'Ext.plugin.ListPaging',
@@ -28,6 +29,6 @@ Ext.define('Trister.view.DMlist', {
             }
         ],
         emptyText: '<p class="no-tweets">No DMs found!</p>',
-        itemTpl: Ext.XTemplate.from('DMabstract')
+        itemTpl: Ext.XTemplate.from('DMAbstract')
     }
 });

@@ -6,6 +6,14 @@
 
 // Custom code goes here..
 
+@mixin text-overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
 /* LoginView */
 
 .login {
@@ -40,9 +48,9 @@
 .user-img {
     margin-left: -3px;
     width: 48px;
-    border-radius:24px;
+    @include border-radius(24px);
     float:left;
-    box-shadow: #92CEEE 0 0 8px;
+    @include box-shadow(#92CEEE 0 0 8px);
 }
 
 .type-img {
@@ -51,8 +59,8 @@
     margin-top: 30px;
     // position: absolute;
     width: 24px;
-    border-radius: 12px;
-    box-shadow: #42C28A 0 0 8px;
+    @include border-radius(12px);
+    @include box-shadow(#42C28A 0 0 8px);
 }
 
 .user-name {
@@ -131,7 +139,7 @@
     margin-top: -25px;
     font-size: 20pt;
     color: #7CE;
-    text-shadow: #7CE 0px 0px 5px;
+    @include text-shadow(#7CE 0px 0px 5px);
 }
 
 .tweet-count-warning {
@@ -139,7 +147,7 @@
     margin-top: -25px;
     font-size: 20pt;
     color: #CAA;
-    text-shadow: #CAA 0px 0px 5px;
+    @include text-shadow(#CAA 0px 0px 5px);
 }
 
 .label {
@@ -148,7 +156,7 @@
     font-size: 13px;
     font-weight: bold;
     // line-height: 14px;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    @include text-shadow(0 -1px 0 rgba(0, 0, 0, 0.25));
     white-space: nowrap;
     // vertical-align: baseline;
 }
@@ -161,6 +169,7 @@
 }
 
 .direct-message {
+    width: 80%;
     padding-left: 15px;
     margin-left: 45px;
     min-height: 50px
@@ -171,11 +180,14 @@
 }
 
 .dm-content {
-    overflow: hidden;
-    opacity: 0.4;
-    max-height: 34px;
-    margin-top: 3px;
-    font-size: 13px;
+    opacity: 0.5;
+    margin-top: 10px;
+    font-size: 15px;
+    @include text-overflow;
+}
+
+.dm .x-list-item-tpl .x-list-disclosure {
+    top: 15px;
 }
 
 // for Ext.ux.ListOpitons

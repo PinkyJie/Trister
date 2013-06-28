@@ -1,4 +1,4 @@
-Ext.define('Trister.model.DMabstract', {
+Ext.define('Trister.model.DMAbstract', {
     extend: 'Ext.data.Model',
 
     config: {
@@ -36,11 +36,7 @@ Ext.define('Trister.model.DMabstract', {
                 name: 'latest_dm_text',
                 type: 'string',
                 convert: function(value, record) {
-                    var text = record.get('dms')[0].text;
-                    if (text.length > 45) {
-                        return text.substring(0, 45) + '...';
-                    }
-                    return text;
+                    return record.get('dms')[0].text;
                 }
             }
         ],

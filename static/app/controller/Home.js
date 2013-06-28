@@ -25,15 +25,15 @@ Ext.define('Trister.controller.Home', {
         if (newItem.id === 'HomelineList') {
             storeName = 'Homeline';
             loadingName = 'Tweets';
-            this.getTitleBar().show();
+            this.getTitleBar().setTitle('Timeline');
         } else if (newItem.id === 'MentionList') {
             storeName = 'Mention';
             loadingName = 'Mentions';
-            this.getTitleBar().show();
+            this.getTitleBar().setTitle('Mention');
         } else if (newItem.id === 'DMList') {
-            storeName = 'DMlist';
+            storeName = 'DMList';
             loadingName = 'DMs';
-            this.getTitleBar().hide();
+            this.getTitleBar().setTitle('DM');
         }
         store = Ext.getStore(storeName);
         if (store.getData().length === 0) {

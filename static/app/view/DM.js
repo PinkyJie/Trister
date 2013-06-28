@@ -3,11 +3,12 @@ Ext.define('Trister.view.DM', {
     xtype: 'dmnavigation',
 
     requires: [
-        'Trister.view.DMlist',
-        // 'Trister.view.DMchat'
+        'Trister.view.DMList',
+        'Trister.view.DMChatList'
     ],
 
     config: {
+        id: 'DMNavigation',
         items: {
             xtype: 'dmlist'
         }

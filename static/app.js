@@ -36,20 +36,20 @@ Ext.application({
         'Home',
         'UpdateStatus',
         'Homeline',
-        'Mention'
+        'Mention',
+        'DM'
     ],
 
     models: [
         'Tweet',
         'DirectMessage',
-        'DMabstract'
+        'DMAbstract'
     ],
 
     stores: [
         'Homeline',
         'Mention',
-        'DMlist',
-        'DMchat'
+        'DMList'
     ],
 
     icon: {

@@ -55,6 +55,7 @@ Ext.define('Trister.view.Login', {
                         ]
                     },
                     {
+                        id: 'LoginBtn',
                         xtype: 'button',
                         text: 'Login',
                         ui: 'action'

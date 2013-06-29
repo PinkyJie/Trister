@@ -33,7 +33,7 @@ Ext.define('Trister.view.Home', {
                 xtype: 'mentionlist'
             },
             {
-                xtype: 'dmlist'
+                xtype: 'dmnavigation'
             }
         ]
     }

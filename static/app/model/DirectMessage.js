@@ -3,21 +3,26 @@ Ext.define('Trister.model.DirectMessage', {
 
     config: {
         fields: [
-            'id_str', 'text', 'sender', 'recipient', 'entities', 'created_at',
+            'id_str', 'text', 'sender', 'recipient', 'entities', 'created_at', 'type',
             {
                 name: 'formatted_time',
                 type: 'string',
                 convert: function(value, record) {
-                    var diff = new Date().getTime() - new Date(record.get('created_at')).getTime();
-                    if (diff > 1000 * 60 * 60 * 24) {
-                        return Math.floor(diff / (1000 * 60 * 60 * 24)) + " d ago";
-                    } else if (diff > 1000 * 60 * 60) {
-                        return Math.floor(diff / (1000 * 60 * 60)) + " h ago";
-                    } else if (diff > 1000 * 60) {
-                        return Math.floor(diff / (1000 * 60)) + " m ago";
-                    } else {
-                        return Math.floor(diff / 1000) + " s ago";
-                    }
+                    var date = new Date(record.get('created_at'));
+                    return [
+                        date.getFullYear().toString(),
+                        '-',
+                        addZeroPrefix((date.getMonth() + 1)),
+                        '-',
+                        addZeroPrefix(date.getDate()),
+                        ' ',
+                        addZeroPrefix(date.getHours()),
+                        ':',
+                        addZeroPrefix(date.getMinutes()),
+                        ':',
+                        addZeroPrefix(date.getSeconds())
+                    ].join('');
+
                 }
             },
             {
@@ -48,11 +53,11 @@ function genFormattedTweet(text, entities) {
         Ext.Array.forEach(entities.urls, function(url, idx) {
             text = text.replace(
                 url.url,
-                ['<span class="content-url label">',
+                ['<p class="content-url label">',
                  '<a target="_blank" href="' + url.expanded_url + '">',
                  url.display_url,
                  '</a>',
-                 '</span>'
+                 '</p>'
                 ].join('')
             );
         });
@@ -70,14 +75,21 @@ function genFormattedTweet(text, entities) {
         Ext.Array.forEach(entities.media, function(media, idx) {
             text = text.replace(
                 media.url,
-                ['<span class="content-media label">',
+                ['<p class="content-media label">',
                  '<a target="_blank" href="' + media.expanded_url + '">',
                  media.display_url,
                  '</a>',
-                 '</span>'
+                 '</p>'
                 ].join('')
             );
         });
     }
     return text;
+}
+
+function addZeroPrefix(num) {
+    if (num < 10) {
+        return '0' + num;
+    }
+    return '' + num;
 }

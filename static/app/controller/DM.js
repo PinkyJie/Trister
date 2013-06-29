@@ -4,15 +4,16 @@ Ext.define('Trister.controller.DM', {
     config: {
         refs: {
             dmListView: '#DMList',
-            dmNaviView: {
-                selector: '#DMNavigation',
-                xtype: 'navigationview',
-                autoCreate: true
-            }
+            dmNaviView: '#DMNavigation',
+            composeBtn: '#ComposeDM'
         },
         control: {
             dmListView: {
                 disclose: 'openDMChatView'
+            },
+            dmNaviView: {
+                push: 'afterPushChatView',
+                pop: 'afterPopChatView'
             }
         }
     },
@@ -28,11 +29,21 @@ Ext.define('Trister.controller.DM', {
                 r.type = 'remote';
             }
         });
+        Ext.getStore('DMChatList').applyData(newRecord.reverse());
         this.getDmNaviView().push({
             xtype: 'dmchatlist',
-            title: record.get('friend'),
-            data: newRecord
+            title: record.get('friend').screen_name
         });
+    },
+
+    afterPushChatView: function(naviView, pushedView) {
+        naviView.getParent().getTabBar().hide();
+        this.getComposeBtn().hide();
+    },
+
+    afterPopChatView: function(naviView, popedView) {
+        naviView.getParent().getTabBar().show();
+        this.getComposeBtn().show();
     },
 
     //called when the Application is launched, remove if not needed

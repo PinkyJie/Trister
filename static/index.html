@@ -138,10 +138,10 @@
         </div>
     </script>
     <script id="DMChat" type="text/xtemplate">
-        <img class="dm-chat-user-img" src="{sender.profile_image_url_https}" />
-        <div class="dm-user-name {type}">{sender.screen_name}</div>
-        <div class="x-button x-button-confirm {type}">
-            <p class="x-button-label dm-chat">{text}</p>
+        <img class="dm-chat-user-img {type}" src="{sender.profile_image_url_https}" />
+        <div class="dm-chat {type}">
+            <div class="dm-time">{formatted_time}</div>
+            <div class="dm-chat-content {type}">{formatted_text}</div>
         </div>
     </script>
 </body>

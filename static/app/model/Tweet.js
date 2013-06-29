@@ -80,11 +80,11 @@ function genFormattedTweet(text, entities) {
         Ext.Array.forEach(entities.urls, function(url, idx) {
             text = text.replace(
                 url.url,
-                ['<span class="content-url label">',
+                ['<p class="content-url label">',
                  '<a target="_blank" href="' + url.expanded_url + '">',
                  url.display_url,
                  '</a>',
-                 '</span>'
+                 '</p>'
                 ].join('')
             );
         });
@@ -102,11 +102,11 @@ function genFormattedTweet(text, entities) {
         Ext.Array.forEach(entities.media, function(media, idx) {
             text = text.replace(
                 media.url,
-                ['<span class="content-media label">',
+                ['<p class="content-media label">',
                  '<a target="_blank" href="' + media.expanded_url + '">',
                  media.display_url,
                  '</a>',
-                 '</span>'
+                 '</p>'
                 ].join('')
             );
         });

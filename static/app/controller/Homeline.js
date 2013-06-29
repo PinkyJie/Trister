@@ -110,8 +110,6 @@ Ext.define('Trister.controller.Homeline', {
 
     //called when the Application is launched, remove if not needed
     launch: function(app) {
-        Ext.getStore('Homeline').addListener('load', function(){
-            this.getHomelineView().setMasked(false);
-        }, this);
+        
     }
 });

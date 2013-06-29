@@ -3,7 +3,6 @@ Ext.define('Trister.store.DMList', {
 
 	config: {
 		model: 'Trister.model.DMAbstract',
-        // autoLoad: true,
         proxy: {
             type: 'ajax',
             url: '/dm',
@@ -12,6 +11,13 @@ Ext.define('Trister.store.DMList', {
             reader: {
                 type: 'json'
             }
+        },
+        listeners: {
+            load: 'hideLoadingMask'
         }
-	}
+	},
+
+    hideLoadingMask: function() {
+        Ext.getCmp('HomePanel').setMasked(false);
+    }
 });

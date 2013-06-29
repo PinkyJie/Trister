@@ -9,8 +9,22 @@ Ext.define('Trister.view.DM', {
 
     config: {
         id: 'DMNavigation',
-        items: {
-            xtype: 'dmlist'
-        }
+        title: 'DM',
+        iconCls: 'chat',
+        cls: 'dm',
+        defaultBackButtonText: 'DM',
+        navigationBar: {
+            items: {
+                id: 'ComposeDM',
+                xtype: 'button',
+                align: 'right',
+                iconCls: 'compose'
+            }
+        },
+        items: [
+            {
+                xtype: 'dmlist'
+            }
+        ]
     }
 });

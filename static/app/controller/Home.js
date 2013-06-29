@@ -21,23 +21,23 @@ Ext.define('Trister.controller.Home', {
 
     itemChanged: function(panel, newItem, oldItem) {
         // switch between Homeline/Mention/DM
-        console.log(newItem.getXTypes());
+        // console.log(newItem.getXTypes());
         if (newItem.id === 'HomelineList') {
             storeName = 'Homeline';
             loadingName = 'Tweets';
-            this.getTitleBar().setTitle('Timeline');
+            this.getTitleBar().show();
         } else if (newItem.id === 'MentionList') {
             storeName = 'Mention';
             loadingName = 'Mentions';
-            this.getTitleBar().setTitle('Mention');
-        } else if (newItem.id === 'DMList') {
+            this.getTitleBar().show();
+        } else if (newItem.id === 'DMNavigation') {
             storeName = 'DMList';
             loadingName = 'DMs';
-            this.getTitleBar().setTitle('DM');
+            this.getTitleBar().hide();
         }
         store = Ext.getStore(storeName);
         if (store.getData().length === 0) {
-            newItem.setMasked({
+            this.getHomeView().setMasked({
                 xtype: 'loadmask',
                 message: 'Loading ' + loadingName + '...'
             });

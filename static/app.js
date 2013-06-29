@@ -49,7 +49,8 @@ Ext.application({
     stores: [
         'Homeline',
         'Mention',
-        'DMList'
+        'DMList',
+        'DMChatList'
     ],
 
     icon: {

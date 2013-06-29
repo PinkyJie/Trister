@@ -3,13 +3,15 @@ Ext.define('Trister.view.DMChatList', {
     xtype: 'dmchatlist',
 
     requires: [
-        'Ext.Toolbar'
+        'Ext.Toolbar',
+        'Trister.store.DMChatList'
     ],
 
     config: {
         id: 'DMChatList',
-        cls: 'dm-chat',
+        cls: 'dm-chat-list',
         disableSelection: true,
+        store: 'DMChatList',
         items: [
             {
                 xtype: 'toolbar',
@@ -18,7 +20,7 @@ Ext.define('Trister.view.DMChatList', {
                     {
                         xtype: 'textareafield',
                         height: 60,
-                        flex: 5,
+                        flex: 6,
                         name: 'DMInput'
                     },
                     {

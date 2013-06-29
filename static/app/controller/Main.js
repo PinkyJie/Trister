@@ -3,7 +3,8 @@ Ext.define('Trister.controller.Main', {
 
     config: {
         refs: {
-            main: 'main'
+            main: 'main',
+            titleBar: '#HomePanel titlebar'
         },
         control: {
             main: {
@@ -16,20 +17,27 @@ Ext.define('Trister.controller.Main', {
         // switch between Login/Home/Update
         // console.log(newItem.getXTypes());
         if (newItem.id === 'HomePanel') {
+            // change from other view to HomePanel
             subActiveItem = newItem.getActiveItem();
             if (subActiveItem.id === 'HomelineList') {
                 storeName = 'Homeline';
+                loadingName = 'Tweets';
+                this.getTitleBar().show();
             } else if (subActiveItem.id === 'MentionList') {
                 storeName = 'Mention';
-            } else if (subActiveItem.id === 'DMList') {
-                storeName = 'DMlist';
+                loadingName = 'Mentions';
+                this.getTitleBar().show();
+            } else if (subActiveItem.id === 'DMNavigation') {
+                storeName = 'DMList';
+                loadingName = 'DMs';
+                this.getTitleBar().hide();
             }
+            // when first loading, show a mask view to aviod blank
             store = Ext.getStore(storeName);
-            // when first loading tweets, show a mask view to aviod blank
             if (store.getData().length === 0) {
-                subActiveItem.setMasked({
+                newItem.setMasked({
                     xtype: 'loadmask',
-                    message: 'Loading Tweets...'
+                    message: 'Loading ' + loadingName + '...'
                 });
                 store.load();
             }

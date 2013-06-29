@@ -56,7 +56,7 @@
 .type-img {
     float: left;
     margin-left: -28px;
-    margin-top: 30px;
+    // margin-top: 30px;
     // position: absolute;
     width: 24px;
     @include border-radius(12px);
@@ -112,11 +112,12 @@
 }
 
 .content-media {
-    background: #9799A7;
+    @extend .content-url;
 }
 
 .content-url {
     background: #9799A7;
+    @include text-overflow;
 }
 
 .tweet-fav-img {
@@ -162,7 +163,7 @@
 }
 
 
-/* DMView */
+/* DMListView */
 
 .dm-recipient-img {
     @extend .user-img;
@@ -190,7 +191,56 @@
     top: 15px;
 }
 
-// for Ext.ux.ListOpitons
+/* DMChatView */
+/* reference http://www.rwe-uk.com/blog/comments/ichat_like_speech_bubbles_with_css_3/ */
+
+.dm-chat-user-img {
+    position: absolute;
+    width: 48px;
+    bottom: 5px;
+    @include border-radius(24px);
+    @include box-shadow(#92CEEE 0 0 8px);
+    &.remote {
+        left: 10px;
+    }
+    &.local {
+        right: 15px;
+    }
+}
+
+.dm-time {
+    opacity: 0.6;
+    text-align: center;
+    font-size: 8pt;
+}
+
+.dm-chat {
+    &.remote {
+        text-align: left;
+        margin-left: 13%;
+    }
+    &.local {
+        text-align: right;
+        margin-right: 13%
+    }
+}
+
+.dm-chat-content {
+    display: inline-block;
+    max-width: 80%;
+    text-align: left;
+    &.remote {
+        border-width: 8px 10px 8px 17px;
+        -webkit-border-image: url(../images/left_chat.png) 8 10 8 17 stretch stretch;
+    }
+    &.local {
+        border-width: 8px 17px 8px 10px;
+        -webkit-border-image: url(../images/right_chat.png) 8 17 8 10 stretch stretch;
+    }
+}
+
+
+/* ListOpitons */ 
 
 .x-list-options-plugin.x-list .x-list-item {
     background-color: white;
@@ -203,7 +253,7 @@
 
 .x-list-options-plugin .x-list-options ul {
     @include box-shadow(inset 0 0 10px #333);
-    background-image: url('../images/list-option-bg.png');
+    background-image: url(../images/list-option-bg.png);
     background-repeat: repeat;
     height: 100%;
     width: 100%;

@@ -11,9 +11,8 @@ Ext.define('Trister.view.DMList', {
     config: {
         id: 'DMList',
         title: 'DM',
-        iconCls: 'chat',
-        cls: 'dm',
         store: 'DMList',
+        disableSelection: true,
         onItemDisclosure: true,
         plugins: [
             {

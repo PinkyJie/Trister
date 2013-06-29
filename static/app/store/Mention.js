@@ -3,7 +3,6 @@ Ext.define('Trister.store.Mention', {
 
 	config: {
 		model: 'Trister.model.Tweet',
-        // autoLoad: true,
         proxy: {
             type: 'ajax',
             url: '/mention',
@@ -12,6 +11,13 @@ Ext.define('Trister.store.Mention', {
             reader: {
                 type: 'json'
             }
+        },
+        listeners: {
+            load: 'hideLoadingMask'
         }
-	}
+	},
+
+    hideLoadingMask: function() {
+        Ext.getCmp('HomePanel').setMasked(false);
+    }
 });

@@ -170,9 +170,9 @@
 }
 
 .direct-message {
-    width: 80%;
     padding-left: 15px;
     margin-left: 45px;
+    margin-right: 50px;
     min-height: 50px
 }
 
@@ -217,15 +217,16 @@
 .dm-chat {
     &.remote {
         text-align: left;
-        margin-left: 13%;
+        margin-left: 55px;
     }
     &.local {
         text-align: right;
-        margin-right: 13%
+        margin-right: 55px;
     }
 }
 
 .dm-chat-content {
+    font-size: 11pt;
     display: inline-block;
     max-width: 80%;
     text-align: left;

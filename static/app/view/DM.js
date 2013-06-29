@@ -10,7 +10,7 @@ Ext.define('Trister.view.DM', {
     config: {
         id: 'DMNavigation',
         title: 'DM',
-        iconCls: 'chat',
+        iconCls: 'mail',
         cls: 'dm',
         defaultBackButtonText: 'DM',
         navigationBar: {

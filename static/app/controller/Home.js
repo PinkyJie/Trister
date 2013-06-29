@@ -25,10 +25,12 @@ Ext.define('Trister.controller.Home', {
         if (newItem.id === 'HomelineList') {
             storeName = 'Homeline';
             loadingName = 'Tweets';
+            this.getTitleBar().setTitle('Homeline');
             this.getTitleBar().show();
         } else if (newItem.id === 'MentionList') {
             storeName = 'Mention';
             loadingName = 'Mentions';
+            this.getTitleBar().setTitle('Mention');
             this.getTitleBar().show();
         } else if (newItem.id === 'DMNavigation') {
             storeName = 'DMList';

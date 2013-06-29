@@ -17,18 +17,18 @@
 /* LoginView */
 
 .login {
-    text-align: center
+    text-align: center;
 }
 
 .login h2 {
     color: #666;
     font-size: 13pt;
     line-height: 1.6em;
-    margin: 10px 10px 10px 10px
+    margin: 10px 10px 10px 10px;
 }
 
 .login img {
-    margin-top: 10px
+    margin-top: 10px;
 }
 
 .login p {
@@ -47,7 +47,7 @@
     padding-left: 15px;
     border-left: 1px dashed #333;
     margin-left: 65px;
-    min-height: 50px
+    min-height: 50px;
 }
 
 .user-img {
@@ -267,7 +267,7 @@
 
 .x-list-options-plugin .x-list-options ul li.x-menu-option {
     padding: 4px;
-    margin-left: 12%;
+    margin-left: 18%;
     height: 35px;
     width: 35px;
     @include border-radius(6px);
@@ -285,4 +285,5 @@
 // Examples of using the icon mixin:
 @include icon('quote');
 @include icon('loop2');
-@include icon('chat');
+@include icon('mail');
+@include icon('at');

@@ -1,6 +1,10 @@
 Ext.define('Trister.model.Tweet', {
 	extend: 'Ext.data.Model',
 
+    requires: [
+        'Trister.util.Common'
+    ],
+
 	config: {
 		fields: [
             'created_at', 'id_str', 'text', 'source', 'in_reply_to_status_id_str',
@@ -40,7 +44,7 @@ Ext.define('Trister.model.Tweet', {
                 name: 'formatted_text',
                 type: 'string',
                 convert: function(value, record) {
-                    return genFormattedTweet(record.get('text'), record.get('entities'));
+                    return Trister.util.Common.genFormattedTweet(record.get('text'), record.get('entities'));
                 }
             },
             {
@@ -49,7 +53,7 @@ Ext.define('Trister.model.Tweet', {
                 convert: function(value, record) {
                     var retweeted = record.get('retweeted_status');
                     if (retweeted) {
-                        return genFormattedTweet(
+                        return Trister.util.Common.genFormattedTweet(
                             record.get('retweeted_status').text,
                             record.get('retweeted_status').entities
                         );
@@ -63,53 +67,3 @@ Ext.define('Trister.model.Tweet', {
         pageSize: 20
 	}
 });
-
-// use entities field to extract info included in a tweet
-function genFormattedTweet(text, entities) {
-    if (entities.hashtags.length > 0 ) {
-        Ext.Array.forEach(entities.hashtags, function(hashtag, idx) {
-            text = text.replace(
-                '#' + hashtag.text,
-                ['<span class="content-tag label">',
-                 '#' +  hashtag.text,
-                 '</span>'
-                ].join('')
-            );
-        });
-    } else if (entities.urls.length > 0) {
-        Ext.Array.forEach(entities.urls, function(url, idx) {
-            text = text.replace(
-                url.url,
-                ['<span class="content-url label">',
-                 '<a target="_blank" href="' + url.expanded_url + '">',
-                 url.display_url,
-                 '</a>',
-                 '</span>'
-                ].join('')
-            );
-        });
-    } else if (entities.user_mentions.length > 0) {
-        Ext.Array.forEach(entities.user_mentions, function(mention, idx) {
-            text = text.replace(
-                '@' + mention.screen_name,
-                ['<span class="content-user label">',
-                 '@' +  mention.screen_name,
-                 '</span>'
-                ].join('')
-            );
-        });
-    } else if (entities.media && entities.media.length > 0) {
-        Ext.Array.forEach(entities.media, function(media, idx) {
-            text = text.replace(
-                media.url,
-                ['<span class="content-media label">',
-                 '<a target="_blank" href="' + media.expanded_url + '">',
-                 media.display_url,
-                 '</a>',
-                 '</span>'
-                ].join('')
-            );
-        });
-    }
-    return text;
-}

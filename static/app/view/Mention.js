@@ -11,7 +11,7 @@ Ext.define('Trister.view.Mention', {
     config: {
         id: 'MentionList',
         title: 'Mention',
-        iconCls: 'reply',
+        iconCls: 'action',
         cls: 'mention',
         store: 'Mention',
         disableSelection: true,

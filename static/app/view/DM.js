@@ -4,7 +4,8 @@ Ext.define('Trister.view.DM', {
 
     requires: [
         'Trister.view.DMList',
-        'Trister.view.DMChatList'
+        'Trister.view.DMChatList',
+        'Ext.Label'
     ],
 
     config: {
@@ -14,12 +15,19 @@ Ext.define('Trister.view.DM', {
         cls: 'dm',
         defaultBackButtonText: 'DM',
         navigationBar: {
-            items: {
-                id: 'ComposeDM',
-                xtype: 'button',
-                align: 'right',
-                iconCls: 'compose'
-            }
+            items: [
+                {
+                    id: 'ComposeDM',
+                    xtype: 'button',
+                    align: 'right',
+                    iconCls: 'compose'
+                },
+                {
+                    id: 'CurOpennedChatIdx',
+                    xtype: 'label',
+                    hidden: true
+                }
+            ]
         },
         items: [
             {

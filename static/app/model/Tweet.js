@@ -16,16 +16,7 @@ Ext.define('Trister.model.Tweet', {
                 name: 'formatted_time',
                 type: 'string',
                 convert: function(value, record) {
-                    var diff = new Date().getTime() - new Date(record.get('created_at')).getTime();
-                    if (diff > 1000 * 60 * 60 * 24) {
-                        return Math.floor(diff / (1000 * 60 * 60 * 24)) + " d ago";
-                    } else if (diff > 1000 * 60 * 60) {
-                        return Math.floor(diff / (1000 * 60 * 60)) + " h ago";
-                    } else if (diff > 1000 * 60) {
-                        return Math.floor(diff / (1000 * 60)) + " m ago";
-                    } else {
-                        return Math.floor(diff / 1000) + " s ago";
-                    }
+                    return Trister.util.Common.formatTime(record.get('created_at'));
                 }
             },
             {
@@ -33,8 +24,7 @@ Ext.define('Trister.model.Tweet', {
                 type: 'string',
                 convert: function(value, record) {
                     // pick up source text from source html tag
-                    // wonderful script from StackOverflow
-                    // http://stackoverflow.com/questions/1499889/remove-html-tags-in-javascript-with-regex#answer-12943036
+                    // reference http://stackoverflow.com/questions/1499889/remove-html-tags-in-javascript-with-regex#answer-12943036
                     var temp = document.createElement('div');
                     temp.innerHTML = record.get('source');
                     return temp.textContent || temp.innerText;

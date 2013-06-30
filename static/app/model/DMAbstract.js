@@ -1,6 +1,10 @@
 Ext.define('Trister.model.DMAbstract', {
     extend: 'Ext.data.Model',
 
+    requires: [
+        'Trister.util.Common'
+    ],
+
     config: {
         fields: [
             'time', 'dms', 'me',
@@ -8,16 +12,7 @@ Ext.define('Trister.model.DMAbstract', {
                 name: 'formatted_time',
                 type: 'string',
                 convert: function(value, record) {
-                    var diff = new Date().getTime() - new Date(record.get('time')).getTime();
-                    if (diff > 1000 * 60 * 60 * 24) {
-                        return Math.floor(diff / (1000 * 60 * 60 * 24)) + " d ago";
-                    } else if (diff > 1000 * 60 * 60) {
-                        return Math.floor(diff / (1000 * 60 * 60)) + " h ago";
-                    } else if (diff > 1000 * 60) {
-                        return Math.floor(diff / (1000 * 60)) + " m ago";
-                    } else {
-                        return Math.floor(diff / 1000) + " s ago";
-                    }
+                    return Trister.util.Common.formatTime(record.get('time'));
                 }
             },
             {

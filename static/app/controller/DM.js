@@ -5,7 +5,8 @@ Ext.define('Trister.controller.DM', {
         refs: {
             dmListView: '#DMList',
             dmNaviView: '#DMNavigation',
-            composeBtn: '#ComposeDM'
+            composeBtn: '#ComposeDM',
+            curRecordIndexLabel: '#DMNavigation #CurOpennedChatIdx'
         },
         control: {
             dmListView: {
@@ -30,6 +31,7 @@ Ext.define('Trister.controller.DM', {
             }
         });
         Ext.getStore('DMChatList').applyData(newRecord.reverse());
+        this.getCurRecordIndexLabel().setHtml(index);
         this.getDmNaviView().push({
             xtype: 'dmchatlist',
             title: record.get('friend').screen_name
@@ -39,9 +41,25 @@ Ext.define('Trister.controller.DM', {
     afterPushChatView: function(naviView, pushedView) {
         naviView.getParent().getTabBar().hide();
         this.getComposeBtn().hide();
+        pushedView.getScrollable().getScroller().scrollToEnd({});
     },
 
     afterPopChatView: function(naviView, popedView) {
+        var data = popedView.getStore().getData().all;
+        var rawData = [];
+        Ext.Array.forEach(data, function(d, index){
+            rawData.push(d.data);
+        });
+        rawData.reverse();
+        var idx = parseInt(this.getCurRecordIndexLabel().getHtml(), 10);
+        var store = this.getDmListView().getStore();
+        var model = store.getAt(idx);
+        store.removeAt(idx);
+        store.insert(idx, {
+            'time': rawData[0].created_at,
+            'dms': rawData,
+            'me': model.get('me')
+        });
         naviView.getParent().getTabBar().show();
         this.getComposeBtn().show();
     },

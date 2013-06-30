@@ -37,7 +37,8 @@ Ext.application({
         'UpdateStatus',
         'Homeline',
         'Mention',
-        'DM'
+        'DM',
+        'DMChatList'
     ],
 
     models: [

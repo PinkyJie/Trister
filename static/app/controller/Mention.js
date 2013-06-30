@@ -35,11 +35,12 @@ Ext.define('Trister.controller.Mention', {
             },
             scope: this,
             success: function(response) {
-                record.set('favorited', !favorited);
-            },
-            failure: function(response) {
-                var result = Ext.decode(response.responseText);
-                Ext.Msg.alert('Error', result.content);
+                var res = Ext.decode(response.responseText);
+                if (res.success === true) {
+                    record.set('favorited', !favorited);
+                } else {
+                    Ext.Msg.alert('Error', res.content);
+                }
             }
         });
     },

@@ -114,12 +114,12 @@ Ext.define('Trister.util.Common', {
                 },
                 scope: controller,
                 success: function(response) {
-                    var result = Ext.decode(response.responseText);
-                    Ext.Msg.alert('Success', result.content);
-                },
-                failure: function(response) {
-                    var result = Ext.decode(response.responseText);
-                    Ext.Msg.alert('Error', result.content);
+                    var res = Ext.decode(response.responseText);
+                    if (res.success === true)  {
+                        Ext.Msg.alert('Success', res.content);
+                    } else {
+                        Ext.Msg.alert('Error', res.content);
+                    }
                 }
             });
         } else if (menuItem.action === 'Delete') {
@@ -131,14 +131,29 @@ Ext.define('Trister.util.Common', {
                 },
                 scope: controller,
                 success: function(response) {
-                    var result = Ext.decode(response.responseText);
-                    Ext.Msg.alert('Success', result.content);
-                },
-                failure: function(response) {
-                    var result = Ext.decode(response.responseText);
-                    Ext.Msg.alert('Error', result.content);
+                    var res = Ext.decode(response.responseText);
+                    if (res.success === true)  {
+                        Ext.Msg.alert('Success', res.content);
+                    } else {
+                        Ext.Msg.alert('Error', res.content);
+                    }
                 }
             });
         }
+    },
+
+    // format time string to 'x ago'
+    formatTime: function(timeStr) {
+        var diff = new Date().getTime() - new Date(timeStr).getTime();
+        if (diff > 1000 * 60 * 60 * 24) {
+            return Math.floor(diff / (1000 * 60 * 60 * 24)) + "d ago";
+        } else if (diff > 1000 * 60 * 60) {
+            return Math.floor(diff / (1000 * 60 * 60)) + "h ago";
+        } else if (diff > 1000 * 60) {
+            return Math.floor(diff / (1000 * 60)) + "m ago";
+        } else {
+            return Math.floor(diff / 1000) + "s ago";
+        }
     }
+
 });

@@ -121,7 +121,7 @@ def update_status():
             else:
                 status = g.twit_api.update_status(request.form['tweet'])
         except TweepError, e:
-            return dict(success=False, content='Failed to update tweet!', reason=e.message)
+            return dict(success=False, content='Failed to update tweet!', reason=json.loads(e.message))
         else:
             return dict(success=True, content='')
     else:
@@ -141,7 +141,7 @@ def favorite(action):
                 g.twit_api.destory_favorite(request.form['tweet_id'])
                 fail_msg = 'Failed to destory favorite tweet'
         except TweepError, e:
-            return dict(success=False, content=fail_msg, reason=e.message)
+            return dict(success=False, content=fail_msg, reason=json.loads(e.message))
         else:
             return dict(success=True, content='')
     else:
@@ -155,7 +155,7 @@ def retweet_tweet():
         try:
             g.twit_api.retweet(request.form['tweet_id'])
         except TweepError, e:
-            return dict(success=False, content='Failed to retweet tweet!', reason=e.message)
+            return dict(success=False, content='Failed to retweet tweet!', reason=json.loads(e.message))
         else:
             return dict(success=True, content='Retweet successfully!')
     else:
@@ -172,7 +172,7 @@ def destory_entity(entity):
                 success_msg = 'Delete tweet successfully!'
                 fail_msg = 'Failed to delete tweet!'
         except TweepError, e:
-            return dict(success=False, content=fail_msg, reason=e.message)
+            return dict(success=False, content=fail_msg, reason=json.loads(e.message))
         else:
             return dict(success=True, content=success_msg)
     else:
@@ -206,6 +206,23 @@ def get_direct_message():
         f.write(json_str)
         f.close()
         return json_str
+    else:
+        return app.send_static_file('index.html')
+
+
+@app.route('/dm/create', methods=['POST'])
+@jsonify
+def create_new_dm():
+    if session.get('trister_access_key') and session.get('trister_access_secret'):
+        try:
+            dm = g.twit_api.send_direct_message(
+                screen_name=request.form['screen_name'],
+                text=request.form['text']
+            )
+        except TweepError, e:
+            return dict(success=False, content='Failed to send DM!', reason=json.loads(e.message))
+        else:
+            return dict(success=True, content=json.loads(dm))
     else:
         return app.send_static_file('index.html')
 

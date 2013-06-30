@@ -31,5 +31,5 @@ cd ..
 copy *.py %build_dir%\
 copy requirements.txt %build_dir%\
 
-echo "============== Building successfully =============="
-echo 'All files in [%build_dir%] directory are ready to be pulibshed!'
+echo ============== Building successfully ==============
+echo All files in [%build_dir%] directory are ready to be pulibshed!

@@ -36,6 +36,7 @@ Ext.define('Trister.view.UpdateStatus', {
                         xtype: 'fieldset',
                         items: [
                             {
+                                id: 'TweetContent',
                                 xtype: 'textareafield',
                                 name: 'tweet',
                                 required: true

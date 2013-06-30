@@ -19,6 +19,10 @@ Ext.define('Trister.controller.DMChatList', {
         if (dmContent === '') {
             Ext.Msg.alert('Error','DM content can not be blank!');
         } else {
+            this.getDmChatView().setMasked({
+                xtype: 'loadmask',
+                message: 'Sending...Please wait...'
+            });
             var friendName = this.getDmChatView().title;
             Ext.Ajax.request({
                 url: '/dm/create',
@@ -29,6 +33,7 @@ Ext.define('Trister.controller.DMChatList', {
                     'text': dmContent
                 },
                 success: function(response) {
+                    this.getDmChatView().setMasked(false);
                     var res = Ext.decode(response.responseText);
                     if (res.success === true) {
                         this.getTextareaField().setValue('');

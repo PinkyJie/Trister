@@ -154,6 +154,13 @@ Ext.define('Trister.util.Common', {
         } else {
             return Math.floor(diff / 1000) + "s ago";
         }
+    },
+
+    // set cursor positon
+    setCaretTo: function(rootId, name, start, pos) {
+        var obj = Ext.get(rootId).select('textarea[name=' + name + ']').elements[0];
+        obj.focus();
+        obj.setSelectionRange(start, pos);
     }
 
 });

@@ -1,6 +1,10 @@
 Ext.define('Trister.controller.UpdateStatus', {
     extend: 'Ext.app.Controller',
 
+    requires: [
+        'Trister.util.Common'
+    ],
+
     config: {
         refs: {
             updateView: '#UpdatePanel',
@@ -8,9 +12,13 @@ Ext.define('Trister.controller.UpdateStatus', {
             sendBtn: '#UpdatePanel #SendBtn',
             form: '#UpdatePanel formpanel',
             textarea: '#UpdatePanel formpanel textareafield',
-            countLabel: '#UpdatePanel formpanel label'
+            countLabel: '#UpdatePanel formpanel label',
+            tweetTypeField: '#UpdatePanel formpanel textfield[name=type]'
         },
         control: {
+            updateView: {
+                show: 'setTextareaCursor'
+            },
             cancelBtn: {
                 tap: 'returnHome'
             },
@@ -21,6 +29,19 @@ Ext.define('Trister.controller.UpdateStatus', {
                 keyup: 'checkWordCount'
             }
         }
+    },
+
+    setTextareaCursor: function() {
+        var pos;
+        if (this.getTweetTypeField().getValue() === 'Reply') {
+            pos = this.getTextarea().getValue().length;
+        } else {
+            pos = 0;
+        }
+        Trister.util.Common.setCaretTo(
+            'TweetContent', 'tweet',
+            pos, pos
+        );
     },
 
     returnHome: function() {

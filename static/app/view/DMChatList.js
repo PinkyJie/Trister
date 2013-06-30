@@ -18,6 +18,7 @@ Ext.define('Trister.view.DMChatList', {
                 docked: 'bottom',
                 items: [
                     {
+                        id: 'DMContent',
                         xtype: 'textareafield',
                         height: 60,
                         flex: 6,

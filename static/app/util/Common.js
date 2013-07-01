@@ -165,20 +165,27 @@ Ext.define('Trister.util.Common', {
 
     // get reply threads
     getReplyThreads: function(item, replyStatusId, parentView) {
+        var itemPos = item.element.dom.offsetTop;
+        var scroller = parentView.getScrollable().getScroller();
+        scroller.scrollTo(0, itemPos, true);
+        var threadsPanel = Ext.create('Trister.view.Threads',{});
+        var threadStore = threadsPanel.down('list').getStore();
+        threadStore.removeAll();
+        threadsPanel.showBy(item,'tc-bc');
+        threadsPanel.setMasked({
+            xtype: 'loadmask',
+            message: 'Loading reply threads...'
+        });
         Ext.Ajax.request({
             url: '/threads/' + replyStatusId,
             method: 'GET',
-            scope: parentView,
             success: function(response) {
+                threadsPanel.setMasked(false);
                 var res = Ext.decode(response.responseText);
                 if (res.success === true) {
-                    var itemPos = item.element.dom.offsetTop;
-                    var scroller = this.getScrollable().getScroller();
-                    scroller.scrollTo(0, itemPos, true);
-                    var threadsPanel = Ext.create('Trister.view.Threads',{});
-                    threadsPanel.down('list').getStore().applyData(res.content);
-                    threadsPanel.showBy(item,'tc-bc');
+                    threadStore.applyData(res.content);
                 } else {
+                    threadsPanel.hide();
                     Ext.Msg.alert('Error', res.content);
                 }
             }

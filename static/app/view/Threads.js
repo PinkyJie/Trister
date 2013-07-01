@@ -18,7 +18,6 @@ Ext.define('Trister.view.Threads', {
                 cls: 'threads',
                 store: 'Threads',
                 disableSelection: true,
-                emptyText: '<p class="no-tweets">No threads found!</p>',
                 itemTpl: Ext.XTemplate.from('ThreadTweet')
             }
         ]

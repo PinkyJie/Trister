@@ -240,7 +240,7 @@ def get_reply_threads(tweet_id):
         except TweepError, e:
             return dict(success=False, content='Failed to send DM!', reason=json.loads(e.message))
         else:
-            return dict(success=True, content=json.loads(threads))
+            return dict(success=True, content=threads)
     else:
         return app.send_static_file('index.html')
 

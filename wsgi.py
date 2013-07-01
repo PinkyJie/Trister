@@ -4,7 +4,6 @@ import os
 from functools import wraps
 import json
 import time
-from datetime import datetime
 
 from tweepy import (parsers, OAuthHandler, API, TweepError)
 from flask import (Flask, request, session, g)
@@ -23,7 +22,7 @@ def jsonify(f):
             result_dict = f(*args, **kwargs)
         except Exception as e:
             result_dict = dict(success=False)
-            result_dict['content'] = e.message
+            result_dict['content'] = 'Operation failed: ' + e.message
             if app.config['DEBUG']:
                 from traceback import format_exc
                 result_dict['exc_info'] = format_exc(e)

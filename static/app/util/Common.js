@@ -167,11 +167,16 @@ Ext.define('Trister.util.Common', {
     getReplyThreads: function(item, replyStatusId, parentView) {
         var itemPos = item.element.dom.offsetTop;
         var scroller = parentView.getScrollable().getScroller();
-        scroller.scrollTo(0, itemPos, true);
         var threadsPanel = Ext.create('Trister.view.Threads',{});
+        // a trick to implement after animation action
+        scroller.scrollTo(0, itemPos, {
+            duration: 500
+        });
+        setTimeout(function(){
+            threadsPanel.showBy(item,'tc-bc');
+        },501);
         var threadStore = threadsPanel.down('list').getStore();
         threadStore.removeAll();
-        threadsPanel.showBy(item,'tc-bc');
         threadsPanel.setMasked({
             xtype: 'loadmask',
             message: 'Loading reply threads...'

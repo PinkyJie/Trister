@@ -246,7 +246,7 @@
 }
 
 
-/* ListOpitons */ 
+/* ListOpitons */
 
 .x-list-options-plugin.x-list .x-list-item {
     background-color: white;
@@ -255,32 +255,62 @@
 .x-list-options-plugin .x-list-options {
     width: 100%;
     overflow: hidden;
-}
 
-.x-list-options-plugin .x-list-options ul {
-    @include box-shadow(inset 0 0 10px #333);
-    background-image: url(../images/list-option-bg.png);
-    background-repeat: repeat;
-    height: 100%;
-    width: 100%;
-}
+    ul {
+        @include box-shadow(inset 0 0 10px #333);
+        background-image: url(../images/list-option-bg.png);
+        background-repeat: repeat;
+        height: 100%;
+        width: 100%;
 
-.x-list-options-plugin .x-list-options ul li.x-menu-option {
-    padding: 4px;
-    margin-left: 18%;
-    height: 35px;
-    width: 35px;
-    @include border-radius(6px);
+        li:first-child {
+            margin-left: 12%;
+        }
 
-    .disabled {
-        opacity: 0.4;
+        li.x-menu-option {
+            width: 22%;
+            // padding: 4px;
+            // margin-left: 18%;
+            // height: 35px;
+            // width: 35px;
+            @include border-radius(6px);
+
+            .disabled {
+                opacity: 0.4;
+            }
+        }
+
+        li.x-menu-option-pressed {
+            @include box-shadow(0 .1em .3em rgba(0, 0, 0, 0.3));
+        }
     }
 }
 
-.x-list-options ul li.x-menu-option-pressed
-{
-    @include box-shadow(0 .1em .3em rgba(0, 0, 0, 0.3));
-}
+// .x-list-options-plugin .x-list-options ul {
+//     @include box-shadow(inset 0 0 10px #333);
+//     background-image: url(../images/list-option-bg.png);
+//     background-repeat: repeat;
+//     height: 100%;
+//     width: 100%;
+// }
+
+// .x-list-options-plugin .x-list-options ul li.x-menu-option {
+//     width: 22%;
+//     padding: 4px;
+//     // margin-left: 18%;
+//     // height: 35px;
+//     // width: 35px;
+//     @include border-radius(6px);
+
+//     .disabled {
+//         opacity: 0.4;
+//     }
+// }
+
+// .x-list-options ul li.x-menu-option-pressed
+// {
+//     @include box-shadow(0 .1em .3em rgba(0, 0, 0, 0.3));
+// }
 
 // Examples of using the icon mixin:
 @include icon('quote');

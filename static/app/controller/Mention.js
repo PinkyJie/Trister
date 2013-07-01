@@ -9,7 +9,8 @@ Ext.define('Trister.controller.Mention', {
         refs: {
             mentionView: 'mentionlist',
             updateView: '#UpdatePanel',
-            mainView: '#MainPanel'
+            mainView: '#MainPanel',
+            threadView: 'mentionlist threadspanel'
         },
         control: {
             mentionView: {
@@ -55,7 +56,7 @@ Ext.define('Trister.controller.Mention', {
         if (replyId === null) {
             return;
         } else if (e.target.className === 'type-img') {
-            Trister.util.Common.getReplyThreads(item, replyId, this.getMentionView());
+            Trister.util.Common.getReplyThreads(item, replyId, this.getMentionView(), this.getThreadView());
         }
 
     },

@@ -27,8 +27,7 @@ Ext.application({
     ],
 
     views: [
-        'Main',
-        'Threads'
+        'Main'
     ],
 
     controllers: [

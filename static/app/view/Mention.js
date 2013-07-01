@@ -5,7 +5,8 @@ Ext.define('Trister.view.Mention', {
         'Trister.store.Mention',
         'Ext.plugin.ListPaging',
         'Ext.plugin.PullRefresh',
-        'Trister.plugin.ListOptions'
+        'Trister.plugin.ListOptions',
+        'Trister.view.Threads'
     ],
 
     config: {
@@ -50,7 +51,13 @@ Ext.define('Trister.view.Mention', {
             }
         ],
         emptyText: '<p class="no-tweets">No mentions found!</p>',
-        itemTpl: Ext.XTemplate.from('MentionTweet')
+        itemTpl: Ext.XTemplate.from('MentionTweet'),
+        items: [
+            {
+                xtype: 'threadspanel',
+                hidden: true
+            }
+        ]
     }
 
 });

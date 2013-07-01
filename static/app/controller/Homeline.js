@@ -9,7 +9,8 @@ Ext.define('Trister.controller.Homeline', {
         refs: {
             homelineView: 'homelinelist',
             updateView: '#UpdatePanel',
-            mainView: '#MainPanel'
+            mainView: '#MainPanel',
+            threadView: 'homelinelist threadspanel'
         },
         control: {
             homelineView: {
@@ -55,7 +56,7 @@ Ext.define('Trister.controller.Homeline', {
         if (replyId === null) {
             return;
         } else if (e.target.className === 'type-img') {
-            Trister.util.Common.getReplyThreads(item, replyId, this.getHomelineView());
+            Trister.util.Common.getReplyThreads(item, replyId, this.getHomelineView(), this.getThreadView());
         }
 
     },

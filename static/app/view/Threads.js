@@ -10,6 +10,9 @@ Ext.define('Trister.view.Threads', {
         height: '50%',
         hideOnMaskTap: true,
         modal: true,
+        showAnimation: {
+            type: 'fade'
+        },
         items: [
             {
                 xtype: 'list',
@@ -21,5 +24,6 @@ Ext.define('Trister.view.Threads', {
                 itemTpl: Ext.XTemplate.from('ThreadTweet')
             }
         ]
+
     }
 });

@@ -16,7 +16,7 @@ Install(appfog)
 =======
 1. Install [Sencha Cmd](http://www.sencha.com/products/sencha-cmd/download)
 2. Run `./buid.sh`
-3. Cd to `build` directory, and run `af update yourappname`
+3. Cd to `build-result` directory, and run `af update yourappname`
 
 
 Demo(unstable)

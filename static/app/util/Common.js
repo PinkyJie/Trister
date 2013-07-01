@@ -161,6 +161,28 @@ Ext.define('Trister.util.Common', {
         var obj = Ext.get(rootId).select('textarea[name=' + name + ']').elements[0];
         obj.focus();
         obj.setSelectionRange(start, pos);
+    },
+
+    // get reply threads
+    getReplyThreads: function(item, replyStatusId, parentView) {
+        Ext.Ajax.request({
+            url: '/threads/' + replyStatusId,
+            method: 'GET',
+            scope: parentView,
+            success: function(response) {
+                var res = Ext.decode(response.responseText);
+                if (res.success === true) {
+                    var itemPos = item.element.dom.offsetTop;
+                    var scroller = this.getScrollable().getScroller();
+                    scroller.scrollTo(0, itemPos, true);
+                    var threadsPanel = Ext.create('Trister.view.Threads',{});
+                    threadsPanel.down('list').getStore().applyData(res.content);
+                    threadsPanel.showBy(item,'tc-bc');
+                } else {
+                    Ext.Msg.alert('Error', res.content);
+                }
+            }
+        });
     }
 
 });

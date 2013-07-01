@@ -227,6 +227,24 @@ def create_new_dm():
         return app.send_static_file('index.html')
 
 
+@app.route('/threads/<tweet_id>', methods=['GET'])
+@jsonify
+def get_reply_threads(tweet_id):
+    if session.get('trister_access_key') and session.get('trister_access_secret'):
+        try:
+            threads = []
+            while tweet_id:
+                tweet = json.loads(g.twit_api.get_status(tweet_id))
+                threads.append(tweet)
+                tweet_id = tweet['in_reply_to_status_id_str']
+        except TweepError, e:
+            return dict(success=False, content='Failed to send DM!', reason=json.loads(e.message))
+        else:
+            return dict(success=True, content=json.loads(threads))
+    else:
+        return app.send_static_file('index.html')
+
+
 app.secret_key = '\xfcM\xf7\xd4\x03\x14\x1e<\xe1\xd4Sn\xed\xa5e\x96\xb7\x8aq\x82\xed\x10\xdc\x93'
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))

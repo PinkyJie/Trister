@@ -27,7 +27,8 @@ Ext.application({
     ],
 
     views: [
-        'Main'
+        'Main',
+        'Threads'
     ],
 
     controllers: [
@@ -51,7 +52,8 @@ Ext.application({
         'Homeline',
         'Mention',
         'DMList',
-        'DMChatList'
+        'DMChatList',
+        'Threads'
     ],
 
     icon: {

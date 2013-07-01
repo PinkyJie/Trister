@@ -14,7 +14,8 @@ Ext.define('Trister.controller.Mention', {
         control: {
             mentionView: {
                 itemdoubletap: 'addOrRemoveFav',
-                menuoptiontap: 'doActionToTweet'
+                menuoptiontap: 'doActionToTweet',
+                itemtap: 'showThreadPanel'
             }
         }
     },
@@ -47,6 +48,16 @@ Ext.define('Trister.controller.Mention', {
 
     doActionToTweet: function(item, record) {
         Trister.util.Common.doActionToTweet(item, record, this);
+    },
+
+    showThreadPanel: function(list, index, item, record, e) {
+        var replyId = record.get('in_reply_to_status_id_str');
+        if (replyId === null) {
+            return;
+        } else if (e.target.className === 'type-img') {
+            Trister.util.Common.getReplyThreads(item, replyId, this.getMentionView());
+        }
+
     },
 
     //called when the Application is launched, remove if not needed

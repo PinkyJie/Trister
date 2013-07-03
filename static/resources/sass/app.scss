@@ -275,12 +275,18 @@
             // width: 35px;
             @include border-radius(6px);
 
+            span {
+                padding: 4px;
+                // height: 35px;
+                // width: 35px;
+            }
+
             .disabled {
                 opacity: 0.4;
             }
         }
 
-        li.x-menu-option-pressed {
+        li.x-menu-option-pressed .x-button-icon {
             @include box-shadow(0 .1em .3em rgba(0, 0, 0, 0.3));
         }
     }

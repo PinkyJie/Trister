@@ -385,7 +385,7 @@ Ext.define('Trister.plugin.ListOptions', {
         }, true).setHeight(listItemElHeight).setStyle('margin-top', (-1 * listItemElHeight) + 'px');
 
         // Add tap handlers to the List Option's menu items
-        var listQueryItems = this.activeListOptions.select('.' + this.getMenuOptionSelector()).elements;
+        var listQueryItems = this.activeListOptions.select('.' + this.getMenuOptionSelector() + ' .x-button-icon').elements;
         for(var i=0; i< listQueryItems.length; i++)
         {
             Ext.get(listQueryItems[i]).on({

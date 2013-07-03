@@ -15,7 +15,7 @@ Python 2.7+
 Install(appfog)
 =======
 1. Install [Sencha Cmd](http://www.sencha.com/products/sencha-cmd/download)
-2. Run `./buid.sh`
+2. Run `./build.sh` (for Linux/Mac) or `build.bat` (for Windows)
 3. Cd to `build-result` directory, and run `af update yourappname`
 
 

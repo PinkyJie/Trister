@@ -46,7 +46,8 @@
         {
             "path": "app.js",
             "bundle": true,  /* Indicates that all class dependencies are concatenated into this file when build */
-            "update": "delta"
+            // "update": "delta"
+            "update": "full" /* force update: http://www.cnblogs.com/xinyuyuanm/archive/2013/04/26/3045606.html*/
         }
     ],
 
@@ -69,7 +70,8 @@
     "css": [
         {
             "path": "resources/css/app.css",
-            "update": "delta"
+            // "update": "delta"
+            "update": "full"
         }
     ],
 
@@ -81,7 +83,8 @@
          * List of items in the CACHE MANIFEST section
          */
         "cache": [
-            "index.html"
+            "index.html",
+            "resources/images/logo.png"
         ],
         /**
          * List of items in the NETWORK section

@@ -137,7 +137,7 @@ def favorite(action):
                 g.twit_api.create_favorite(request.form['tweet_id'])
                 fail_msg = 'Failed to create favorite tweet'
             elif action == 'del':
-                g.twit_api.destory_favorite(request.form['tweet_id'])
+                g.twit_api.destroy_favorite(request.form['tweet_id'])
                 fail_msg = 'Failed to destory favorite tweet'
         except TweepError, e:
             return dict(success=False, content=fail_msg, reason=json.loads(e.message))

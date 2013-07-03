@@ -12,6 +12,7 @@ Ext.define('Trister.view.DMChatList', {
         cls: 'dm-chat-list',
         disableSelection: true,
         store: 'DMChatList',
+        scrollToTopOnRefresh: false,
         items: [
             {
                 xtype: 'toolbar',

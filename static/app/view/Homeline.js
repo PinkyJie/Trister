@@ -16,6 +16,7 @@ Ext.define('Trister.view.Homeline', {
         cls: 'home',
         store: 'Homeline',
         disableSelection: true,
+        scrollToTopOnRefresh: false,
         plugins: [
             {
                 xclass: 'Ext.plugin.ListPaging',

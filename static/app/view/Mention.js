@@ -16,6 +16,7 @@ Ext.define('Trister.view.Mention', {
         cls: 'mention',
         store: 'Mention',
         disableSelection: true,
+        scrollToTopOnRefresh: false,
         plugins: [
             {
                 xclass: 'Ext.plugin.ListPaging',

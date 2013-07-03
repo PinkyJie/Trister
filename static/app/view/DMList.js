@@ -14,6 +14,7 @@ Ext.define('Trister.view.DMList', {
         store: 'DMList',
         disableSelection: true,
         onItemDisclosure: true,
+        scrollToTopOnRefresh: false,
         plugins: [
             {
                 xclass: 'Ext.plugin.ListPaging',

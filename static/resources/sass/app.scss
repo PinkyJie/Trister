@@ -126,10 +126,12 @@
 }
 
 .tweet-fav-img {
-    margin-top: -5px;
-    position: absolute;
-    right: 8%;
-    width: 25px;
+    float: left;
+    width: 24px;
+    @include border-radius(12px);
+    @include box-shadow(#FE2E64 0 0 8px);
+    margin-left: -35px;
+    margin-top: 50px;
 }
 
 .x-list-item{

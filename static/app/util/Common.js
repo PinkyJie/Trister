@@ -194,6 +194,32 @@ Ext.define('Trister.util.Common', {
                 }
             }
         });
+    },
+
+    // add or remove tweets
+    toggleTweetFav: function(record) {
+        var favorited = record.get('favorited');
+        var action;
+        if (favorited === false) {
+            action = 'add';
+        } else {
+            action = 'del';
+        }
+        Ext.Ajax.request({
+            url: '/favorite/' + action,
+            method: 'POST',
+            params: {
+                tweet_id: record.get('id_str')
+            },
+            success: function(response) {
+                var res = Ext.decode(response.responseText);
+                if (res.success === true) {
+                    record.set('favorited', !favorited);
+                } else {
+                    Ext.Msg.alert('Error', res.content);
+                }
+            }
+        });
     }
 
 });

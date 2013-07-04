@@ -16,8 +16,8 @@ Ext.define('Trister.controller.Main', {
 
     checkLogin: function() {
         // console.log('main/checkLogin' + new Date().toString());
-        var config = Ext.getStore('Config');
-        if (config.getAt(0).get('user') === null) {
+        var config = Ext.getStore('Config').getAt(0);
+        if (config.get('user') === null) {
             Ext.Ajax.request({
                 url: '/is_login',
                 method: 'GET',
@@ -25,7 +25,7 @@ Ext.define('Trister.controller.Main', {
                 success: function(response) {
                     var res = Ext.decode(response.responseText);
                     if (res.content == 1) {
-                        Ext.getStore('Config').getAt(0).set('user',res.user);
+                        config.set('user', res.user);
                         this.getMain().setActiveItem('#HomePanel');
                     }
                 }

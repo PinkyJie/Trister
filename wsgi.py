@@ -70,7 +70,7 @@ def is_login():
         return dict(success=True, content=1,
                     user=dict(key=session.get('trister_access_key'),
                               secret=session.get('trister_access_secret'),
-                              screen_name=session.get('trister_user_name')
+                              name=session.get('trister_user_name')
                               )
                     )
     else:
@@ -89,7 +89,7 @@ def oauth_login():
         session['trister_access_key'] = t.access_token
         session['trister_access_secret'] = t.access_token_secret
         session['trister_user_name'] = t.screen_name
-        return dict(success=True, content=dict(key=t.access_token, secret=t.access_token_secret, user=t.screen_name))
+        return dict(success=True, content=dict(key=t.access_token, secret=t.access_token_secret, name=t.screen_name))
 
 
 @app.route('/home', methods=['GET'])
@@ -196,6 +196,7 @@ def get_direct_message():
     f.write(json_str)
     f.close()
     return json_str
+
 
 @app.route('/dm/create', methods=['POST'])
 @jsonify

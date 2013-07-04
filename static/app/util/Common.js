@@ -84,8 +84,11 @@ Ext.define('Trister.util.Common', {
             if (menuItem.action === 'Reply') {
                 updateTweetId.setValue(record.get('id_str'));
                 var users = [];
+                var me = Ext.getStore('Config').getAt(0).get('user').name;
                 Ext.Array.forEach(record.get('entities').user_mentions, function(mention, idx){
-                    users.push('@' + mention.screen_name);
+                    if (mention.screen_name !== me) {
+                        users.push('@' + mention.screen_name);
+                    }
                 });
                 var author;
                 if (record.get('retweeted_status')) {

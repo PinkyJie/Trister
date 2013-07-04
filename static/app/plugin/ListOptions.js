@@ -53,7 +53,7 @@ Ext.define('Trister.plugin.ListOptions', {
             if (!this.user) {
                 var config = Ext.getStore('Config');
                 config.load();
-                this.user = config.getAt(0).get('user').screen_name;
+                this.user = config.getAt(0).get('user').name;
             }
 
             // disable options based on record

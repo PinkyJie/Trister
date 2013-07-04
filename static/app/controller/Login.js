@@ -27,6 +27,9 @@ Ext.define('Trister.controller.Login', {
                 url: 'login',
                 method: 'POST',
                 success: function(form, result) {
+                    // update user info in localstorage
+                    var config = Ext.getStore('Config').getAt(0);
+                    config.set('user', result.content);
                     this.getParent().setMasked(false);
                     this.getParent().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
                 },

@@ -97,9 +97,9 @@ def get_home():
     page_arg = int(request.args['page'])
     count_arg = int(request.args['count'])
     tweets = g.twit_api.home_timeline(page=page_arg, count=count_arg)
-    f = open('homeline.json', 'w')
-    f.write(tweets)
-    f.close()
+    # f = open('homeline.json', 'w')
+    # f.write(tweets)
+    # f.close()
     return tweets
 
 
@@ -108,9 +108,9 @@ def get_reply():
     page_arg = int(request.args['page'])
     count_arg = int(request.args['count'])
     replys = g.twit_api.mentions_timeline(page=page_arg, count=count_arg)
-    f = open('mention.json', 'w')
-    f.write(replys)
-    f.close()
+    # f = open('mention.json', 'w')
+    # f.write(replys)
+    # f.close()
     return replys
 
 
@@ -192,9 +192,9 @@ def get_direct_message():
         dm_list.append(_dict)
     dm_list.sort(key=lambda dm: str2timestamp(dm['time']), reverse=True)
     json_str = json.dumps(dm_list)
-    f = open('dm.json', 'w')
-    f.write(json_str)
-    f.close()
+    # f = open('dm.json', 'w')
+    # f.write(json_str)
+    # f.close()
     return json_str
 
 
@@ -225,6 +225,20 @@ def get_reply_threads(tweet_id):
         return dict(success=False, content='Failed to send DM!', reason=json.loads(e.message))
     else:
         return dict(success=True, content=threads)
+
+
+@app.route('/user/<screen_name>', methods=['GET'])
+@jsonify
+def get_user(screen_name):
+    try:
+        user = g.twit_api.get_user(screen_name=screen_name)
+        # f = open('user.json', 'w')
+        # f.write(user)
+        # f.close()
+    except TweepError, e:
+        return dict(success=False, content='Failed to find @' + screen_name, reason=json.loads(e.message))
+    else:
+        return dict(success=True, content=json.loads(user))
 
 
 app.secret_key = '\xfcM\xf7\xd4\x03\x14\x1e<\xe1\xd4Sn\xed\xa5e\x96\xb7\x8aq\x82\xed\x10\xdc\x93'

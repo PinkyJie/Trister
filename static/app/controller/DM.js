@@ -15,6 +15,9 @@ Ext.define('Trister.controller.DM', {
             dmNaviView: {
                 push: 'afterPushChatView',
                 pop: 'afterPopChatView'
+            },
+            composeBtn: {
+                tap: 'toSendDMPanel'
             }
         }
     },
@@ -62,6 +65,12 @@ Ext.define('Trister.controller.DM', {
         });
         naviView.getParent().getTabBar().show();
         this.getComposeBtn().show();
+    },
+
+    toSendDMPanel: function() {
+        var homeView = this.getDmNaviView().getParent();
+        homeView.getTabBar().hide();
+        homeView.setActiveItem('#SendDMPanel');
     },
 
     //called when the Application is launched, remove if not needed

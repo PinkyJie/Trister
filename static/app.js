@@ -38,7 +38,8 @@ Ext.application({
         'Homeline',
         'Mention',
         'DM',
-        'DMChatList'
+        'DMChatList',
+        'SendDM'
     ],
 
     models: [
@@ -85,8 +86,8 @@ Ext.application({
 
     onUpdated: function() {
         Ext.Msg.confirm(
-            "Application Update",
-            "This application has just successfully been updated to the latest version. Reload now?",
+            "Trister Update",
+            "Trister has a new version. Reload now?",
             function(buttonId) {
                 if (buttonId === 'yes') {
                     window.location.reload();

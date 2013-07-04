@@ -7,27 +7,10 @@ Ext.define('Trister.controller.Login', {
             loginBtn: '#LoginPanel button'
         },
         control: {
-            loginView: {
-                initialize: 'checkLogin'
-            },
             loginBtn: {
                 tap: 'doLogin'
             }
         }
-    },
-
-    checkLogin: function() {
-        Ext.Ajax.request({
-            url: '/is_login',
-            method: 'GET',
-            scope: this,
-            success: function(response) {
-                var res = Ext.decode(response.responseText);
-                if (res.content == 1) {
-                    this.getLoginView().getParent().setActiveItem('#HomePanel');
-                }
-            }
-        });
     },
 
     doLogin: function() {

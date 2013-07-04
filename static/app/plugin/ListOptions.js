@@ -49,6 +49,13 @@ Ext.define('Trister.plugin.ListOptions', {
         * The function must return either the original 'menuOptions' variable or a revised one
         */
         menuOptionDataFilter: function(opitons, record) {
+            // get user from localstorage
+            if (!this.user) {
+                var config = Ext.getStore('Config');
+                config.load();
+                this.user = config.getAt(0).get('user').screen_name;
+            }
+
             // disable options based on record
             var isRetweeted = record.get('retweeted');
             var isMyTweet = record.get('user').screen_name === this.user;
@@ -137,17 +144,8 @@ Ext.define('Trister.plugin.ListOptions', {
     constructor: function(config) {
         this.initConfig(config);
         this.callParent(arguments);
-        Ext.Ajax.request({
-            url: '/is_login',
-            method: 'GET',
-            scope: this,
-            success: function(response) {
-                var res = Ext.decode(response.responseText);
-                if (res.content == 1) {
-                    this.user = res.user;
-                }
-            }
-        });
+        // console.log('listopiton/checkLogin' + new Date().toString());
+        this.user = null;
     },
 
     init: function (parent) {

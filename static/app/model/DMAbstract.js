@@ -34,7 +34,6 @@ Ext.define('Trister.model.DMAbstract', {
                     return record.get('dms')[0].text;
                 }
             }
-        ],
-        pageSize: 20
+        ]
     }
 });

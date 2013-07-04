@@ -44,7 +44,8 @@ Ext.application({
     models: [
         'Tweet',
         'DirectMessage',
-        'DMAbstract'
+        'DMAbstract',
+        'Config'
     ],
 
     stores: [
@@ -52,7 +53,8 @@ Ext.application({
         'Mention',
         'DMList',
         'DMChatList',
-        'Threads'
+        'Threads',
+        'Config'
     ],
 
     icon: {

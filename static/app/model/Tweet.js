@@ -53,7 +53,6 @@ Ext.define('Trister.model.Tweet', {
                 }
             }
 
-        ],
-        pageSize: 20
+        ]
 	}
 });

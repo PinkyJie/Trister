@@ -36,8 +36,7 @@ Ext.define('Trister.model.DirectMessage', {
                     return Trister.util.Common.genFormattedTweet(record.get('text'), record.get('entities'));
                 }
             }
-        ],
-        pageSize: 20
+        ]
     }
 });
 

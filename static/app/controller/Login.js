@@ -24,7 +24,7 @@ Ext.define('Trister.controller.Login', {
                 message: 'Login...Please wait...'
             });
             form.submit({
-                url: 'login',
+                url: '/login',
                 method: 'POST',
                 success: function(form, result) {
                     // update user info in localstorage

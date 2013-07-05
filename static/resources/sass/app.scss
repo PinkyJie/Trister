@@ -247,6 +247,29 @@
     }
 }
 
+/* Send DM View */
+.send-dm-panel #FoundUserPanel {
+    border-radius: 0.5em;
+    margin-top: 1px;
+    padding: 10px;
+    @include box-shadow(rgba(0,0,0,0.8) 0 0.2em 0.9em);
+    margin-bottom: 5px;
+
+    .dm-found-user-img {
+        @extend .user-img;
+    }
+
+    .dm-found-user-name {
+        @extend .user-name;
+        margin-left: 65px;
+    }
+
+    .dm-found-user-desc {
+        font-size: 11pt;
+        margin-top: 10px;
+        margin-left: 65px;
+    }
+}
 
 /* ListOpitons */
 

@@ -5,8 +5,7 @@ Ext.define('Trister.view.Home', {
         'Ext.TitleBar',
         'Trister.view.Homeline',
         'Trister.view.Mention',
-        'Trister.view.DM',
-        'Trister.view.SendDM'
+        'Trister.view.DM'
     ],
 
 
@@ -35,9 +34,6 @@ Ext.define('Trister.view.Home', {
             },
             {
                 xtype: 'dmnavigation'
-            },
-            {
-                xtype: 'senddmpanel'
             }
         ]
     }

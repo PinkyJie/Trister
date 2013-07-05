@@ -70,7 +70,7 @@ Ext.define('Trister.controller.DM', {
     toSendDMPanel: function() {
         var homeView = this.getDmNaviView().getParent();
         homeView.getTabBar().hide();
-        homeView.setActiveItem('#SendDMPanel');
+        homeView.getParent().setActiveItem('#SendDMPanel');
     },
 
     //called when the Application is launched, remove if not needed

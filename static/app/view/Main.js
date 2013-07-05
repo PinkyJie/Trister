@@ -4,7 +4,8 @@ Ext.define('Trister.view.Main', {
     requires: [
         'Trister.view.Login',
         'Trister.view.Home',
-        'Trister.view.UpdateStatus'
+        'Trister.view.UpdateStatus',
+        'Trister.view.SendDM'
     ],
     config: {
         id: 'MainPanel',
@@ -20,7 +21,11 @@ Ext.define('Trister.view.Main', {
             },
             {
                 xtype: 'updatepanel'
+            },
+            {
+                xtype: 'senddmpanel'
             }
+
         ]
     }
 });

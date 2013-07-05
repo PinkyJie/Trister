@@ -107,7 +107,6 @@ Ext.define('Trister.util.Common', {
             }
             updateCheckCount.setHtml(140 - updateTextarea.getValue().length);
             controller.getMainView().setActiveItem('#UpdatePanel');
-            updatePanel.setMasked(false);
             updateTextarea.focus();
         } else if (menuItem.action === 'Retweet') {
             Ext.Ajax.request({

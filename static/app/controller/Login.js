@@ -30,11 +30,11 @@ Ext.define('Trister.controller.Login', {
                     // update user info in localstorage
                     var config = Ext.getStore('Config').getAt(0);
                     config.set('user', result.content);
-                    this.getParent().setMasked(false);
-                    this.getParent().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
+                    form.getParent().setMasked(false);
+                    form.getParent().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
                 },
                 failure: function(form, result) {
-                    this.getParent().setMasked(false);
+                    form.getParent().setMasked(false);
                     Ext.Msg.alert('Error', result.content);
                 }
             });

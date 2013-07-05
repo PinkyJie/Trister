@@ -46,7 +46,7 @@ Ext.define('Trister.controller.UpdateStatus', {
 
     returnHome: function() {
         this.getTextarea().setValue('');
-        this.getUpdateView().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
+        this.getUpdateView().getParent().setActiveItem('#HomePanel');
     },
 
     sendTweet: function() {
@@ -66,12 +66,12 @@ Ext.define('Trister.controller.UpdateStatus', {
                 method: 'POST',
                 scope: this,
                 success: function(form, result) {
-                    this.getUpdateView().getParent().setMasked(false);
-                    this.getTextarea().setHtml('');
-                    this.getUpdateView().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
+                    this.getUpdateView().setMasked(false);
+                    this.getTextarea().setValue('');
+                    this.getUpdateView().getParent().setActiveItem('#HomePanel');
                 },
                 failure: function(form, result) {
-                    this.getUpdateView().getParent().setMasked(false);
+                    this.getUpdateView().setMasked(false);
                     Ext.Msg.alert('Error', result.content);
                 }
             });

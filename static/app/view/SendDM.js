@@ -26,6 +26,17 @@ Ext.define('Trister.view.SendDM', {
                 ]
             },
             {
+                id: 'FoundUserPanel',
+                hidden: true,
+                xtype: 'panel',
+                styleHtmlContent: true,
+                tpl: [
+                    '<img class="dm-found-user-img" src="{profile_image_url_https}" />',
+                    '<div class="dm-found-user-name">{screen_name}</div>',
+                    '<div class="dm-found-user-desc">{description}</div>'
+                ]
+            },
+            {
                 xtype: 'formpanel',
                 title: 'Input your friend\'s name:',
                 flex: 1,
@@ -40,11 +51,11 @@ Ext.define('Trister.view.SendDM', {
                                     {
                                         id: 'DMToWhom',
                                         xtype: 'textfield',
-                                        width: '40%',
-                                        name: 'user',
+                                        name: 'screen_name',
                                         label: 'Name',
+                                        labelWidth: '38%',
                                         required: true,
-                                        flex: 4
+                                        flex: 5
                                     },
                                     {
                                         id: 'SearchDMUserBtn',
@@ -55,24 +66,21 @@ Ext.define('Trister.view.SendDM', {
                                 ]
                             },
                             {
-                                id: 'FoundUserPanel',
-                                // hidden: true,
-                                xtype: 'panel',
-                                styleHtmlContent: true,
-                                tpl: [
-                                    '<img class="dm-found-user-img" src="{profile_image_url_https}" />',
-                                    '<div class="dm-found-user-name">{screen_name}</div>',
-                                    '<div class="dm-found-user-desc">{description}</div>'
-                                ]
-                            },
-                            {
                                 id: 'DMContent',
                                 xtype: 'textareafield',
-                                name: 'dm',
+                                name: 'text',
                                 label: 'Content',
                                 // hidden: true,
                                 required: true
 
+                            },
+                            {
+                                id: 'isUserValid',
+                                xtype: 'textfield',
+                                name: 'valid',
+                                value: 'false',
+                                hidden: true,
+                                required: true
                             }
                         ]
                     },

@@ -66,7 +66,7 @@ Ext.define('Trister.view.SendDM', {
                                 ]
                             },
                             {
-                                id: 'DMContent',
+                                id: 'DMContentArea',
                                 xtype: 'textareafield',
                                 name: 'text',
                                 label: 'Content',

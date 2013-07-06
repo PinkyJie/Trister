@@ -10,7 +10,7 @@ Ext.define('Trister.controller.SendDM', {
             userField: '#SendDMPanel #DMToWhom',
             searchResultView: '#SendDMPanel #FoundUserPanel',
             sendDMBtn: '#SendDMPanel #SendDMBtn',
-            dmContentArea: '#SendDMPanel #DMContent',
+            dmContentArea: '#SendDMPanel #DMContentArea',
             formView: '#SendDMPanel formpanel',
             isValidField: '#SendDMPanel #isUserValid'
         },

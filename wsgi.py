@@ -186,11 +186,11 @@ def get_direct_message():
     for user in users_expcept_me:
         _dict = {}
         _dict['dms'] = [dm for dm in dms if is_dm_with_user(dm, user, me)]
-        _dict['dms'].sort(key=lambda dm: str2timestamp(dm['created_at']), reverse=True)
-        _dict['time'] = _dict['dms'][0]['created_at']
-        _dict['me'] = me
+        # _dict['dms'].sort(key=lambda dm: str2timestamp(dm['created_at']), reverse=True)
+        # _dict['time'] = _dict['dms'][0]['created_at']
+        # _dict['me'] = me
         dm_list.append(_dict)
-    dm_list.sort(key=lambda dm: str2timestamp(dm['time']), reverse=True)
+    # dm_list.sort(key=lambda dm: str2timestamp(dm['time']), reverse=True)
     json_str = json.dumps(dm_list)
     # f = open('dm.json', 'w')
     # f.write(json_str)

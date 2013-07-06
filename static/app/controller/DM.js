@@ -25,7 +25,8 @@ Ext.define('Trister.controller.DM', {
     openDMChatView: function(list, record, target, index) {
         // add a type attribute to erery dm record
         var newRecord = record.get('dms');
-        var me = record.get('me');
+        var config = Ext.getStore('Config').getAt(0);
+        var me = config.get('user').name;
         Ext.Array.forEach(newRecord, function(r, index){
             if (r.sender.screen_name === me) {
                 r.type = 'local';
@@ -33,7 +34,7 @@ Ext.define('Trister.controller.DM', {
                 r.type = 'remote';
             }
         });
-        Ext.getStore('DMChatList').applyData(newRecord.reverse());
+        Ext.getStore('DMChatList').applyData(newRecord);
         this.getCurRecordIndexLabel().setHtml(index);
         this.getDmNaviView().push({
             xtype: 'dmchatlist',
@@ -44,7 +45,9 @@ Ext.define('Trister.controller.DM', {
     afterPushChatView: function(naviView, pushedView) {
         naviView.getParent().getTabBar().hide();
         this.getComposeBtn().hide();
-        pushedView.getScrollable().getScroller().scrollToEnd({});
+        setTimeout(function(){
+            pushedView.getScrollable().getScroller().scrollToEnd({});
+        }, 200);
     },
 
     afterPopChatView: function(naviView, popedView) {
@@ -59,9 +62,7 @@ Ext.define('Trister.controller.DM', {
         var model = store.getAt(idx);
         store.removeAt(idx);
         store.insert(idx, {
-            'time': rawData[0].created_at,
-            'dms': rawData,
-            'me': model.get('me')
+            'dms': rawData
         });
         naviView.getParent().getTabBar().show();
         this.getComposeBtn().show();

@@ -35,6 +35,13 @@ Ext.define('Trister.model.DirectMessage', {
                 convert: function(value, record) {
                     return Trister.util.Common.genFormattedTweet(record.get('text'), record.get('entities'));
                 }
+            },
+            {
+                name: 'time',
+                type: 'int',
+                convert: function(value, record) {
+                    return new Date(record.get('created_at')).getTime();
+                }
             }
         ]
     }

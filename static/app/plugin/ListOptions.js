@@ -52,7 +52,6 @@ Ext.define('Trister.plugin.ListOptions', {
             // get user from localstorage
             if (!this.user) {
                 var config = Ext.getStore('Config');
-                config.load();
                 this.user = config.getAt(0).get('user').name;
             }
 

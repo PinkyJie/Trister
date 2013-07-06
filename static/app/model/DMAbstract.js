@@ -7,12 +7,29 @@ Ext.define('Trister.model.DMAbstract', {
 
     config: {
         fields: [
-            'time', 'dms', 'me',
+            {
+                name: 'dms',
+                type: 'array',
+                convert: function(value, record) {
+                    return value.sort(function(a,b){
+                        return (new Date(b.created_at).getTime()) -
+                            (new Date(a.created_at).getTime());
+                    });
+                }
+            },
+            {
+                name: 'time',
+                type: 'int',
+                convert: function(value, record) {
+                    return new Date(record.get('dms')[0].created_at).getTime();
+                }
+            },
             {
                 name: 'formatted_time',
                 type: 'string',
                 convert: function(value, record) {
-                    return Trister.util.Common.formatTime(record.get('time'));
+                    var time = record.get('dms')[0].created_at;
+                    return Trister.util.Common.formatTime(time);
                 }
             },
             {
@@ -20,7 +37,8 @@ Ext.define('Trister.model.DMAbstract', {
                 type: 'object',
                 convert: function(value, record) {
                     var latest_dm = record.get('dms')[0];
-                    if (latest_dm.sender.screen_name === record.get('me')) {
+                    var config = Ext.getStore('Config').getAt(0);
+                    if (latest_dm.sender.screen_name === config.get('user').name) {
                         return latest_dm.recipient;
                     } else {
                         return latest_dm.sender;
@@ -32,6 +50,13 @@ Ext.define('Trister.model.DMAbstract', {
                 type: 'string',
                 convert: function(value, record) {
                     return record.get('dms')[0].text;
+                }
+            },
+            {
+                name: 'id',
+                type: 'string',
+                convert: function(value, record) {
+                    return record.get('friend').id_str;
                 }
             }
         ]

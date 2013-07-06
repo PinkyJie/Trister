@@ -35,8 +35,9 @@ Ext.define('Trister.view.Login', {
                     },
                     {
                         xtype: 'fieldset',
-                        title: 'Please Login First',
+                        title: 'Login using your Twitter account',
                         instructions: 'GFW-free Oauth',
+                        margin: '-20px 0 5px 0',
                         items: [
                             {
                                 xtype: 'textfield',

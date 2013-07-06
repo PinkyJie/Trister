@@ -17,13 +17,13 @@ Ext.define('Trister.store.DMList', {
             }
         },
         listeners: {
-            load: 'hideLoadingMask',
-            beforeload: 'test'
+            load: 'combineData',
+            beforeload: 'cacheOldData'
         },
         cacheData: []
 	},
 
-    hideLoadingMask: function(store, records) {
+    combineData: function(store, records) {
         var oldData = this.getCacheData();
         if (oldData.length > 0) {
 
@@ -46,7 +46,7 @@ Ext.define('Trister.store.DMList', {
         Ext.getCmp('HomePanel').setMasked(false);
     },
 
-    test: function(store) {
+    cacheOldData: function(store) {
         var nowData = store.getData().items;
         if (nowData.length > 0) {
             this.setCacheData(Ext.Array.clone(nowData));

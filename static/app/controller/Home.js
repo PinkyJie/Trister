@@ -36,6 +36,10 @@ Ext.define('Trister.controller.Home', {
             storeName = 'DMList';
             loadingName = 'DMs';
             this.getTitleBar().hide();
+        } else if (newItem.id === 'ListNavigation') {
+            storeName = 'ListList';
+            loadingName = 'Lists';
+            this.getTitleBar().hide();
         }
         store = Ext.getStore(storeName);
         if (store.getData().length === 0) {

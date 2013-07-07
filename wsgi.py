@@ -119,9 +119,9 @@ def get_reply():
 def update_status():
     try:
         if request.form['type'] == 'Reply':
-            status = g.twit_api.update_status(status=request.form['tweet'], in_reply_to_status_id=request.form['tweet_id'])
+            g.twit_api.update_status(status=request.form['tweet'], in_reply_to_status_id=request.form['tweet_id'])
         else:
-            status = g.twit_api.update_status(request.form['tweet'])
+            g.twit_api.update_status(request.form['tweet'])
     except TweepError, e:
         return dict(success=False, content='Failed to update tweet!', reason=json.loads(e.message))
     else:
@@ -186,11 +186,7 @@ def get_direct_message():
     for user in users_expcept_me:
         _dict = {}
         _dict['dms'] = [dm for dm in dms if is_dm_with_user(dm, user, me)]
-        # _dict['dms'].sort(key=lambda dm: str2timestamp(dm['created_at']), reverse=True)
-        # _dict['time'] = _dict['dms'][0]['created_at']
-        # _dict['me'] = me
         dm_list.append(_dict)
-    # dm_list.sort(key=lambda dm: str2timestamp(dm['time']), reverse=True)
     json_str = json.dumps(dm_list)
     # f = open('dm.json', 'w')
     # f.write(json_str)
@@ -239,6 +235,22 @@ def get_user(screen_name):
         return dict(success=False, content='Failed to find @' + screen_name, reason=json.loads(e.message))
     else:
         return dict(success=True, content=json.loads(user))
+
+
+@app.route('/lists/<screen_name>', methods=['GET'])
+def get_all_lists(screen_name):
+    if screen_name == '***':
+        lists_sub = json.loads(g.twit_api.lists_all())
+        lists_added = json.loads(g.twit_api.lists_memberships())
+    else:
+        lists_sub = json.loads(g.twit_api.lists_all(screen_name=screen_name))
+        lists_added = json.loads(g.twit_api.lists_memberships(screen_name=screen_name))
+    lists = lists_sub + lists_added['lists']
+    # f = open('lists.json', 'w')
+    # f.write(lists)
+    # f.close()
+
+    return json.dumps(lists)
 
 
 app.secret_key = '\xfcM\xf7\xd4\x03\x14\x1e<\xe1\xd4Sn\xed\xa5e\x96\xb7\x8aq\x82\xed\x10\xdc\x93'

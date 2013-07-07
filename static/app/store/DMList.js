@@ -26,7 +26,6 @@ Ext.define('Trister.store.DMList', {
     combineData: function(store, records) {
         var oldData = this.getCacheData();
         if (oldData.length > 0) {
-
             var newData = Ext.Array.clone(oldData);
             Ext.Array.forEach(records, function(rec, idx){
                 var newId = rec.internalId;

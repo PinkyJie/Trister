@@ -168,5 +168,16 @@
             <div class="dm-chat-content {type}">{formatted_text}</div>
         </div>
     </script>
+    <script id="ListAbstract" type="text/xtemplate">
+        <img class="tweet-list-img" src="{user.profile_image_url_https}" />
+        <div class="tweet-list">
+            <p class="tweet-list-name">{full_name}</p>
+            <p class="tweet-list-user">
+                <span>members: <span class="list-member">{member_count}</span></span>
+                <span>subscribers: <span class="list-subscriber">{subscriber_count}</span></span>
+            </p>
+            <p class="tweet-list-desc">{description}</p>
+        </div>
+    </script>
 </body>
 </html>

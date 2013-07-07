@@ -46,7 +46,8 @@ Ext.application({
         'Tweet',
         'DirectMessage',
         'DMAbstract',
-        'Config'
+        'Config',
+        'ListAbstract'
     ],
 
     stores: [
@@ -55,7 +56,9 @@ Ext.application({
         'DMList',
         'DMChatList',
         'Threads',
-        'Config'
+        'Config',
+        'ListList',
+        'ListTweetList'
     ],
 
     icon: {

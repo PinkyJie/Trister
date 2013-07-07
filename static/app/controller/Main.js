@@ -53,6 +53,10 @@ Ext.define('Trister.controller.Main', {
                 storeName = 'DMList';
                 loadingName = 'DMs';
                 this.getTitleBar().hide();
+            } else if (subActiveItem.id === 'ListNavigation') {
+                storeName = 'ListList';
+                loadingName = 'Lists';
+                this.getTitleBar().hide();
             }
             // when first loading, show a mask view to aviod blank
             store = Ext.getStore(storeName);

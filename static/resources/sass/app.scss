@@ -18,24 +18,24 @@
 
 .login {
     text-align: center;
-}
 
-.login h2 {
-    color: #666;
-    font-size: 13pt;
-    line-height: 1.6em;
-    margin-bottom: 0px;
-}
-
-.login p {
-    color: #999;
-    font-size: 12pt;
-    margin-bottom: 0px;
-}
-
-.login #LoginBtn {
-    margin: auto;
-    width: 30%;
+    h2 {
+        color: #666;
+        font-size: 13pt;
+        line-height: 1.6em;
+        margin-bottom: 0px;
+    }
+    
+    p {
+        color: #999;
+        font-size: 12pt;
+        margin-bottom: 0px;
+    }
+    
+    #LoginBtn {
+        margin: auto;
+        width: 30%;
+    }
 }
 
 /* HomeView & MentionView */
@@ -265,6 +265,38 @@
         font-size: 10pt;
         margin-top: 10px;
         margin-left: 65px;
+    }
+}
+
+/* ListList */
+.tweet-list-list {
+    .tweet-list-img {
+        @extend .user-img;
+    }
+    
+    .tweet-list {
+        margin-left: 55px;
+    }
+    
+    .tweet-list-name {
+        font-size: 14pt;
+        margin-bottom: 5px;
+    }
+    
+    .tweet-list-user {
+        font-size: 12pt;
+        .list-member {
+            font-weight: bold;
+        }
+        
+        .list-subscriber {
+            font-weight: bold;
+        }
+        
+    }
+    
+    .tweet-list-desc {
+        opacity: 0.7;
     }
 }
 

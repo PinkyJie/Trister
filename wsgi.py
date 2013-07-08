@@ -240,12 +240,15 @@ def get_user(screen_name):
 @app.route('/lists/<screen_name>', methods=['GET'])
 def get_all_lists(screen_name):
     if screen_name == '***':
-        lists_sub = json.loads(g.twit_api.lists_all())
-        lists_added = json.loads(g.twit_api.lists_memberships())
-    else:
-        lists_sub = json.loads(g.twit_api.lists_all(screen_name=screen_name))
-        lists_added = json.loads(g.twit_api.lists_memberships(screen_name=screen_name))
-    lists = lists_sub + lists_added['lists']
+        screen_name = None
+    lists_sub = json.loads(g.twit_api.lists_all(screen_name=screen_name))
+    lists_added = []
+    cursor = -1
+    while cursor != 0:
+        _dict = json.loads(g.twit_api.lists_memberships(screen_name=screen_name, cursor=cursor))
+        lists_added += _dict['lists']
+        cursor = _dict['next_cursor']
+    lists = lists_sub + lists_added
     # f = open('lists.json', 'w')
     # f.write(lists)
     # f.close()

@@ -5,7 +5,9 @@ Ext.define('Trister.view.ListTweetList', {
     requires: [
         'Trister.store.ListTweetList',
         'Ext.plugin.ListPaging',
-        'Ext.plugin.PullRefresh'
+        'Ext.plugin.PullRefresh',
+        'Trister.plugin.ListOptions',
+        'Trister.view.Threads'
     ],
 
     config: {
@@ -25,9 +27,36 @@ Ext.define('Trister.view.ListTweetList', {
                 xclass: 'Ext.plugin.PullRefresh',
                 pullRefreshText: 'Pull down to update...',
                 releaseRefreshText: 'Release to update...'
+            },
+            {
+                xclass: 'Trister.plugin.ListOptions',
+                menuOptions: [
+                    {
+                        action: 'Reply',
+                        iconCls: 'action'
+                    },
+                    {
+                        action: 'RT',
+                        iconCls: 'quote'
+                    },
+                    {
+                        action: 'Retweet',
+                        iconCls: 'loop2'
+                    },
+                    {
+                        action: 'Delete',
+                        iconCls: 'trash'
+                    }
+                ]
             }
         ],
         emptyText: '<p class="no-tweets">No Tweets found!</p>',
-        itemTpl: Ext.XTemplate.from('HomelineTweet')
+        itemTpl: Ext.XTemplate.from('HomelineTweet'),
+        items: [
+            {
+                xtype: 'threadspanel',
+                hidden: true
+            }
+        ]
     }
 });

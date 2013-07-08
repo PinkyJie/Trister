@@ -248,12 +248,24 @@ def get_all_lists(screen_name):
         _dict = json.loads(g.twit_api.lists_memberships(screen_name=screen_name, cursor=cursor))
         lists_added += _dict['lists']
         cursor = _dict['next_cursor']
+    for l in lists_sub:
+        l['type'] = 'Subscribe'
+    for l in lists_added:
+        l['type'] = 'Membership'
     lists = lists_sub + lists_added
-    # f = open('lists.json', 'w')
-    # f.write(lists)
-    # f.close()
+    lists_json = json.dumps(lists)
+    f = open('lists.json', 'w')
+    f.write(lists_json)
+    f.close()
+    return lists_json
 
-    return json.dumps(lists)
+
+@app.route('/list/timeline/<list_id>', methods=['GET'])
+def get_list_timeline(list_id):
+    page_arg = int(request.args['page'])
+    count_arg = int(request.args['count'])
+    tweets = g.twit_api.list_timeline(list_id=list_id, page=page_arg, count=count_arg)
+    return tweets
 
 
 app.secret_key = '\xfcM\xf7\xd4\x03\x14\x1e<\xe1\xd4Sn\xed\xa5e\x96\xb7\x8aq\x82\xed\x10\xdc\x93'

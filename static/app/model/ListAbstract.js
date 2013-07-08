@@ -4,7 +4,7 @@ Ext.define('Trister.model.ListAbstract', {
     config: {
         fields: [
             'id_str', 'user', 'full_name', 'subscriber_count', 'member_count',
-            'description', 'slug', 'created_at'
+            'description', 'slug', 'created_at', 'type'
         ]
     }
 });

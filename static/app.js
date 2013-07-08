@@ -39,7 +39,9 @@ Ext.application({
         'Mention',
         'DM',
         'DMChatList',
-        'SendDM'
+        'SendDM',
+        'List',
+        'ListTweetList'
     ],
 
     models: [

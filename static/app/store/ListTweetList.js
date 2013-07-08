@@ -5,7 +5,6 @@ Ext.define('Trister.store.ListTweetList', {
 		model: 'Trister.model.Tweet',
         proxy: {
             type: 'ajax',
-            url: '/',
             pageParam: 'page',
             limitParam: 'count',
             reader: {
@@ -18,6 +17,6 @@ Ext.define('Trister.store.ListTweetList', {
 	},
 
     hideLoadingMask: function() {
-        Ext.getCmp('HomePanel').setMasked(false);
+        Ext.getCmp('ListNavigation').setMasked(false);
     }
 });

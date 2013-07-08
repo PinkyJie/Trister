@@ -10,14 +10,23 @@ Ext.define('Trister.store.ListList', {
                 type: 'json'
             }
         },
+        sorters: [
+            {
+                property: 'type',
+                direction: 'ASC'
+            },
+            {
+                property: 'slug',
+                direction: 'ASC'
+            }
+        ],
+        grouper: function(record) {
+            return record.get('type');
+        },
         listeners: {
-            load: 'hideLoadingMask',
-            itemtap: 'showListTweets'
+            load: 'hideLoadingMask'
         }
 	},
-
-    showListTweets: function(list, index, item, record) {
-    },
 
     hideLoadingMask: function() {
         Ext.getCmp('HomePanel').setMasked(false);

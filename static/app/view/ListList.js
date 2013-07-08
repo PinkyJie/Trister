@@ -12,6 +12,7 @@ Ext.define('Trister.view.ListList', {
         title: 'List',
         cls: 'tweet-list-list',
         store: 'ListList',
+        grouped: true,
         disableSelection: true,
         scrollToTopOnRefresh: false,
         plugins: [

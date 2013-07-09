@@ -12,17 +12,12 @@ Ext.define('Trister.store.ListList', {
         },
         sorters: [
             {
-                property: 'type',
-                direction: 'ASC'
-            },
-            {
                 property: 'slug',
                 direction: 'ASC'
             }
         ],
-        grouper: function(record) {
-            return record.get('type');
-        },
+        groupField: 'sort_type',
+        groupDir: 'ASC',
         listeners: {
             load: 'hideLoadingMask'
         }

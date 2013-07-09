@@ -18,23 +18,56 @@
 
 .login {
     text-align: center;
+    
 
     h2 {
-        color: #666;
+        color: #fff;
         font-size: 13pt;
         line-height: 1.6em;
         margin-bottom: 0px;
     }
     
     p {
-        color: #999;
+        color: #ccc;
         font-size: 12pt;
         margin-bottom: 0px;
+
+        a {
+            color: #eee;
+        }
+
+        a:visited {
+            color: #eee;
+        }
     }
     
     #LoginBtn {
         margin: auto;
         width: 30%;
+    }
+
+    .x-dock {
+        background: #fff;
+        max-width: 400px;
+        margin: 25px auto;
+        width: 90%;
+        border: 1px solid #1F242A;
+        @include border-radius(5px);
+        @include box-shadow(0px 0px 0px 8px #57636D);
+    }
+
+    .x-dock-body {
+        margin: auto;
+        width: 90%;
+    }
+
+    .x-inner.x-form-inner {
+        background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 700, from(#546673), to(#1F242A));
+    }
+
+    .x-form-fieldset-title {
+        margin-bottom: 10px;
+        font-weight: normal;
     }
 }
 

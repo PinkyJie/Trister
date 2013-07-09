@@ -56,6 +56,7 @@ Ext.define('Trister.controller.Home', {
         updatePanel.down('titlebar').setTitle('Update');
         updatePanel.down('textfield[name=type]').setValue('Update');
         updatePanel.down('textfield[name=tweet_id]').setValue(null);
+        updatePanel.down('label').setHtml(140);
         this.getMainView().setActiveItem('#UpdatePanel');
         updatePanel.down('textareafield').focus();
     },

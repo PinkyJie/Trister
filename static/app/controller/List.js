@@ -18,12 +18,13 @@ Ext.define('Trister.controller.List', {
     },
 
     openListTweetView: function(list, index, target, record) {
+        var store = Ext.getStore('ListTweetList');
+        store.clearData();
         this.getListNaviView().setMasked({
             xtype: 'loadmask',
             message: 'Loading tweets...'
         });
         var url = '/list/timeline/' + record.get('id_str');
-        var store = Ext.getStore('ListTweetList');
         store.getProxy().setUrl(url);
         store.load();
         this.getListNaviView().push({

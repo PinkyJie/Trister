@@ -47,16 +47,17 @@ Ext.define('Trister.controller.DM', {
         this.getComposeBtn().hide();
         setTimeout(function(){
             pushedView.getScrollable().getScroller().scrollToEnd({});
-        }, 200);
+        }, 500);
     },
 
     afterPopChatView: function(naviView, popedView) {
+        naviView.getParent().getTabBar().show();
+        this.getComposeBtn().show();
         var data = popedView.getStore().getData().all;
         var rawData = [];
         Ext.Array.forEach(data, function(d, index){
             rawData.push(d.data);
         });
-        rawData.reverse();
         var idx = parseInt(this.getCurRecordIndexLabel().getHtml(), 10);
         var store = this.getDmListView().getStore();
         var model = store.getAt(idx);
@@ -64,8 +65,6 @@ Ext.define('Trister.controller.DM', {
         store.insert(idx, {
             'dms': rawData
         });
-        naviView.getParent().getTabBar().show();
-        this.getComposeBtn().show();
     },
 
     toSendDMPanel: function() {

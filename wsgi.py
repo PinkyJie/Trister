@@ -254,9 +254,9 @@ def get_all_lists(screen_name):
         l['type'] = 'Membership'
     lists = lists_sub + lists_added
     lists_json = json.dumps(lists)
-    f = open('lists.json', 'w')
-    f.write(lists_json)
-    f.close()
+    # f = open('lists.json', 'w')
+    # f.write(lists_json)
+    # f.close()
     return lists_json
 
 

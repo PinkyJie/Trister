@@ -92,8 +92,6 @@
 .type-img {
     float: left;
     margin-left: -28px;
-    // margin-top: 30px;
-    // position: absolute;
     width: 24px;
     @include border-radius(12px);
     @include box-shadow(#42C28A 0 0 8px);
@@ -118,9 +116,9 @@
 }
 
 .relate-user {
-    color: #6e6e6e;
+    color: #848484;
     display: inline-block;
-    background-color: #B3B8A7;
+    text-decoration: underline;
 }
 
 .source {
@@ -131,7 +129,6 @@
 
 .source-text {
     display: inline-block;
-    // background-color: #B3B8A7;
     color: #848484;
 }
 
@@ -140,11 +137,11 @@
 }
 
 .content-user {
-    background: #8690DA;
+    background: #99CCFF;
 }
 
 .content-tag {
-    background: #B48A3F;
+    background: #CCCCFF;
 }
 
 .content-media {
@@ -152,7 +149,7 @@
 }
 
 .content-url {
-    background: #9799A7;
+    // background: #CCCCFF;
     @include text-overflow;
 }
 

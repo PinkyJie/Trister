@@ -35,7 +35,7 @@ Ext.define('Trister.view.Login', {
                     },
                     {
                         xtype: 'fieldset',
-                        title: 'Login using your Twitter account',
+                        title: 'Login using Twitter account',
                         instructions: 'Fuck-GFW Oauth',
                         margin: '-20px 0 5px 0',
                         items: [

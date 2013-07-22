@@ -12,6 +12,7 @@ from twitter_oauth import (TwitterOauth, TwitterOauthError)
 
 application = app = Flask(__name__, static_folder='static', static_url_path='')
 app.config.from_object('config')
+session.permanent = True
 
 
 def jsonify(f):

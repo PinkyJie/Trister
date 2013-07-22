@@ -12,7 +12,6 @@ from twitter_oauth import (TwitterOauth, TwitterOauthError)
 
 application = app = Flask(__name__, static_folder='static', static_url_path='')
 app.config.from_object('config')
-session.permanent = True
 
 
 def jsonify(f):
@@ -87,6 +86,7 @@ def oauth_login():
     except TwitterOauthError, e:
         return dict(success=False, content=e.reason)
     else:
+        session.permanent = True
         session['trister_access_key'] = t.access_token
         session['trister_access_secret'] = t.access_token_secret
         session['trister_user_name'] = t.screen_name

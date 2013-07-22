@@ -8,30 +8,20 @@ Ext.define('Trister.controller.Main', {
         },
         control: {
             main: {
-                initialize: 'checkLogin',
+                show: 'loadFirstTime',
                 activeitemchange: 'itemChanged'
             }
         }
     },
 
-    checkLogin: function() {
-        // console.log('main/checkLogin' + new Date().toString());
-        var config = Ext.getStore('Config').getAt(0);
-        if (config.get('user') === null) {
-            Ext.Ajax.request({
-                url: '/is_login',
-                method: 'GET',
-                scope: this,
-                success: function(response) {
-                    var res = Ext.decode(response.responseText);
-                    if (res.content == 1) {
-                        config.set('user', res.user);
-                        this.getMain().setActiveItem('#HomePanel');
-                    }
-                }
+    loadFirstTime: function() {
+        store = Ext.getStore('Homeline');
+        if (store.getData().length === 0) {
+            this.getMain().getActiveItem().setMasked({
+                xtype: 'loadmask',
+                message: 'Loading Tweets...'
             });
-        } else {
-            this.getMain().setActiveItem('#HomePanel');
+            store.load();
         }
     },
 

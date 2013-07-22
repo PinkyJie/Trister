@@ -27,7 +27,8 @@ Ext.application({
     ],
 
     views: [
-        'Main'
+        'Main',
+        'Login'
     ],
 
     controllers: [
@@ -86,7 +87,29 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
+        Ext.Viewport.add(Ext.create('Trister.view.Login'));
         Ext.Viewport.add(Ext.create('Trister.view.Main'));
+        Ext.Viewport.hide();
+        var config = Ext.getStore('Config').getAt(0);
+        if (config.get('user') === null) {
+            Ext.Ajax.request({
+                url: '/is_login',
+                method: 'GET',
+                success: function(response) {
+                    var res = Ext.decode(response.responseText);
+                    if (res.content == 1) {
+                        config.set('user', res.user);
+                        Ext.Viewport.setActiveItem('#MainPanel');
+                    } else {
+                        Ext.Viewport.setActiveItem('#LoginPanel');
+                    }
+                    Ext.Viewport.show();
+                }
+            });
+        } else {
+            Ext.Viewport.setActiveItem('#MainPanel');
+            Ext.Viewport.show();
+        }
     },
 
     onUpdated: function() {

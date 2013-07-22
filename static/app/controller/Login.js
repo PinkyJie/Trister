@@ -31,7 +31,8 @@ Ext.define('Trister.controller.Login', {
                     var config = Ext.getStore('Config').getAt(0);
                     config.set('user', result.content);
                     form.getParent().setMasked(false);
-                    form.getParent().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
+                    // form.getParent().getParent().setActiveItem('#HomePanel', {type: 'slide', direction: 'left'});
+                    Ext.Viewport.setActiveItem('#MainPanel');
                 },
                 failure: function(form, result) {
                     form.getParent().setMasked(false);

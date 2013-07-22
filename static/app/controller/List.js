@@ -22,7 +22,7 @@ Ext.define('Trister.controller.List', {
         store.clearData();
         this.getListNaviView().setMasked({
             xtype: 'loadmask',
-            message: 'Loading tweets...'
+            message: 'Loading Tweets...'
         });
         var url = '/list/timeline/' + record.get('id_str');
         store.getProxy().setUrl(url);

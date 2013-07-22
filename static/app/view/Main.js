@@ -2,7 +2,7 @@ Ext.define('Trister.view.Main', {
     extend: 'Ext.Panel',
     xtype: 'main',
     requires: [
-        'Trister.view.Login',
+        // 'Trister.view.Login',
         'Trister.view.Home',
         'Trister.view.UpdateStatus',
         'Trister.view.SendDM'
@@ -13,9 +13,9 @@ Ext.define('Trister.view.Main', {
         cardAnimation: 'slide',
         fullscreen: true,
         items: [
-            {
-                xtype: 'loginpanel'
-            },
+            // {
+            //     xtype: 'loginpanel'
+            // },
             {
                 xtype: 'homepanel'
             },

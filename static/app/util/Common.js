@@ -19,7 +19,7 @@ Ext.define('Trister.util.Common', {
                 url.indices[1],
                 ['<span class="content-url label">',
                  '<a target="_blank" href="' + url.expanded_url + '">',
-                 url.display_url,
+                 '[' + url.display_url.split('/')[0] + ']',
                  '</a>',
                  '</span>'
                 ].join('')
@@ -40,13 +40,13 @@ Ext.define('Trister.util.Common', {
                     media.indices[1],
                     ['<span class="content-media label">',
                      '<a target="_blank" href="' + media.expanded_url + '">',
-                     media.display_url,
+                     '[' + media.display_url.split('/') + ']',
                      '</a>',
                      '</span>'
                     ].join('')
                 ];
             });
-            }
+        }
 
         var result = "";
         var last_i = 0;

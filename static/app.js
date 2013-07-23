@@ -83,6 +83,7 @@ Ext.application({
     },
 
     launch: function() {
+        Ext.event.publisher.TouchGesture.prototype.isNotPreventable = /(?:)/;
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 

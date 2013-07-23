@@ -11,11 +11,45 @@ Ext.define('Trister.controller.Home', {
         },
         control: {
             homeView: {
+                initialize: 'bindTabDbTap',
                 activeitemchange: 'itemChanged'
             },
             tweetBtn: {
                 tap: 'toUpatePanel'
             }
+        }
+    },
+
+    bindTabDbTap: function() {
+        var tabs = Ext.get('HomePanel').select('.x-tab-icon').elements;
+        for(var i = 0; i < tabs.length; i++)
+        {
+            Ext.get(tabs[i]).on({
+                doubletap: this.onTabDbTap,
+                scope: this
+            });
+        }
+    },
+
+    onTabDbTap: function(e, element) {
+        var eleClass = element.className;
+        var parentClass = element.parentElement.className;
+        if (parentClass.indexOf('x-tab-active')) {
+            var list;
+            if (
+                eleClass.indexOf('home') !== -1 ||
+                eleClass.indexOf('action') !== -1
+            ) {
+                list = this.getHomeView().getActiveItem();
+            } else if (
+                eleClass.indexOf('mail') !== -1 ||
+                eleClass.indexOf('list') !== -1
+            ) {
+                list = this.getHomeView().getActiveItem().getItems().items[0];
+            }
+            list.getScrollable().getScroller().scrollToTop({
+                duration: 500
+            });
         }
     },
 

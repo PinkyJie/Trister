@@ -96,7 +96,11 @@ Ext.define('Trister.util.Common', {
                 } else {
                     author = '@' + record.get('user').screen_name;
                 }
-                updateTextarea.setValue(author + ' ' + users.join(' ') + ' ');
+                var replyText = author + ' ' + users.join(' ');
+                if (users.length > 0) {
+                    replyText += ' ';
+                }
+                updateTextarea.setValue(replyText);
             } else {
                 updateTweetId.setValue(null);
                 if (record.get('retweeted_status')) {

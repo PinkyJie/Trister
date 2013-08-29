@@ -460,7 +460,7 @@ Ext.define('Trister.plugin.ListOptions', {
         this.TapCancelled = false;
 
         // stop menu from hiding
-        e.stopPropagation();
+        // e.stopPropagation();
     },
 
     /**

@@ -5,7 +5,8 @@ Ext.define('Trister.view.Main', {
         // 'Trister.view.Login',
         'Trister.view.Home',
         'Trister.view.UpdateStatus',
-        'Trister.view.SendDM'
+        'Trister.view.SendDM',
+        'Trister.view.MediaViewer'
     ],
     config: {
         id: 'MainPanel',
@@ -24,6 +25,9 @@ Ext.define('Trister.view.Main', {
             },
             {
                 xtype: 'senddmpanel'
+            },
+            {
+                xtype: 'mediaviewer'
             }
 
         ]

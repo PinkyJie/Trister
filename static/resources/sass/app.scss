@@ -87,6 +87,10 @@
     @include border-radius(24px);
     float:left;
     @include box-shadow(#92CEEE 0 0 8px);
+
+    &.pressed {
+        @include box-shadow(#f00 0 0 40px);
+    }
 }
 
 .type-img {
@@ -95,6 +99,10 @@
     width: 24px;
     @include border-radius(12px);
     @include box-shadow(#42C28A 0 0 8px);
+
+    &.chat.pressed {
+        @include box-shadow(#f00 0 0 40px);
+    }
 }
 
 .user-name {
@@ -119,6 +127,10 @@
     color: #848484;
     display: inline-block;
     text-decoration: underline;
+
+    &.pressed {
+        @include box-shadow(#848484 0 0 40px);
+    }
 }
 
 .source {
@@ -130,6 +142,10 @@
 .source-text {
     display: inline-block;
     color: #848484;
+
+    &.pressed {
+        background: #99ccff;
+    }
 }
 
 .source-text a {
@@ -138,19 +154,34 @@
 
 .content-user {
     background: #99CCFF;
+
+    &.pressed {
+        @include box-shadow(#99ccff 0 0 40px);
+    }
 }
 
 .content-tag {
     background: #CCCCFF;
+
+    &.pressed {
+        @include box-shadow(#ccccff 0 0 40px);
+    }
 }
 
 .content-media {
     @extend .content-url;
+
+    &.pressed {
+        background: #99ccff;
+    }
 }
 
 .content-url {
-    // background: #CCCCFF;
     @include text-overflow;
+
+    &.pressed {
+        background: #99ccff;
+    }
 }
 
 .tweet-fav-img {
@@ -377,31 +408,6 @@
     }
 }
 
-// .x-list-options-plugin .x-list-options ul {
-//     @include box-shadow(inset 0 0 10px #333);
-//     background-image: url(../images/list-option-bg.png);
-//     background-repeat: repeat;
-//     height: 100%;
-//     width: 100%;
-// }
-
-// .x-list-options-plugin .x-list-options ul li.x-menu-option {
-//     width: 22%;
-//     padding: 4px;
-//     // margin-left: 18%;
-//     // height: 35px;
-//     // width: 35px;
-//     @include border-radius(6px);
-
-//     .disabled {
-//         opacity: 0.4;
-//     }
-// }
-
-// .x-list-options ul li.x-menu-option-pressed
-// {
-//     @include box-shadow(0 .1em .3em rgba(0, 0, 0, 0.3));
-// }
 
 // Examples of using the icon mixin:
 @include icon('quote');

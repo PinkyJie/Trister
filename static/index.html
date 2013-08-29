@@ -71,7 +71,7 @@
             <tpl if="retweeted_status">
                 <img class="type-img" src="{user.profile_image_url_https}" />
             <tpl elseif="in_reply_to_status_id_str">
-                <img class="type-img" src="resources/images/conversation.png" />
+                <img class="type-img chat" src="resources/images/conversation.png" />
             <tpl elseif="source_text === 'Instagram'">
                 <img class="type-img" src="resources/images/instagram.png" />
             <tpl elseif="source_text === '街旁(JiePang)-台灣/香港'">
@@ -107,7 +107,7 @@
         </tpl>
         <div class="tweet">
             <tpl if="in_reply_to_status_id_str">
-                <img class="type-img" src="resources/images/conversation.png" />
+                <img class="type-img chat" src="resources/images/conversation.png" />
             <tpl elseif="source_text === 'Instagram'">
                 <img class="type-img" src="resources/images/instagram.png" />
             <tpl elseif="source_text === '街旁(JiePang)-台灣/香港'">

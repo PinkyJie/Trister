@@ -47,8 +47,11 @@ Ext.define('Trister.controller.Home', {
             ) {
                 list = this.getHomeView().getActiveItem().getItems().items[0];
             }
-            list.getScrollable().getScroller().scrollToTop({
-                duration: 500
+            // calculate duration based on current scroller offset and container height
+            var scroller = list.getScrollable().getScroller();
+            var scrollerHeight = scroller.position.y;
+            scroller.scrollToTop({
+                duration: scrollerHeight
             });
         }
     },

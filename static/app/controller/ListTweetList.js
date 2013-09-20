@@ -33,7 +33,7 @@ Ext.define('Trister.controller.ListTweetList', {
         var replyId = record.get('in_reply_to_status_id_str');
         if (replyId === null) {
             return;
-        } else if (e.target.className === 'type-img') {
+        } else if (e.target.classList.contains('chat')) {
             Trister.util.Common.getReplyThreads(item, replyId,
                 this.getListTweetListView(), this.getThreadView());
         }

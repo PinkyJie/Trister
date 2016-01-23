@@ -2,6 +2,7 @@ import time
 import random
 import urllib
 import urllib2
+import cookielib
 import hmac
 import hashlib
 import re
@@ -47,6 +48,8 @@ class TwitterOauth(object):
     """docstring for TwitterOauth"""
     def __init__(self, username, password):
         super(TwitterOauth, self).__init__()
+        myCookie = urllib2.HTTPCookieProcessor(cookielib.CookieJar());
+        self.opener = urllib2.build_opener(myCookie)
         self.username = username
         self.password = password
         self.logger = logging.getLogger(__name__)
@@ -75,7 +78,7 @@ class TwitterOauth(object):
                               dict2str(self.build_header({}, REQUEST_TOKEN_URL))})
         res = None
         try:
-            res = urllib2.urlopen(req, {}).read()
+            res = self.opener.open(req, {}).read()
         except Exception, e:
             self.logger.error('get request token error: ' + e.message)
             raise TwitterOauthError(e.message,
@@ -93,25 +96,25 @@ class TwitterOauth(object):
 
     def get_pin_code(self):
         redirect_url = AUTHENTICATE_URL + '?oauth_token=' + self.oauth_token
-        res_temp = urllib.urlopen(redirect_url).read()
-        re_token = re.compile(r'<input name="authenticity_token" type="hidden" value="(\w+)" />')
+        res_temp = self.opener.open(redirect_url).read()
+        re_token = re.compile(r'<input name="authenticity_token" type="hidden" value="(\w+)"')
         pin_params = {}
         pin_params['authenticity_token'] = re_token.findall(res_temp)[0]
         pin_params['oauth_token'] = self.oauth_token
         pin_params['session[username_or_email]'] = self.username
         pin_params['session[password]'] = self.password
-        req = urllib2.Request(AUTHORIZE_URL, urllib.urlencode(pin_params))
+        pin_params['redirect_after_login'] = redirect_url
+        req = urllib2.Request(AUTHENTICATE_URL, urllib.urlencode(pin_params))
         res = None
         try:
-            res = urllib2.urlopen(req).read()
+            res = self.opener.open(req)
         except Exception, e:
             self.logger.error('get pin code error: ' + e.message)
             raise TwitterOauthError(e.message,
                                     'Failed to get pin code. There maybe a server error. Try again later!')
         else:
             re_pin = re.compile(r'<code>(\d*)</code>')
-            pin_code = re_pin.findall(res)
-            # print pin_code
+            pin_code = re_pin.findall(res.read())
             if len(pin_code) > 0:
                 self.pin_code = pin_code[0]
                 self.logger.debug('get pin code ok: ' + self.pin_code)
@@ -127,7 +130,7 @@ class TwitterOauth(object):
                               dict2str(self.build_header(access_params, ACCESS_TOKEN_URL, self.oauth_token_secret))})
         res = None
         try:
-            res = urllib2.urlopen(req, {}).read()
+            res = self.opener.open(req, {}).read()
         except Exception, e:
             self.logger.error('get access token error: ' + e.message)
             raise TwitterOauthError(e.message,

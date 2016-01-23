@@ -98,9 +98,6 @@ def get_home():
     page_arg = int(request.args['page'])
     count_arg = int(request.args['count'])
     tweets = g.twit_api.home_timeline(page=page_arg, count=count_arg)
-    # f = open('homeline.json', 'w')
-    # f.write(tweets)
-    # f.close()
     return tweets
 
 
@@ -109,9 +106,6 @@ def get_reply():
     page_arg = int(request.args['page'])
     count_arg = int(request.args['count'])
     replys = g.twit_api.mentions_timeline(page=page_arg, count=count_arg)
-    # f = open('mention.json', 'w')
-    # f.write(replys)
-    # f.close()
     return replys
 
 
@@ -189,9 +183,6 @@ def get_direct_message():
         _dict['dms'] = [dm for dm in dms if is_dm_with_user(dm, user, me)]
         dm_list.append(_dict)
     json_str = json.dumps(dm_list)
-    # f = open('dm.json', 'w')
-    # f.write(json_str)
-    # f.close()
     return json_str
 
 
@@ -229,9 +220,6 @@ def get_reply_threads(tweet_id):
 def get_user(screen_name):
     try:
         user = g.twit_api.get_user(screen_name=screen_name)
-        # f = open('user.json', 'w')
-        # f.write(user)
-        # f.close()
     except TweepError, e:
         return dict(success=False, content='Failed to find @' + screen_name, reason=json.loads(e.message))
     else:
@@ -255,9 +243,6 @@ def get_all_lists(screen_name):
         l['type'] = 'Membership'
     lists = lists_sub + lists_added
     lists_json = json.dumps(lists)
-    # f = open('lists.json', 'w')
-    # f.write(lists_json)
-    # f.close()
     return lists_json
 
 
